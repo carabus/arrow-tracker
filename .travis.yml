@@ -1,5 +1,12 @@
- language: node_js
- node_js: node
- cache:
-   directories:
-     - node_modules
+language: node_js
+node_js: node
+cache:
+  directories:
+  - node_modules
+deploy:
+  provider: heroku
+  api_key:
+    secure: EgeQ/uRQeAAs5k1PL02veZ1Vqw17K1KvGJdeGyTSrDK8xCRAYpUCkC4Y/DME8e1eeBM3R/7VZhdP8PaUVsb0w/8ZxyrZ05JrQl+q+3//Y43u47XduMjNjmXvVwKcAmqdzuT6z96qnFcUL2km0joRRKybRPZVynxWIxIi5Eu9XdWUwYCGQXcEkgMYrx2tYhWPGNWLSXfg1+6rx3L5Kx+XpueI/1xbwVRy4TnImMxuOZRYJDDnvag2ngwlBN26Z0MQWwR9xGl+jZITiMRuezWqRDUlmKlmMj45aRNqGqfTXrt8E8FLR4tNX/kjE5/+1BtrmvQq6ZgMoW7sfKmTLmcA1Y6i8F6bdTLrlLfCe+LoNtOmu7yNRCwUUPyC31rTDBxXx9oGiuUFomPSE9sIR2CV6SkkKcVo8eHQbZLzwHSQaPN+1m1bvpmoJCtq9hqVeV3CQPqppnAEsL35t1spHCX6gyYI9DXDacn0Fg85xZzmKjX/LUhNbr8el4R1SePQ2XbRplsO0x4T0UUI0vj1WeRRPPVkiLsFphxKNhrymXGWyE/0J3AMChMeKJ2uA0gEgDwYGgAzl6rMRrkqTdfzepsvrJGf9dveTVaYUXzVBkBX2jQUedgAZbEENvvHtV2pYsf6i/wdfXnwFZIa9UXs7rE8G897E3NROZWBoXwB+yG6BZ0=
+  app: frozen-springs-98416
+  on:
+    repo: carabus/archery-tracker-client
