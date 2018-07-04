@@ -1,8 +1,8 @@
 import { createStore } from "redux";
 
 const initialState = {
-  sessions: [
-    {
+  sessions: {
+    1: {
       id: 1,
       startDate: "03-07-2018 12:01",
       distance: "20 yards",
@@ -46,7 +46,7 @@ const initialState = {
         }
       ]
     }
-  ]
+  }
 };
 
 const store = createStore(state => state, initialState);

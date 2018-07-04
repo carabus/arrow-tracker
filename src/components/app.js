@@ -13,7 +13,12 @@ class App extends Component {
       <div className="app">
         <HeaderBar />
         <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/session/:sessionId" component={Session} />
+        <Route
+          exact
+          path="/session/:sessionId"
+          test="test"
+          component={Session}
+        />
         <Route exact path="/end/:sessionId/:endId" component={End} />
       </div>
     );
