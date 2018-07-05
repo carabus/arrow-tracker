@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import EndListItem from "./end-list-item";
 
 export class Session extends React.Component {
   render() {
@@ -7,6 +8,14 @@ export class Session extends React.Component {
 
     const optionsList = this.props.session.additionalOptions.map(option => (
       <li key={option.optionName}>{option.optionName}</li>
+    ));
+
+    const endList = this.props.session.ends.map(end => (
+      <EndListItem
+        sessionId={this.props.session.id}
+        endId={end.id}
+        key={end.id}
+      />
     ));
     return (
       <main role="main">
@@ -26,6 +35,10 @@ export class Session extends React.Component {
           <button>Edit</button>
           <button>Delete</button>
         </section>
+        <section>
+          <p>*Placeholder for session chart*</p>
+        </section>
+        {endList}
       </main>
     );
   }
