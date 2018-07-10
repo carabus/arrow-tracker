@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
+import { deleteEnd } from "../actions";
 
 export function EndListItem(props) {
+  console.log("END LIST ITEM");
   console.log(props);
   const arrows = props.end.arrows.map(arrow => (
     <span className="score red" key={arrow.arrowNumber}>
@@ -25,15 +27,21 @@ export function EndListItem(props) {
           >
             Edit
           </button>
-          <button>Delete</button>
+          <button
+            onClick={() =>
+              props.dispatch(deleteEnd(props.sessionId, props.endId))
+            }
+          >
+            Delete
+          </button>
         </section>
       )}
     />
   );
 }
-
+/*
 const mapStateToProps = (state, props) => ({
-  end: state.sessions[props.sessionId].ends[props.endId - 1]
+  end: state.archeryTrackerReducer.ends.find(end => props.endId === end.id)
 });
-
-export default connect(mapStateToProps)(EndListItem);
+*/
+export default connect()(EndListItem);

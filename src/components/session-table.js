@@ -1,15 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
+import store from "../store";
 
 export function SessionTable(props) {
   console.log(props.sessions);
+  console.log(store.getState());
 
   const sessions = props.sessions.map(session => (
     <Route
+      key={session.id}
       render={({ history }) => (
         <tr
-          key={session.id}
           onClick={() => {
             history.push(`/session/${session.id}`);
           }}
@@ -59,8 +61,11 @@ export function SessionTable(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  sessions: Object.values(state.sessions)
-});
+const mapStateToProps = state => {
+  console.log("This is session table state", state);
+  return {
+    sessions: state.archeryTrackerReducer.sessions
+  };
+};
 
 export default connect(mapStateToProps)(SessionTable);

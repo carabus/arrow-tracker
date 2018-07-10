@@ -3,8 +3,9 @@ import React from "react";
 import StartTracking from "./start-tracking";
 import SessionTable from "./session-table";
 import Stats from "./stats";
+import { connect } from "react-redux";
 
-export default function Dashboard(props) {
+export function Dashboard(props) {
   return (
     <div className="dashboard">
       <header role="banner">
@@ -18,3 +19,5 @@ export default function Dashboard(props) {
     </div>
   );
 }
+
+export default connect()(Dashboard);
