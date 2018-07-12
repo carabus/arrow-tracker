@@ -84,3 +84,48 @@ ul {
   margin: 0 auto;
   width: 100px;
 }
+
+form {
+  text-align: left;
+}
+
+input,
+textarea {
+  max-width: 500px;
+}
+
+input[type="number"] {
+  width: 50px;
+}
+
+label {
+  display: block;
+}
+
+label.add-options-group {
+  display: inline;
+}
+
+input[type="checkbox"] {
+  display: inline;
+}
+fieldset {
+  text-align: left;
+  border: none;
+  padding: 0;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+.option-group {
+  display: inline-block;
+  border: solid #444 1px;
+  padding: 7px;
+  margin: 3px;
+  font-size: 14px;
+}
+
+.option-group:last-of-type {
+  border: none;
+}

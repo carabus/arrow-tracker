@@ -25,17 +25,20 @@ const initialState = {
             {
               arrowNumber: 1,
               arrowCoordinates: { x: 100, y: 100 },
-              arrowScore: 5
+              arrowScore: 5,
+              isInverted: false
             },
             {
               arrowNumber: 2,
               arrowCoordinates: { x: 120, y: 120 },
-              arrowScore: 6
+              arrowScore: 6,
+              isInverted: false
             },
             {
               arrowNumber: 3,
               arrowCoordinates: { x: 125, y: 125 },
-              arrowScore: 7
+              arrowScore: 7,
+              isInverted: false
             }
           ]
         },
@@ -45,17 +48,20 @@ const initialState = {
             {
               arrowNumber: 1,
               arrowCoordinates: { x: 70, y: 70 },
-              arrowScore: 7
+              arrowScore: 7,
+              isInverted: false
             },
             {
               arrowNumber: 2,
               arrowCoordinates: { x: 80, y: 85 },
-              arrowScore: 8
+              arrowScore: 8,
+              isInverted: false
             },
             {
               arrowNumber: 3,
               arrowCoordinates: { x: 90, y: 85 },
-              arrowScore: 9
+              arrowScore: 9,
+              isInverted: false
             }
           ]
         }
@@ -67,7 +73,7 @@ const initialState = {
 export const archeryTrackerReducer = (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
-    case actions.DELETE_END:
+    case actions.DELETE_END: {
       let sessions = state.sessions.map(session => {
         if (session.id !== action.sessionId) {
           return session;
@@ -80,6 +86,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         sessions
       });
       break;
+    }
     case actions.DELETE_SESSION:
       return Object.assign({}, state, {
         sessions: state.sessions.filter(
@@ -87,20 +94,59 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         )
       });
       break;
-    case actions.CREATE_SESSION:
-      console.log("inside create session");
-      const newSession = {
-        id: 2,
-        startDate: "03-08-2018 12:01",
-        distance: "30 yards",
-        additionalOptions: []
-      };
-      console.log(newSession);
+    case actions.CREATE_SESSION_STORE:
       return Object.assign({}, state, {
-        sessions: [...state.sessions, newSession]
+        sessions: [...state.sessions, action.session]
       });
 
       break;
+
+    case actions.CREATE_END_STORE: {
+      let sessions = state.sessions.map(session => {
+        if (session.id !== action.sessionId) {
+          return session;
+        }
+        return Object.assign({}, session, {
+          ends: [...session.ends, action.end]
+        });
+      });
+      return Object.assign({}, state, {
+        sessions
+      });
+
+      break;
+    }
+
+    case actions.CREATE_ARROW: {
+      const newArrow = {
+        arrowNumber: action.arrowNumber,
+        arrowScore: action.arrowScore,
+        arrowCoordinates: action.arrowCoordinates,
+        isInverted: action.isInverted
+      };
+      let sessions = state.sessions.map(session => {
+        if (session.id !== action.sessionId) {
+          return session;
+        }
+
+        let ends = session.ends.map(end => {
+          if (end.id !== action.endNumber) {
+            return end;
+          }
+          return Object.assign({}, end, { arrows: [...end.arrows, newArrow] });
+        });
+        return Object.assign({}, session, {
+          ends: [...ends]
+        });
+      });
+
+      console.log(sessions, state.sessions);
+      return Object.assign({}, state, {
+        sessions
+      });
+
+      break;
+    }
     default:
       console.log("DEFAULT ACTION HAPPENED");
       return { ...state };

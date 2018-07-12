@@ -13,7 +13,7 @@ import HeaderBar from "./header-bar";
 import Dashboard from "./dashboard";
 import Session from "./session";
 import End from "./end";
-import SimpleSessionDetailsForm from "./simple-session-details-form";
+import NewSession from "./new-session";
 
 class App extends Component {
   render() {
@@ -26,10 +26,11 @@ class App extends Component {
 
             <Route exact path="/session/:sessionId" component={Session} />
 
+            <Route exact path="/new/session" component={NewSession} />
             <Route
               exact
-              path="/new/session"
-              component={SimpleSessionDetailsForm}
+              path="/session/:sessionId/end/:endNumber"
+              component={End}
             />
             {/*
         <Route exact path="/end/:sessionId/:endId" component={End} />

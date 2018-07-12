@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getSingleSession } from "../actions";
+import { createEnd } from "../actions";
 import {
   LineChart,
   Line,
@@ -77,7 +79,16 @@ export class Session extends React.Component {
         <section>{simpleLineChart}</section>
         {endList}
         <section>
-          <button type="button">New End</button>
+          <button
+            type="button"
+            onClick={() =>
+              this.props.dispatch(
+                createEnd(this.props.session.id, this.props.history)
+              )
+            }
+          >
+            + New End
+          </button>
         </section>
       </main>
     );
