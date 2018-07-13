@@ -1,6 +1,12 @@
 export const DELETE_SESSION = "DELETE_SESSION";
-export const deleteSession = sessionId => ({
-  type: DELETE_SESSION,
+export const deleteSession = (sessionId, history) => dispatch => {
+  dispatch(deleteSessionStore(sessionId));
+  history.push(`/dashboard`);
+};
+
+export const DELETE_SESSION_STORE = "DELETE_SESSION_STORE";
+export const deleteSessionStore = sessionId => ({
+  type: DELETE_SESSION_STORE,
   sessionId
 });
 
@@ -22,6 +28,13 @@ export const getSingleSession = sessionId => ({
   sessionId
 });
 
+export const UPDATE_SESSION = "UPDATE_SESSION";
+export const updateSession = (sessionId, payload) => ({
+  type: UPDATE_SESSION,
+  sessionId,
+  payload
+});
+
 export const CREATE_SESSION_STORE = "CREATE_SESSION_STORE";
 export const createSessionStore = session => ({
   type: CREATE_SESSION_STORE,
@@ -30,13 +43,16 @@ export const createSessionStore = session => ({
 
 export const CREATE_SESSION = "CREATE_SESSION";
 export const createSession = payload => dispatch => {
-  console.log("inside create session", payload);
+  const score = Math.floor(Math.random() * 200 + 1);
   const newSession = {
     id: Math.floor(Math.random() * 1000 + 1),
-    startDate: payload.startDate.toLocaleString("en-US"),
-    distance: `${payload.distance} ${payload.distanceUnits}`,
+    startDate: payload.startDate,
+    distance: payload.distance,
+    distanceUnits: payload.distanceUnits,
     additionalOptions: [],
-    ends: []
+    ends: [],
+    score: score,
+    maxScore: score + 20
   };
   dispatch(createSessionStore(newSession));
   dispatch(createEnd(newSession.id, payload.history));

@@ -1,11 +1,24 @@
 import React from "react";
 import { createSession } from "../actions";
+import { updateSession } from "../actions";
 import { connect } from "react-redux";
 import store from "../store";
 
 export class SimpleSessionDetailsForm extends React.Component {
   onSubmit = event => {
     event.preventDefault();
+
+    if (this.props.currentSession) {
+      this.props.dispatch(
+        updateSession(this.props.currentSession.id, {
+          distance: this.distance.value,
+          distanceUnits: this.distanceUnits.value
+        })
+      );
+      this.props.editingCallback();
+      return;
+    }
+
     this.props.dispatch(
       createSession({
         startDate: this.props.startDate,
@@ -15,6 +28,13 @@ export class SimpleSessionDetailsForm extends React.Component {
       })
     );
   };
+
+  componentDidMount() {
+    if (this.props.currentSession) {
+      this.distance.value = this.props.currentSession.distance;
+      this.distanceUnits.value = this.props.currentSession.distanceUnits;
+    }
+  }
 
   render() {
     console.log("SESSION FORM", this.props);

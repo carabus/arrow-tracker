@@ -13,8 +13,9 @@ const initialState = {
     {
       chart: [{ name: "End 1", score: 18 }, { name: "End 2", score: 24 }],
       id: 1,
-      startDate: "03-07-2018 12:01",
-      distance: "20 yards",
+      startDate: new Date(),
+      distance: "20",
+      distanceUnits: "yards",
       score: 200,
       maxScore: 280,
       additionalOptions: [{ optionName: "barebow" }],
@@ -87,7 +88,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
       break;
     }
-    case actions.DELETE_SESSION:
+    case actions.DELETE_SESSION_STORE:
       return Object.assign({}, state, {
         sessions: state.sessions.filter(
           session => session.id !== action.sessionId
@@ -100,6 +101,24 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
 
       break;
+
+    case actions.UPDATE_SESSION: {
+      let sessions = state.sessions.map(session => {
+        if (session.id !== action.sessionId) {
+          return session;
+        }
+
+        return Object.assign({}, session, {
+          distance: action.payload.distance,
+          distanceUnits: action.payload.distanceUnits
+        });
+      });
+      return Object.assign({}, state, {
+        sessions
+      });
+
+      break;
+    }
 
     case actions.CREATE_END_STORE: {
       let sessions = state.sessions.map(session => {

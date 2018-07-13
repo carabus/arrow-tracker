@@ -1,12 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
-import store from "../store";
+import FormattedDate from "./formatted-date";
 
 export function SessionTable(props) {
-  console.log(props.sessions);
-  console.log(store.getState());
-
   const sessions = props.sessions.map(session => (
     <Route
       key={session.id}
@@ -17,9 +14,13 @@ export function SessionTable(props) {
           }}
         >
           <td>
-            <p>Training at {session.distance}</p>
+            <p>
+              Training at {session.distance} {session.distanceUnits}
+            </p>
           </td>
-          <td>{session.startDate}</td>
+          <td>
+            <FormattedDate date={session.startDate} />
+          </td>
           <td>
             {session.score}/{session.maxScore}
           </td>

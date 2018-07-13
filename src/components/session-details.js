@@ -36,6 +36,8 @@ export class SessionDetails extends React.Component {
         <SimpleSessionDetailsForm
           onSubmit={this.onSubmit}
           profile={this.props.profile}
+          currentSession={this.props.session}
+          editingCallback={this.setEditing}
         />
       );
     }
@@ -44,7 +46,9 @@ export class SessionDetails extends React.Component {
       <section>
         <dl>
           <dt>Distance</dt>
-          <dd>{this.props.session.distance}</dd>
+          <dd>
+            {this.props.session.distance} {this.props.session.distanceUnits}
+          </dd>
           <dt>Additional options</dt>
           <dd>
             <ul>{optionsList}</ul>
@@ -53,7 +57,9 @@ export class SessionDetails extends React.Component {
         <button onClick={() => this.setEditing(true)}>Edit</button>
         <button
           onClick={() =>
-            this.props.dispatch(deleteSession(this.props.session.id))
+            this.props.dispatch(
+              deleteSession(this.props.session.id, this.props.history)
+            )
           }
         >
           Delete

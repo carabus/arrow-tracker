@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import EndListItem from "./end-list-item";
 import SessionDetails from "./session-details";
+import FormattedDate from "./formatted-date";
 
 export class Session extends React.Component {
   /*
@@ -73,9 +74,14 @@ export class Session extends React.Component {
       <main role="main">
         <header role="banner">
           <h1>Training session</h1>
-          <p>Started on {this.props.session.startDate}</p>
+          <p>
+            Started on <FormattedDate date={this.props.session.startDate} />
+          </p>
         </header>
-        <SessionDetails session={this.props.session} />
+        <SessionDetails
+          session={this.props.session}
+          history={this.props.history}
+        />
         <section>{simpleLineChart}</section>
         {endList}
         <section>

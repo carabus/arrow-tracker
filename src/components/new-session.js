@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { SimpleSessionDetailsForm } from "./simple-session-details-form";
+import FormattedDate from "./formatted-date";
 
 export function NewSession(props) {
   console.log("NEW SESSION", props);
@@ -9,7 +10,9 @@ export function NewSession(props) {
     <main role="main">
       <header>
         <h1>New Training Session</h1>
-        <p>Started at {currentDate.toLocaleString("en-US")}</p>
+        <p>
+          Started on <FormattedDate date={currentDate} />
+        </p>
       </header>
       <SimpleSessionDetailsForm
         startDate={currentDate}
