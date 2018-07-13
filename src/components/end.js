@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { createEnd } from "../actions";
 import { createArrow } from "../actions";
+import { removeLastArrow } from "../actions";
 import TargetCanvas from "./target-canvas";
 
 export class End extends React.Component {
@@ -12,7 +13,6 @@ export class End extends React.Component {
   }
 
   createArrow(arrow) {
-    console.log("Top Level Create Arrow", arrow);
     this.props.dispatch(
       createArrow(
         parseInt(this.props.match.params.sessionId, 10),
@@ -20,6 +20,15 @@ export class End extends React.Component {
         arrow.point,
         arrow.score,
         arrow.isInverted
+      )
+    );
+  }
+
+  removeLastArrow() {
+    this.props.dispatch(
+      removeLastArrow(
+        parseInt(this.props.match.params.sessionId, 10),
+        parseInt(this.props.end.id, 10)
       )
     );
   }
@@ -40,6 +49,47 @@ export class End extends React.Component {
           <h1>End {this.props.match.params.endNumber}</h1>
         </header>
         <section>
+          <div>
+            <TargetCanvas
+              arrows={this.props.end.arrows}
+              createArrow={this.createArrow}
+            />
+          </div>
+          <div>
+            {arrows}
+            <button
+              type="button"
+              onClick={() =>
+                this.props.dispatch(
+                  removeLastArrow(
+                    parseInt(this.props.match.params.sessionId, 10),
+                    parseInt(this.props.end.id, 10)
+                  )
+                )
+              }
+            >
+              Undo
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={() => this.props.history.goBack()}>
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                this.props.dispatch(
+                  createEnd(
+                    parseInt(this.props.match.params.sessionId, 10),
+                    this.props.history
+                  )
+                )
+              }
+            >
+              Next
+            </button>
+          </div>
+          {/*
           <form id="record-end">
             <div className="form-section">
               <TargetCanvas
@@ -49,11 +99,24 @@ export class End extends React.Component {
             </div>
             <div className="form-section">
               {arrows}
-              <button type="button">Undo</button>
+              <button
+                type="button"
+                onClick={() =>
+                  this.props.dispatch(
+                    removeLastArrow(
+                      parseInt(this.props.match.params.sessionId, 10),
+                      parseInt(this.props.end.id, 10)
+                    )
+                  )
+                }
+              >
+                Undo
+              </button>
             </div>
             <button type="button">Back</button>
             <button type="submit">Next</button>
           </form>
+          */}
         </section>
       </main>
     );

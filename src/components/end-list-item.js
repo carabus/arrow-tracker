@@ -22,7 +22,7 @@ export function EndListItem(props) {
           <button
             type="button"
             onClick={() => {
-              history.push(`/end/${props.sessionId}/${props.endId}`);
+              history.push(`/session/${props.sessionId}/end/${props.endId}`);
             }}
           >
             Edit

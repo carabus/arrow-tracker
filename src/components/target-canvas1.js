@@ -24,7 +24,6 @@ export default class TargetCanvas extends React.Component {
 }
 
 function initTarget(canvas, arrows, callback) {
-  console.log("ARROWS", arrows);
   const centerPoint = { x: 150, y: 150 };
   const touchCursorOffset = 100;
   const targetScoreRange = [

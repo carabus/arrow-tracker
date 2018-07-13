@@ -147,6 +147,31 @@ export const archeryTrackerReducer = (state = initialState, action) => {
 
       break;
     }
+
+    case actions.REMOVE_LAST_ARROW: {
+      let sessions = state.sessions.map(session => {
+        if (session.id !== action.sessionId) {
+          return session;
+        }
+
+        let ends = session.ends.map(end => {
+          if (end.id !== action.endId) {
+            return end;
+          }
+          return Object.assign({}, end, {
+            arrows: end.arrows.slice(0, end.arrows.length - 1)
+          });
+        });
+        return Object.assign({}, session, {
+          ends: [...ends]
+        });
+      });
+      console.log(sessions, state.sessions);
+      return Object.assign({}, state, {
+        sessions
+      });
+      break;
+    }
     default:
       console.log("DEFAULT ACTION HAPPENED");
       return { ...state };

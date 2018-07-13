@@ -5,27 +5,26 @@ export default class TargetCanvas extends React.Component {
   constructor(props) {
     super(props);
     console.log("CANVAS CONSTRUCTOR");
-    this.myRef = React.createRef();
+    this.setCanvasRef = element => {
+      this.canvas = element;
+    };
   }
 
   componentDidMount() {
-    console.log("CANVAS DID MOUNT", this.props.arrows);
+    console.log("CANVAS DID MOUNT", this.myRef, this.props.arrows);
     this.initTarget();
   }
 
   componentDidUpdate() {
-    console.log("CANVAS DID UPDATE", this.props.arrows);
-    //initTarget(this.myRef.current, this.props.arrows, this.props.createArrow);
+    console.log("CANVAS DID UPDATE", this.myRef, this.props.arrows);
+    this.context = this.canvas.getContext("2d");
+    this.doCanvas();
   }
 
   render() {
     console.log("CANVAS RENDER");
-    return <canvas ref={this.myRef} width="300" height="300" />;
+    return <canvas ref={this.setCanvasRef} width="300" height="300" />;
   }
-
-  canvas = {};
-  arrows = [];
-  callback = this.props.createArrow;
 
   centerPoint = { x: 150, y: 150 };
   touchCursorOffset = 100;
@@ -93,7 +92,6 @@ export default class TargetCanvas extends React.Component {
   ];
   cursorPos = {};
   context = {};
-  pointsOnTarget = [];
   zoom = 0.5;
   zoomFactor;
   iw;
@@ -101,72 +99,68 @@ export default class TargetCanvas extends React.Component {
   base_image;
 
   initTarget() {
-    this.canvas = this.myRef.current;
     this.context = this.canvas.getContext("2d");
     this.makeBase();
   }
-  /*
+
   calculateScore(position) {
-      let distanceFromCenter = Math.trunc(
-        Math.sqrt(
-          Math.pow(centerPoint.x - position.x, 2) +
-            Math.pow(centerPoint.y - position.y, 2)
-        )
-      );
+    let distanceFromCenter = Math.trunc(
+      Math.sqrt(
+        Math.pow(this.centerPoint.x - position.x, 2) +
+          Math.pow(this.centerPoint.y - position.y, 2)
+      )
+    );
 
-      let score = targetScoreRange.find(
-        item =>
-          distanceFromCenter <= item.maxRadius &&
-          distanceFromCenter >= item.minRadius
-      );
+    let score = this.targetScoreRange.find(
+      item =>
+        distanceFromCenter <= item.maxRadius &&
+        distanceFromCenter >= item.minRadius
+    );
 
-      return score
-        ? { score: score.points, isInverted: score.invert }
-        : { score: 0, isInverted: false };
-    }
+    return score
+      ? { score: score.points, isInverted: score.invert }
+      : { score: 0, isInverted: false };
+  }
 
-    drawDot(position, fill) {
-      context.fillStyle = fill;
-      context.beginPath();
-      context.arc(position.x, position.y, 2, 0, 2 * Math.PI);
-      context.fill();
-    }
+  drawDot(position, fill) {
+    this.context.fillStyle = fill;
+    this.context.beginPath();
+    this.context.arc(position.x, position.y, 2, 0, 2 * Math.PI);
+    this.context.fill();
+  }
 
-    handleMouseUp(e) {
-      const pos = getMousePos(canvas, e);
-      const newArrow = generatePointOnTarget(pos, false);
-      pointsOnTarget.push(newArrow);
-      callback(newArrow);
-      doCanvas();
-    }
+  handleMouseUp(e) {
+    const pos = this.getMousePos(this.canvas, e);
+    const newArrow = this.generatePointOnTarget(pos, false);
+    this.props.createArrow(newArrow);
+  }
 
-    handleTouchEnd(event) {
-      const newArrow = generatePointOnTarget(cursorPos, true);
-      pointsOnTarget.push(newArrow);
-      callback(newArrow);
-      doCanvas();
-    }
+  handleTouchEnd(event) {
+    const newArrow = this.generatePointOnTarget(this.cursorPos, true);
+    this.props.createArrow(newArrow);
+  }
 
-    generatePointOnTarget(zoomedCoordinates, isTouch) {
-      const normalCoordinates = isTouch
-        ? {
-            x: (zoomedCoordinates.x - zoomedCoordinates.x * zoom) * 2,
-            y: (zoomedCoordinates.y - 25 - zoomedCoordinates.y * zoom + 25) * 2
-          }
-        : {
-            x: (zoomedCoordinates.x - zoomedCoordinates.x * zoom) * 2,
-            y: (zoomedCoordinates.y - zoomedCoordinates.y * zoom) * 2
-          };
+  generatePointOnTarget(zoomedCoordinates, isTouch) {
+    const normalCoordinates = isTouch
+      ? {
+          x: (zoomedCoordinates.x - zoomedCoordinates.x * this.zoom) * 2,
+          y:
+            (zoomedCoordinates.y - 25 - zoomedCoordinates.y * this.zoom + 25) *
+            2
+        }
+      : {
+          x: (zoomedCoordinates.x - zoomedCoordinates.x * this.zoom) * 2,
+          y: (zoomedCoordinates.y - zoomedCoordinates.y * this.zoom) * 2
+        };
 
-      const score = calculateScore(normalCoordinates);
-      console.log(score);
-      return {
-        point: normalCoordinates,
-        isInverted: score.isInverted,
-        score: score.score
-      };
-    }
-*/
+    const score = this.calculateScore(normalCoordinates);
+    return {
+      point: normalCoordinates,
+      isInverted: score.isInverted,
+      score: score.score
+    };
+  }
+
   // re-draw target with all entered points
   doCanvas() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -177,87 +171,80 @@ export default class TargetCanvas extends React.Component {
       this.iw * this.zoom,
       this.ih * this.zoom
     );
-    /*
-      arrows.forEach(arrow =>
-        drawDot(
-          arrow.arrowCoordinates,
-          arrow.isInverted ? "#FFFFFF" : "#000000"
-        )
-      );
-      pointsOnTarget.forEach(point =>
-        drawDot(point.point, point.isInverted ? "#FFFFFF" : "#000000")
-      );
-      */
+
+    this.props.arrows.forEach(arrow =>
+      this.drawDot(
+        arrow.arrowCoordinates,
+        arrow.isInverted ? "#FFFFFF" : "#000000"
+      )
+    );
   }
-  /*
-    // show zoomed canvas on desktop
-    handleMouseMove(e) {
-      var pos = getMousePos(canvas, e);
-      handleZoom(pos);
+
+  // show zoomed canvas on desktop
+  handleMouseMove(e) {
+    var pos = this.getMousePos(this.canvas, e);
+    this.handleZoom(pos);
+  }
+
+  // get position of mouse cursor
+  getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+  }
+
+  // show zoomed canvas on mobile
+  handleTouchMove(e) {
+    // Ignore multi touch events
+    if (e.touches.length > 1) {
+      return;
+    }
+    var pos = this.getTouchPos(this.canvas, e);
+    this.handleZoom(pos, true);
+  }
+
+  // get position for touch event
+  getTouchPos(canvas, event) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: event.touches[0].clientX - rect.left,
+      y: event.touches[0].clientY - rect.top
+    };
+  }
+
+  // display zoomed target
+  handleZoom(pos, isTouch) {
+    var x = pos.x;
+    var y = pos.y;
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    const y1 = isTouch
+      ? -y * this.zoomFactor + this.touchCursorOffset
+      : -y * this.zoomFactor;
+    this.context.drawImage(
+      this.base_image,
+      -x * this.zoomFactor,
+      y1,
+      this.iw,
+      this.ih
+    );
+    if (isTouch) {
+      // draw cursor for touch
+      this.cursorPos = { x, y: y - this.touchCursorOffset };
+      this.drawDot(this.cursorPos, "#39ff14");
     }
 
-    // get position of mouse cursor
-    getMousePos(canvas, evt) {
-      var rect = canvas.getBoundingClientRect();
-      return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-      };
-    }
-    // show zoomed canvas on mobile
-    handleTouchMove(e) {
-      console.log("moving");
-      // Ignore multi touch events
-      if (e.touches.length > 1) {
-        return;
-      }
-      var pos = getTouchPos(canvas, e);
-      handleZoom(pos, true);
-    }
+    this.props.arrows.forEach(arrow => {
+      const newX = -x * this.zoomFactor + arrow.arrowCoordinates.x * 2;
+      const newY = -y * this.zoomFactor + arrow.arrowCoordinates.y * 2;
+      this.drawDot(
+        { x: newX, y: isTouch ? newY + this.touchCursorOffset : newY },
+        arrow.isInverted ? "#FFFFFF" : "#000000"
+      );
+    });
+  }
 
-    // get position for touch event
-    getTouchPos(canvas, event) {
-      var rect = canvas.getBoundingClientRect();
-      return {
-        x: event.touches[0].clientX - rect.left,
-        y: event.touches[0].clientY - rect.top
-      };
-    }
-
-    // display zoomed target
-    handleZoom(pos, isTouch) {
-      var x = pos.x;
-      var y = pos.y;
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      const y1 = isTouch
-        ? -y * zoomFactor + touchCursorOffset
-        : -y * zoomFactor;
-      context.drawImage(base_image, -x * zoomFactor, y1, iw, ih);
-      if (isTouch) {
-        // draw cursor for touch
-        cursorPos = { x, y: y - touchCursorOffset };
-        drawDot(cursorPos, "#39ff14");
-      }
-
-      arrows.forEach(arrow => {
-        const newX = -x * zoomFactor + arrow.arrowCoordinates.x * 2;
-        const newY = -y * zoomFactor + arrow.arrowCoordinates.y * 2;
-        drawDot(
-          { x: newX, y: isTouch ? newY + touchCursorOffset : newY },
-          arrow.isInverted ? "#FFFFFF" : "#000000"
-        );
-      });
-
-      pointsOnTarget.forEach(point => {
-        const newX = -x * zoomFactor + point.point.x * 2;
-        const newY = -y * zoomFactor + point.point.y * 2;
-        drawDot(
-          { x: newX, y: isTouch ? newY + touchCursorOffset : newY },
-          point.isInverted ? "#FFFFFF" : "#000000"
-        );
-      });
-    }
-*/
   makeBase() {
     this.base_image = new Image();
     this.base_image.src = target;
@@ -269,34 +256,61 @@ export default class TargetCanvas extends React.Component {
       this.canvas.height = this.ih * this.zoom;
       this.zoomFactor = (600 - 600 * this.zoom) / this.canvas.width;
       this.doCanvas();
-      //redraw canvas at default zoom
-      this.canvas.addEventListener("mouseout", this.doCanvas, false);
-      // show zoomed canvas
-      //canvas.addEventListener("mousemove", handleMouseMove, false);
-      // draw dot
-      //canvas.addEventListener("mouseup", handleMouseUp, false);
-      //show zoomed canvas mobile
-      /*canvas.addEventListener(
-          "touchmove",
-          throttle(handleTouchMove, 16),
-          true
-        );
-        // draw dot
-        canvas.addEventListener("touchend", handleTouchEnd, false);*/
-    };
-    /*
-    throttle(cb, delay) {
-      var timesUp = true;
-      return function(event) {
-        if (!timesUp) return;
-        setTimeout(function() {
-          timesUp = true;
-        }, delay);
 
-        timesUp = false;
-        cb(event);
-      };
-    }
-   */
+      //redraw canvas at default zoom
+      this.canvas.addEventListener(
+        "mouseout",
+        () => {
+          this.doCanvas();
+        },
+        false
+      );
+      // show zoomed canvas
+      this.canvas.addEventListener(
+        "mousemove",
+        event => {
+          this.handleMouseMove(event);
+        },
+        false
+      );
+      // draw dot
+      this.canvas.addEventListener(
+        "mouseup",
+        event => {
+          this.handleMouseUp(event);
+        },
+        false
+      );
+      //show zoomed canvas mobile
+      this.canvas.addEventListener(
+        "touchmove",
+        event => {
+          this.handleTouchMove(event);
+        },
+        true
+      );
+      // draw dot
+
+      this.canvas.addEventListener(
+        "touchend",
+        event => {
+          this.handleTouchEnd(event);
+        },
+        false
+      );
+    };
+  }
+
+  throttle(cb, delay) {
+    var timesUp = true;
+    return function(event) {
+      if (!timesUp) return;
+      setTimeout(function() {
+        timesUp = true;
+      }, delay);
+
+      timesUp = false;
+      cb(event);
+    };
   }
 }

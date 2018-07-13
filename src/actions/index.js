@@ -33,7 +33,7 @@ export const createSession = payload => dispatch => {
   console.log("inside create session", payload);
   const newSession = {
     id: Math.floor(Math.random() * 1000 + 1),
-    startDate: payload.startDate.toString(),
+    startDate: payload.startDate.toLocaleString("en-US"),
     distance: `${payload.distance} ${payload.distanceUnits}`,
     additionalOptions: [],
     ends: []
@@ -75,4 +75,11 @@ export const createArrow = (
   arrowCoordinates: point,
   arrowScore: score,
   isInverted
+});
+
+export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
+export const removeLastArrow = (sessionId, endId) => ({
+  type: REMOVE_LAST_ARROW,
+  sessionId,
+  endId
 });

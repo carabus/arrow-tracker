@@ -9,7 +9,7 @@ export function NewSession(props) {
     <main role="main">
       <header>
         <h1>New Training Session</h1>
-        <p>Started at {currentDate.toString()}</p>
+        <p>Started at {currentDate.toLocaleString("en-US")}</p>
       </header>
       <SimpleSessionDetailsForm
         startDate={currentDate}
