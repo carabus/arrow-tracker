@@ -282,11 +282,13 @@ export default class TargetCanvas extends React.Component {
         false
       );
       //show zoomed canvas mobile
+
       this.canvas.addEventListener(
         "touchmove",
-        event => {
+        throttle(event => {
           this.handleTouchMove(event);
-        },
+        }, 16),
+
         true
       );
       // draw dot
@@ -300,17 +302,17 @@ export default class TargetCanvas extends React.Component {
       );
     };
   }
+}
 
-  throttle(cb, delay) {
-    var timesUp = true;
-    return function(event) {
-      if (!timesUp) return;
-      setTimeout(function() {
-        timesUp = true;
-      }, delay);
+function throttle(cb, delay) {
+  var timesUp = true;
+  return function(event) {
+    if (!timesUp) return;
+    setTimeout(function() {
+      timesUp = true;
+    }, delay);
 
-      timesUp = false;
-      cb(event);
-    };
-  }
+    timesUp = false;
+    cb(event);
+  };
 }
