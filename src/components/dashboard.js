@@ -1,11 +1,12 @@
 import React from "react";
 
 import StartTracking from "./start-tracking";
-import SessionTable from "./session-table";
+import SessionList from "./session-list";
 import Stats from "./stats";
 import { connect } from "react-redux";
 
 export function Dashboard(props) {
+  console.log("DASHBOARD", props);
   return (
     <div className="dashboard">
       <header role="banner">
@@ -13,7 +14,7 @@ export function Dashboard(props) {
       </header>
       <main role="main">
         <StartTracking />
-        <SessionTable />
+        <SessionList />
         <Stats />
       </main>
     </div>

@@ -37,7 +37,7 @@ export function Stats(props) {
       <h2>My Stats</h2>
       <p>My rank is {props.profile.rank}/100</p>
       <p>
-        <a class="help" href="#" target="_self">
+        <a className="help" href="#" target="_self">
           How it's calculated?
         </a>
       </p>

@@ -1,12 +1,9 @@
 import React from "react";
 import "./arrow.css";
 
-export default function SessionOption(props) {
+export default function Arrow(props) {
   return (
-    <span
-      className={`score ${colorMapping[props.arrow.arrowScore]}`}
-      key={props.arrow.arrowNumber}
-    >
+    <span className={`score ${colorMapping[props.arrow.arrowScore]}`}>
       {props.arrow.arrowScore}
     </span>
   );

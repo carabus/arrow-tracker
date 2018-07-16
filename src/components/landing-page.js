@@ -1,9 +1,5 @@
 import React from "react";
 
-import StartTracking from "./start-tracking";
-import SessionTable from "./session-table";
-import Stats from "./stats";
-
 export default function Dashboard(props) {
   return (
     <main role="main">

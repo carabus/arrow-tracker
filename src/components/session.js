@@ -19,8 +19,6 @@ import FormattedDate from "./formatted-date";
 
 export class Session extends React.Component {
   render() {
-    console.log("SESSION PROPS");
-    console.log(this.props);
     if (!this.props.session) {
       return (
         <main>
