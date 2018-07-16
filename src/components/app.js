@@ -11,6 +11,7 @@ import "./app.css";
 import { loadData } from "../actions";
 import HeaderBar from "./header-bar";
 import Dashboard from "./dashboard";
+import LandingPage from "./landing-page";
 import Session from "./session";
 import End from "./end";
 import NewSession from "./new-session";
@@ -22,6 +23,7 @@ class App extends Component {
         <div className="app">
           <HeaderBar />
           <Switch>
+            <Route exact path="/" component={LandingPage} />
             <Route exact path="/dashboard" component={Dashboard} />
 
             <Route exact path="/session/:sessionId" component={Session} />
