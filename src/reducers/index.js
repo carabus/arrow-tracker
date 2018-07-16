@@ -10,7 +10,7 @@ const initialState = {
       distanceUnits: "yards",
       score: 200,
       maxScore: 280,
-      additionalOptions: [{ id: 1, optionName: "barebow" }],
+      additionalOptions: [{ id: 1, name: "barebow" }],
       ends: [
         {
           id: 1,
@@ -102,7 +102,8 @@ export const archeryTrackerReducer = (state = initialState, action) => {
 
         return Object.assign({}, session, {
           distance: action.payload.distance,
-          distanceUnits: action.payload.distanceUnits
+          distanceUnits: action.payload.distanceUnits,
+          additionalOptions: action.payload.additionalOptions
         });
       });
       return Object.assign({}, state, {

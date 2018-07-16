@@ -49,7 +49,7 @@ export const createSession = payload => dispatch => {
     startDate: payload.startDate,
     distance: payload.distance,
     distanceUnits: payload.distanceUnits,
-    additionalOptions: [],
+    additionalOptions: payload.additionalOptions,
     ends: [],
     score: score,
     maxScore: score + 20

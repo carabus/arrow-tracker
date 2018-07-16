@@ -3,8 +3,15 @@ import { createSession } from "../actions";
 import { updateSession } from "../actions";
 import { connect } from "react-redux";
 import SessionOption from "./session-option";
+import Select from "react-select";
+import "react-select/dist/react-select.css";
+/*import SessionOptionsAutocomplete from "./session-options-autocomplete.js";*/
 
 export class SimpleSessionDetailsForm extends React.Component {
+  state = {
+    selectedOption: ""
+  };
+
   onSubmit = event => {
     event.preventDefault();
 
@@ -12,7 +19,8 @@ export class SimpleSessionDetailsForm extends React.Component {
       this.props.dispatch(
         updateSession(this.props.currentSession.id, {
           distance: this.distance.value,
-          distanceUnits: this.distanceUnits.value
+          distanceUnits: this.distanceUnits.value,
+          additionalOptions: Object.values(this.state.selectedOption)
         })
       );
       this.props.editingCallback();
@@ -24,6 +32,7 @@ export class SimpleSessionDetailsForm extends React.Component {
         startDate: this.props.startDate,
         distance: this.distance.value,
         distanceUnits: this.distanceUnits.value,
+        additionalOptions: Object.values(this.state.selectedOption),
         history: this.props.history
       })
     );
@@ -33,18 +42,29 @@ export class SimpleSessionDetailsForm extends React.Component {
     if (this.props.currentSession) {
       this.distance.value = this.props.currentSession.distance;
       this.distanceUnits.value = this.props.currentSession.distanceUnits;
+      const selectedOption = this.props.currentSession.additionalOptions.map(
+        (option, index) => {
+          console.log(option);
+          console.log(index);
+          return { id: option.id, name: option.name };
+        }
+      );
+      console.log("STATE", selectedOption);
+      this.setState({ selectedOption });
     }
   }
 
-  toggleCheckbox = event => {
-    console.log("toggled checkbox", event.target.value);
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+    // selectedOption can be null when the `x` (close) button is clicked
+    if (selectedOption) {
+      console.log(`Selected:`, selectedOption);
+    }
   };
 
   render() {
     console.log("SESSION FORM PROPS", this.props);
-    const options = this.props.profile.additionalOptions.map(option => (
-      <SessionOption option={option} key={option.id} cb={this.toggleCheckbox} />
-    ));
+
     return (
       <section>
         <form onSubmit={this.onSubmit}>
@@ -69,12 +89,15 @@ export class SimpleSessionDetailsForm extends React.Component {
           <div className="form-section">
             <fieldset>
               <legend>Additional Options</legend>
-              <div className="option-group">
-                {options}
-                <a href="#" target="_self">
-                  + Add
-                </a>
-              </div>
+              <Select.Creatable
+                name="form-field-name"
+                value={this.state.selectedOption}
+                multi={true}
+                onChange={this.handleChange}
+                valueKey="id"
+                labelKey="name"
+                options={this.props.profile.additionalOptions}
+              />
             </fieldset>
           </div>
 

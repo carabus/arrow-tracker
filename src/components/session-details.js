@@ -23,7 +23,7 @@ export class SessionDetails extends React.Component {
     console.log(this.props);
 
     const optionsList = this.props.session.additionalOptions.map(option => (
-      <li key={option.optionName}>{option.optionName}</li>
+      <li key={option.id}>{option.name}</li>
     ));
 
     if (this.state.editing) {
