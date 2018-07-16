@@ -2,14 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import { deleteEnd } from "../actions";
+import Arrow from "./arrow";
 
 export function EndListItem(props) {
   console.log("END LIST ITEM");
   console.log(props);
   const arrows = props.end.arrows.map(arrow => (
-    <span className="score red" key={arrow.arrowNumber}>
-      {arrow.arrowScore}
-    </span>
+    <Arrow arrow={arrow} key={arrow.id} />
   ));
 
   return (

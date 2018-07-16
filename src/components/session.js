@@ -18,15 +18,6 @@ import SessionDetails from "./session-details";
 import FormattedDate from "./formatted-date";
 
 export class Session extends React.Component {
-  /*
-  componentDidMount() {
-    console.log("SESSION Component mounted");
-    this.props.dispatch(
-      getSingleSession(parseInt(this.props.match.params.sessionId, 10))
-    );
-    console.log(this.props.session);
-  }
-*/
   render() {
     console.log("SESSION PROPS");
     console.log(this.props);
@@ -100,14 +91,8 @@ export class Session extends React.Component {
     );
   }
 }
-/*
-const mapStateToProps = (state, props) => ({
-  sessions: state.archeryTrackerReducer.session,
-  ends: state.archeryTrackerReducer.ends
-});*/
 
 const mapStateToProps = (state, props) => {
-  console.log(props.match.params.sessionId);
   return {
     session: state.archeryTrackerReducer.sessions.find(
       session => session.id === parseInt(props.match.params.sessionId, 10)

@@ -1,14 +1,6 @@
 import * as actions from "../actions";
 
 const initialState = {
-  profile: {
-    additionalOptions: [
-      { id: 1, name: "fancy arrows" },
-      { id: 2, name: "outdoors" },
-      { id: 3, name: "without stabilizer" },
-      { id: 4, name: "barebow" }
-    ]
-  },
   sessions: [
     {
       chart: [{ name: "End 1", score: 18 }, { name: "End 2", score: 24 }],
@@ -18,7 +10,7 @@ const initialState = {
       distanceUnits: "yards",
       score: 200,
       maxScore: 280,
-      additionalOptions: [{ optionName: "barebow" }],
+      additionalOptions: [{ id: 1, optionName: "barebow" }],
       ends: [
         {
           id: 1,
@@ -195,76 +187,4 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       console.log("DEFAULT ACTION HAPPENED");
       return { ...state };
   }
-
-  /*
-  if (action.type === actions.LOAD_DATA) {
-    return { ...state };
-  } else if (action.type === actions.LOAD_SINGLE_SESSION) {
-    console.log("LOAD_SINGLE_SESSION", action);
-    const obj = {
-      ...state,
-      session: state.sessions.find(session => session.id === action.sessionId),
-      ends: state.sessions.find(session => session.id === action.sessionId).ends
-    };
-    console.log(obj);
-    return obj;
-  } else if (action.type === actions.DELETE_END) {
-    console.log("DELETE_END", action);
-
-    let sessions = state.sessions.map(session => {
-      if (session.id !== action.sessionId) {
-        console.log("we should not get here");
-        return session;
-      }
-      return Object.assign({}, session, {
-        ends: session.ends.filter(end => {
-          console.log(action.endNumber);
-          console.log(end.id);
-          return action.endNumber !== end.id;
-        })
-      });
-    });
-
-    console.log(sessions, state.sessions);
-
-    return Object.assign({}, state, {
-      sessions
-    });
-  } else if (action.type === actions.DELETE_SESSION) {
-    console.log("DELETE_SESSION", action);
-    return Object.assign({}, state, {
-      session: null,
-      ends: null
-    });
-  } else if (action.type === actions.CREATE_SESSION) {
-    console.log("CREATE_SESSION", action);
-  } else if (action.type === "SAVE_SESSION") {
-    console.log(action);
-  }
-  /*if (action.type === actions.DELETE_END) {
-    let newSessions = { ...state.sessions };
-    const sessions = Object.values(newSessions).map(session => {
-      if (session.id === action.sessionId) {
-        session.ends = session.ends.filter(end => end.id !== action.endNumber);
-      }
-      return session;
-    });
-
-    let sessionObject = sessions.reduce(function(map, obj) {
-      map[obj.id] = obj;
-      return map;
-    }, {});
-
-    return Object.assign({}, state, {
-      sessions: sessionObject
-    });
-  } else if (action.type === actions.DELETE_SESSION) {
-    console.log("here");
-    let newSessions = { ...state.sessions };
-    delete newSessions[action.sessionId];
-    console.log(newSessions);
-    return Object.assign({}, state, {
-      ...newSessions
-    });
-  }*/
 };

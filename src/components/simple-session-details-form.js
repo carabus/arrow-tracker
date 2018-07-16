@@ -2,7 +2,7 @@ import React from "react";
 import { createSession } from "../actions";
 import { updateSession } from "../actions";
 import { connect } from "react-redux";
-import store from "../store";
+import SessionOption from "./session-option";
 
 export class SimpleSessionDetailsForm extends React.Component {
   onSubmit = event => {
@@ -36,8 +36,15 @@ export class SimpleSessionDetailsForm extends React.Component {
     }
   }
 
+  toggleCheckbox = event => {
+    console.log("toggled checkbox", event.target.value);
+  };
+
   render() {
-    console.log("SESSION FORM", this.props);
+    console.log("SESSION FORM PROPS", this.props);
+    const options = this.props.profile.additionalOptions.map(option => (
+      <SessionOption option={option} key={option.id} cb={this.toggleCheckbox} />
+    ));
     return (
       <section>
         <form onSubmit={this.onSubmit}>
@@ -63,6 +70,7 @@ export class SimpleSessionDetailsForm extends React.Component {
             <fieldset>
               <legend>Additional Options</legend>
               <div className="option-group">
+                {options}
                 <a href="#" target="_self">
                   + Add
                 </a>
@@ -78,4 +86,11 @@ export class SimpleSessionDetailsForm extends React.Component {
   }
 }
 
-export default connect()(SimpleSessionDetailsForm);
+const mapStateToProps = state => {
+  console.log("MAP STATE TO PROPS FORM");
+  return {
+    profile: state.profileReducer.profile
+  };
+};
+
+export default connect(mapStateToProps)(SimpleSessionDetailsForm);

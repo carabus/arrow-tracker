@@ -10,7 +10,6 @@ export class SessionDetails extends React.Component {
       editing: false
     };
 
-    this.onSubmit = this.onSubmit.bind(this);
     this.setEditing = this.setEditing.bind(this);
   }
 
@@ -20,13 +19,9 @@ export class SessionDetails extends React.Component {
     });
   }
 
-  onSubmit(values) {
-    console.log(values);
-    this.setEditing();
-    //return this.props.dispatch(login(values.email, values.password));
-  }
-
   render() {
+    console.log(this.props);
+
     const optionsList = this.props.session.additionalOptions.map(option => (
       <li key={option.optionName}>{option.optionName}</li>
     ));
@@ -34,8 +29,6 @@ export class SessionDetails extends React.Component {
     if (this.state.editing) {
       return (
         <SimpleSessionDetailsForm
-          onSubmit={this.onSubmit}
-          profile={this.props.profile}
           currentSession={this.props.session}
           editingCallback={this.setEditing}
         />
@@ -69,8 +62,4 @@ export class SessionDetails extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  profile: state.archeryTrackerReducer.profile
-});
-
-export default connect(mapStateToProps)(SessionDetails);
+export default connect()(SessionDetails);

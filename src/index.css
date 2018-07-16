@@ -118,14 +118,3 @@ fieldset {
 .form-section {
   margin-bottom: 30px;
 }
-.option-group {
-  display: inline-block;
-  border: solid #444 1px;
-  padding: 7px;
-  margin: 3px;
-  font-size: 14px;
-}
-
-.option-group:last-of-type {
-  border: none;
-}

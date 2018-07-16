@@ -1,0 +1,30 @@
+.score {
+  border-radius: 50%;
+  padding: 5px 10px;
+  margin: 0 3px;
+}
+
+.red {
+  color: black;
+  background-color: #fd1b14;
+}
+
+.blue {
+  color: black;
+  background-color: #41b7c8;
+}
+
+.yellow {
+  color: black;
+  background-color: #fff535;
+}
+
+.white {
+  color: black;
+  background-color: white;
+}
+
+.black {
+  color: white;
+  background-color: black;
+}

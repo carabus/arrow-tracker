@@ -1,0 +1,7 @@
+.session-option {
+  display: inline-block;
+  border: solid #444 1px;
+  padding: 7px;
+  margin: 3px;
+  font-size: 14px;
+}

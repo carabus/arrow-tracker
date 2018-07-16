@@ -18,9 +18,17 @@ export function NewSession(props) {
         startDate={currentDate}
         dispatch={props.dispatch}
         history={props.history}
+        profile={props.profile}
       />
     </main>
   );
 }
 
-export default connect()(NewSession);
+const mapStateToProps = state => {
+  console.log("NEW SESSION MAP STATE TO PROPS");
+  return {
+    profile: state.profileReducer.profile
+  };
+};
+
+export default connect(mapStateToProps)(NewSession);

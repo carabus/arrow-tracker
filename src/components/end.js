@@ -5,6 +5,7 @@ import { createEnd } from "../actions";
 import { createArrow } from "../actions";
 import { removeLastArrow } from "../actions";
 import TargetCanvas from "./target-canvas";
+import Arrow from "./arrow";
 
 export class End extends React.Component {
   constructor(props) {
@@ -38,9 +39,7 @@ export class End extends React.Component {
 
     if (!this.props.end) return null;
     const arrows = this.props.end.arrows.map(arrow => (
-      <span className="score red" key={arrow.arrowNumber}>
-        {arrow.arrowScore}
-      </span>
+      <Arrow arrow={arrow} key={arrow.id} />
     ));
 
     return (
