@@ -80,7 +80,7 @@ table {
   background-color: #fff;
 }
 
-ul {
+dd ul {
   margin: 0 auto;
   width: 100px;
 }
@@ -117,4 +117,10 @@ fieldset {
 
 .form-section {
   margin-bottom: 30px;
+}
+
+canvas {
+  border: 1px solid #000;
+  cursor: crosshair;
+  touch-action: none;
 }

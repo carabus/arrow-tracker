@@ -97,6 +97,7 @@ export default class TargetCanvas extends React.Component {
   iw;
   ih;
   base_image;
+  touchMove = false;
 
   initTarget() {
     this.context = this.canvas.getContext("2d");
@@ -130,12 +131,16 @@ export default class TargetCanvas extends React.Component {
   }
 
   handleMouseUp(e) {
+    console.log("MOUSE UP", e);
     const pos = this.getMousePos(this.canvas, e);
     const newArrow = this.generatePointOnTarget(pos, false);
     this.props.createArrow(newArrow);
   }
 
   handleTouchEnd(event) {
+    event.preventDefault();
+    if (!this.touchMove) return;
+    this.touchMove = false;
     const newArrow = this.generatePointOnTarget(this.cursorPos, true);
     this.props.createArrow(newArrow);
   }
@@ -201,6 +206,7 @@ export default class TargetCanvas extends React.Component {
     if (e.touches.length > 1) {
       return;
     }
+    this.touchMove = true;
     var pos = this.getTouchPos(this.canvas, e);
     this.handleZoom(pos, true);
   }

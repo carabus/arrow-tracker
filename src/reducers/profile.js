@@ -10,15 +10,38 @@ const initialState = {
     ],
     rank: 99,
     progressChart: [
-      { session: "04-30", score: 400 },
-      { session: "05-07", score: 300 },
-      { session: "05-14", score: 300 },
-      { session: "05-21", score: 278 },
-      { session: "05-28", score: 289 },
-      { session: "06-04", score: 339 },
-      { session: "06-11", score: 349 }
+      { session: "1", score: 400 },
+      { session: "2", score: 300 },
+      { session: "3", score: 300 },
+      { session: "4", score: 278 },
+      { session: "5", score: 289 },
+      { session: "6", score: 339 },
+      { session: "7", score: 349 }
     ],
-    compareCharts: {}
+    compareChart: [
+      {
+        name: "Default",
+        data: [
+          { session: "1", score: 400 },
+          { session: "2", score: 300 },
+          { session: "3", score: 300 },
+          { session: "4", score: 278 },
+          { session: "5", score: 289 },
+          { session: "6", score: 339 },
+          { session: "7", score: 349 }
+        ]
+      },
+      {
+        name: "Barebow",
+        data: [
+          { session: "1", score: 500 },
+          { session: "2", score: 489 },
+          { session: "3", score: 503 },
+          { session: "4", score: 397 },
+          { session: "5", score: 409 }
+        ]
+      }
+    ]
   }
 };
 
