@@ -202,6 +202,8 @@ export default class TargetCanvas extends React.Component {
 
   // show zoomed canvas on mobile
   handleTouchMove(e) {
+    // this is to prevent scrolling on iOS
+    e.preventDefault();
     // Ignore multi touch events
     if (e.touches.length > 1) {
       return;

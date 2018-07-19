@@ -45,7 +45,7 @@ export class End extends React.Component {
     return (
       <main role="main">
         <header>
-          <h1>End {this.props.match.params.endNumber}</h1>
+          <h1>End #{this.props.match.params.endNumber}</h1>
         </header>
         <section>
           <div>
