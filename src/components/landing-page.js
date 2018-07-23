@@ -1,11 +1,27 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
-export default function Dashboard(props) {
+import LoginForm from "./login-form";
+
+export function LandingPage(props) {
+  // If we are logged in redirect straight to the user's dashboard
+  if (props.loggedIn) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <main role="main">
       <header role="banner">
         <h1>Archery Tracker</h1>
       </header>
+
+      <section>
+        <header>
+          <h3>Start Now</h3>
+          <LoginForm />
+          <Link to="/register">Register</Link>
+        </header>
+      </section>
       <section>
         <header>
           <h3>Track your archery training scores easily on your phone</h3>
@@ -38,7 +54,7 @@ export default function Dashboard(props) {
           <h3>Find out how you rate against other app users</h3>
         </header>
         <p>
-          [<em>placeholder for image related to ratings/ competition</em>]
+          [<em>placeholder for image related to ratings</em>]
         </p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -50,40 +66,12 @@ export default function Dashboard(props) {
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </section>
-      <section>
-        <header>
-          <h3>Start Now</h3>
-        </header>
-        <form className="signup-form">
-          <div>
-            <label htmlFor="first-name">First name</label>
-            <input
-              placeholder="First Name"
-              type="text"
-              name="first-name"
-              id="first-name"
-            />
-          </div>
-          <div>
-            <label htmlFor="last-name">Last name</label>
-            <input
-              type="text"
-              name="last-name"
-              id="last-name"
-              placeholder="Last Name"
-            />
-          </div>
-          <div>
-            <label htmlFor="username">Email</label>
-            <input type="text" name="username" id="username" />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" />
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-      </section>
     </main>
   );
 }
+
+const mapStateToProps = state => ({
+  loggedIn: state.auth.currentUser !== null
+});
+
+export default connect(mapStateToProps)(LandingPage);
