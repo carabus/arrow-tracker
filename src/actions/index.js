@@ -1,101 +1,176 @@
-export const DELETE_SESSION = "DELETE_SESSION";
-export const deleteSession = (sessionId, history) => dispatch => {
-  dispatch(deleteSessionStore(sessionId));
-  history.push(`/dashboard`);
+import { API_BASE_URL } from "../config";
+import { normalizeResponseErrors } from "./utils";
+
+export const FETCH_SESSIONS_SUCCESS = "FETCH_SESSIONS_SUCCESS";
+export const fetchSessionsSuccess = sessions => ({
+  type: FETCH_SESSIONS_SUCCESS,
+  sessions
+});
+
+export const FETCH_SESSIONS_ERROR = "FETCH_SESSIONS_ERROR";
+export const fetchSessionsError = error => ({
+  type: FETCH_SESSIONS_ERROR,
+  error
+});
+
+export const fetchSessions = () => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/trainingRecords`, {
+    method: "GET",
+    headers: {
+      // Provide our auth token as credentials
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(data => {
+      dispatch(fetchSessionsSuccess(data));
+    })
+    .catch(err => {
+      dispatch(fetchSessionsError(err));
+    });
 };
 
-export const DELETE_SESSION_STORE = "DELETE_SESSION_STORE";
-export const deleteSessionStore = sessionId => ({
-  type: DELETE_SESSION_STORE,
-  sessionId
-});
-
-export const DELETE_END = "DELETE_END";
-export const deleteEnd = (sessionId, endNumber) => ({
-  type: DELETE_END,
-  sessionId,
-  endNumber
-});
-
-export const LOAD_DATA = "LOAD_DATA";
-export const loadData = () => ({
-  type: LOAD_DATA
-});
-
-export const LOAD_SINGLE_SESSION = "LOAD_SINGLE_SESSION";
-export const getSingleSession = sessionId => ({
-  type: LOAD_SINGLE_SESSION,
-  sessionId
-});
-
-export const UPDATE_SESSION = "UPDATE_SESSION";
-export const updateSession = (sessionId, payload) => ({
-  type: UPDATE_SESSION,
-  sessionId,
-  payload
-});
-
-export const CREATE_SESSION_STORE = "CREATE_SESSION_STORE";
-export const createSessionStore = session => ({
-  type: CREATE_SESSION_STORE,
+export const UPDATE_SESSION_SUCCESS = "UPDATE_SESSION_SUCCESS";
+export const updateSessionSuccess = session => ({
+  type: UPDATE_SESSION_SUCCESS,
   session
 });
 
-export const CREATE_SESSION = "CREATE_SESSION";
-export const createSession = payload => dispatch => {
-  const score = Math.floor(Math.random() * 200 + 1);
-  const newSession = {
-    id: Math.floor(Math.random() * 1000 + 1),
-    startDate: payload.startDate,
-    distance: payload.distance,
-    distanceUnits: payload.distanceUnits,
-    additionalOptions: payload.additionalOptions,
-    ends: [],
-    score: score,
-    maxScore: score + 20
-  };
-  dispatch(createSessionStore(newSession));
-  dispatch(createEnd(newSession.id, payload.history));
-  //payload.history.push(`/session/${newSession.id}/new/end/${1}`);
+export const UPDATE_SESSION_ERROR = "UPDATE_SESSION_ERROR";
+export const updateSessionError = error => ({
+  type: UPDATE_SESSION_ERROR,
+  error
+});
+
+export const updateSession = (session, history) => (dispatch, getState) => {
+  console.log("UPDATE SESSION", session);
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/trainingRecords/${session.id}`, {
+    method: "PUT",
+    headers: {
+      // Provide our auth token as credentials
+      Authorization: `Bearer ${authToken}`,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(session)
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(session => {
+      dispatch(updateSessionSuccess(session));
+      if (history) {
+        history.push(
+          `/session/${session.id}/end/${
+            session.ends[session.ends.length - 1]._id
+          }`
+        );
+      }
+    })
+    .catch(err => {
+      dispatch(updateSessionError(err));
+    });
+};
+
+export const DELETE_SESSION_SUCCESS = "DELETE_SESSION_SUCCESS";
+export const deleteSessionSuccess = session => ({
+  type: DELETE_SESSION_SUCCESS,
+  session
+});
+
+export const DELETE_SESSION_ERROR = "DELETE_SESSION_ERROR";
+export const deleteSessionError = error => ({
+  type: DELETE_SESSION_ERROR,
+  error
+});
+
+export const deleteSession = (session, history) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/trainingRecords/${session.id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      "content-type": "application/json"
+    }
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(data => {
+      dispatch(deleteSessionSuccess(session));
+      console.log("AFTER DISPATCH", history);
+      if (history) {
+        history.push("/dashboard");
+      }
+    })
+    .catch(err => {
+      dispatch(deleteSessionError(err));
+    });
+};
+
+export const CREATE_SESSION_SUCCESS = "CREATE_SESSION_SUCCESS";
+export const createSessionSuccess = session => ({
+  type: CREATE_SESSION_SUCCESS,
+  session
+});
+
+export const CREATE_SESSION_ERROR = "CREATE_SESSION_ERROR";
+export const createSessionError = error => ({
+  type: CREATE_SESSION_ERROR,
+  error
+});
+
+export const createSession = (session, history) => (dispatch, getState) => {
+  console.log("CREATE SESSION", session);
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/trainingRecords`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(session)
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(session => {
+      dispatch(createSessionSuccess(session));
+      dispatch(createEnd(session, history));
+    })
+    .catch(err => {
+      dispatch(createSessionError(err));
+    });
 };
 
 export const CREATE_END = "CREATE_END";
-export const createEnd = (sessionId, history) => dispatch => {
-  const newEnd = {
-    id: Math.floor(Math.random() * 1000 + 1),
-    arrows: []
-  };
-  dispatch(createEndStore(sessionId, newEnd));
-  history.push(`/session/${sessionId}/end/${newEnd.id}`);
+export const createEnd = (session, history) => dispatch => {
+  session.ends.push({ arrows: [] });
+  dispatch(updateSession(session, history));
 };
 
-export const CREATE_END_STORE = "CREATE_END_STORE";
-export const createEndStore = (sessionId, end) => ({
-  type: CREATE_END_STORE,
-  sessionId,
-  end
-});
+export const DELETE_END = "DELETE_END";
+export const deleteEnd = (session, end) => dispatch => {
+  session.ends = session.ends.filter(currentEnd => currentEnd._id != end._id);
+  dispatch(updateSession(session));
+};
 
 export const CREATE_ARROW = "CREATE_ARROW";
 export const createArrow = (
-  sessionId,
-  endNumber,
+  session,
+  end,
   point,
   score,
   isInverted
-) => ({
-  type: CREATE_ARROW,
-  sessionId,
-  endNumber,
-  arrowNumber: Math.floor(Math.random() * 1000 + 1),
-  arrowCoordinates: point,
-  arrowScore: score,
-  isInverted
-});
+) => dispatch => {
+  session.ends[session.ends.indexOf(end)].arrows.push({
+    coordinates: point,
+    score,
+    isInverted
+  });
+  dispatch(updateSession(session));
+};
 
 export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
-export const removeLastArrow = (sessionId, endId) => ({
-  type: REMOVE_LAST_ARROW,
-  sessionId,
-  endId
-});
+export const removeLastArrow = (session, end) => dispatch => {
+  session.ends[session.ends.indexOf(end)].arrows.splice(-1, 1);
+  dispatch(updateSession(session));
+};

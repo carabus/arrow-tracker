@@ -22,8 +22,8 @@ export class SessionDetails extends React.Component {
   render() {
     console.log(this.props);
 
-    const optionsList = this.props.session.additionalOptions.map(option => (
-      <li key={option.id}>{option.name}</li>
+    const optionsList = this.props.session.trainingFactors.map(factor => (
+      <li key={factor}>{factor}</li>
     ));
 
     if (this.state.editing) {
@@ -51,7 +51,7 @@ export class SessionDetails extends React.Component {
         <button
           onClick={() =>
             this.props.dispatch(
-              deleteSession(this.props.session.id, this.props.history)
+              deleteSession(this.props.session, this.props.history)
             )
           }
         >

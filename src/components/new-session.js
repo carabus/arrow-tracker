@@ -18,7 +18,7 @@ export function NewSession(props) {
         startDate={currentDate}
         dispatch={props.dispatch}
         history={props.history}
-        profile={props.profile}
+        trainingFactors={props.trainingFactors}
       />
     </main>
   );
@@ -27,7 +27,7 @@ export function NewSession(props) {
 const mapStateToProps = state => {
   console.log("NEW SESSION MAP STATE TO PROPS");
   return {
-    profile: state.profileReducer.profile
+    trainingFactors: state.profileReducer.trainingFactors
   };
 };
 

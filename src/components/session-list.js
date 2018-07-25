@@ -16,7 +16,7 @@ export function SessionList(props) {
           Training at {session.distance} {session.distanceUnits}
         </div>
         <div className="session-date">
-          <FormattedDate date={session.startDate} />
+          <FormattedDate date={session.created} />
         </div>
       </div>
 

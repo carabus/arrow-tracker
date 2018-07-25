@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getSingleSession } from "../actions";
-import { createEnd } from "../actions";
+import { createEnd, fetchSessions } from "../actions";
 import {
   LineChart,
   Line,
@@ -18,6 +17,11 @@ import SessionDetails from "./session-details";
 import FormattedDate from "./formatted-date";
 
 export class Session extends React.Component {
+  componentDidMount() {
+    if (!this.props.session) {
+      this.props.dispatch(fetchSessions());
+    }
+  }
   render() {
     if (!this.props.session) {
       return (
@@ -29,12 +33,12 @@ export class Session extends React.Component {
       );
     }
 
-    const endList = this.props.session.ends.map(end => (
+    const endList = this.props.session.ends.map((end, index) => (
       <EndListItem
-        sessionId={this.props.session.id}
-        endId={end.id}
+        session={this.props.session}
         end={end}
-        key={end.id}
+        key={end._id}
+        endNum={index + 1}
       />
     ));
 
@@ -64,7 +68,7 @@ export class Session extends React.Component {
         <header role="banner">
           <h1>Training session</h1>
           <p>
-            Started on <FormattedDate date={this.props.session.startDate} />
+            Started on <FormattedDate date={this.props.session.created} />
           </p>
         </header>
         <SessionDetails
@@ -78,7 +82,7 @@ export class Session extends React.Component {
             type="button"
             onClick={() =>
               this.props.dispatch(
-                createEnd(this.props.session.id, this.props.history)
+                createEnd(this.props.session, this.props.history)
               )
             }
           >
@@ -93,7 +97,7 @@ export class Session extends React.Component {
 const mapStateToProps = (state, props) => {
   return {
     session: state.archeryTrackerReducer.sessions.find(
-      session => session.id === parseInt(props.match.params.sessionId, 10)
+      session => session.id === props.match.params.sessionId
     )
   };
 };

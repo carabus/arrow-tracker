@@ -28,10 +28,11 @@ export class Stats extends React.Component {
   };
 
   render() {
+    console.log("TRAINING FACTORS", this.props.trainingFactors);
     const progressChart = (
       <ResponsiveContainer width="100%" height={300}>
         <LineChart
-          data={this.props.profile.progressChart}
+          data={this.props.progressChart}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <XAxis dataKey="session" />
@@ -54,7 +55,7 @@ export class Stats extends React.Component {
     const compareChart = (
       <ResponsiveContainer width="100%" height={300}>
         <LineChart
-          data={this.props.profile.compareChart}
+          data={this.props.compareChart}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <XAxis
@@ -67,7 +68,7 @@ export class Stats extends React.Component {
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
           <Legend />
-          {this.props.profile.compareChart.map((s, i) => (
+          {this.props.compareChart.map((s, i) => (
             <Line
               dataKey="score"
               data={s.data}
@@ -82,7 +83,7 @@ export class Stats extends React.Component {
     return (
       <section>
         <h2>My Stats</h2>
-        <p>My rank is {this.props.profile.rank}/100</p>
+        <p>My rank is {this.props.rank}/100</p>
         <p>
           <a className="help" href="#" target="_self">
             How it's calculated?
@@ -103,7 +104,7 @@ export class Stats extends React.Component {
               onChange={this.handleChange}
               valueKey="id"
               labelKey="name"
-              options={this.props.profile.additionalOptions}
+              options={this.props.trainingFactors}
             />
           </form>
           {compareChart}
@@ -115,7 +116,10 @@ export class Stats extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    profile: state.profileReducer.profile
+    trainingFactors: state.profileReducer.trainingFactors,
+    rank: state.profileReducer.rank,
+    progressChart: state.profileReducer.progressChart,
+    compareChart: state.profileReducer.compareChart
   };
 };
 export default connect(mapStateToProps)(Stats);

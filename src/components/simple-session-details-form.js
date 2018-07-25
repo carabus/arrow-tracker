@@ -5,48 +5,56 @@ import { connect } from "react-redux";
 import SessionOption from "./session-option";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
-/*import SessionOptionsAutocomplete from "./session-options-autocomplete.js";*/
+import { fetchTrainingFactors } from "../actions/profile";
 
 export class SimpleSessionDetailsForm extends React.Component {
   state = {
-    selectedOption: ""
+    selectedOption: []
   };
 
   onSubmit = event => {
     event.preventDefault();
+    console.log(this.state.selectedOption);
+
+    const selectedOptionsNames = Object.values(this.state.selectedOption).map(
+      option => option.name
+    );
+
+    console.log(selectedOptionsNames);
 
     if (this.props.currentSession) {
-      this.props.dispatch(
-        updateSession(this.props.currentSession.id, {
-          distance: this.distance.value,
-          distanceUnits: this.distanceUnits.value,
-          additionalOptions: Object.values(this.state.selectedOption)
-        })
-      );
+      let updatedSession = this.props.currentSession;
+      updatedSession.distance = this.distance.value;
+      updatedSession.distanceUnits = this.distanceUnits.value;
+      updatedSession.trainingFactors = selectedOptionsNames;
+      this.props.dispatch(updateSession(updatedSession));
       this.props.editingCallback();
       return;
     }
 
     this.props.dispatch(
-      createSession({
-        startDate: this.props.startDate,
-        distance: this.distance.value,
-        distanceUnits: this.distanceUnits.value,
-        additionalOptions: Object.values(this.state.selectedOption),
-        history: this.props.history
-      })
+      createSession(
+        {
+          distance: this.distance.value,
+          distanceUnits: this.distanceUnits.value,
+          trainingFactors: selectedOptionsNames
+        },
+        this.props.history
+      )
     );
   };
 
   componentDidMount() {
+    if (!this.props.trainingFactors.length) {
+      console.log("I did not fetch any training factors");
+      this.props.dispatch(fetchTrainingFactors());
+    }
     if (this.props.currentSession) {
       this.distance.value = this.props.currentSession.distance;
       this.distanceUnits.value = this.props.currentSession.distanceUnits;
-      const selectedOption = this.props.currentSession.additionalOptions.map(
-        (option, index) => {
-          console.log(option);
-          console.log(index);
-          return { id: option.id, name: option.name };
+      const selectedOption = this.props.currentSession.trainingFactors.map(
+        option => {
+          return { id: option, name: option };
         }
       );
       console.log("STATE", selectedOption);
@@ -96,13 +104,15 @@ export class SimpleSessionDetailsForm extends React.Component {
                 onChange={this.handleChange}
                 valueKey="id"
                 labelKey="name"
-                options={this.props.profile.additionalOptions}
+                options={this.props.trainingFactors}
               />
             </fieldset>
           </div>
 
           <button type="submit">Submit</button>
-          <button type="reset">Reset</button>
+          <button type="button" onClick={() => this.props.editingCallback()}>
+            Cancel
+          </button>
         </form>
       </section>
     );
@@ -112,7 +122,7 @@ export class SimpleSessionDetailsForm extends React.Component {
 const mapStateToProps = state => {
   console.log("MAP STATE TO PROPS FORM");
   return {
-    profile: state.profileReducer.profile
+    trainingFactors: state.profileReducer.trainingFactors
   };
 };
 

@@ -1,13 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { createEnd } from "../actions";
-import { createArrow } from "../actions";
-import { removeLastArrow } from "../actions";
+import {
+  createEnd,
+  createArrow,
+  removeLastArrow,
+  fetchSessions
+} from "../actions";
 import TargetCanvas from "./target-canvas";
 import Arrow from "./arrow";
 
 export class End extends React.Component {
+  componentDidMount() {
+    if (!this.props.session) {
+      this.props.dispatch(fetchSessions());
+    }
+  }
+
   constructor(props) {
     super(props);
     this.createArrow = this.createArrow.bind(this);
@@ -16,8 +25,8 @@ export class End extends React.Component {
   createArrow(arrow) {
     this.props.dispatch(
       createArrow(
-        parseInt(this.props.match.params.sessionId, 10),
-        parseInt(this.props.end.id, 10),
+        this.props.session,
+        this.props.end,
         arrow.point,
         arrow.score,
         arrow.isInverted
@@ -35,17 +44,18 @@ export class End extends React.Component {
   }
 
   render() {
-    console.log("RENDER", this.props);
+    console.log("RENDER END: PROPS", this.props);
 
     if (!this.props.end) return null;
+
     const arrows = this.props.end.arrows.map(arrow => (
-      <Arrow arrow={arrow} key={arrow.id} />
+      <Arrow arrow={arrow} key={arrow._id} />
     ));
 
     return (
       <main role="main">
         <header>
-          <h1>End #{this.props.match.params.endNumber}</h1>
+          <h1>End #{this.props.endNum}</h1>
         </header>
         <section>
           <div>
@@ -60,10 +70,7 @@ export class End extends React.Component {
               type="button"
               onClick={() =>
                 this.props.dispatch(
-                  removeLastArrow(
-                    parseInt(this.props.match.params.sessionId, 10),
-                    parseInt(this.props.end.id, 10)
-                  )
+                  removeLastArrow(this.props.session, this.props.end)
                 )
               }
             >
@@ -78,14 +85,11 @@ export class End extends React.Component {
               type="button"
               onClick={() =>
                 this.props.dispatch(
-                  createEnd(
-                    parseInt(this.props.match.params.sessionId, 10),
-                    this.props.history
-                  )
+                  createEnd(this.props.session, this.props.history)
                 )
               }
             >
-              Next
+              + New End
             </button>
           </div>
           {/*
@@ -128,17 +132,20 @@ const mapStateToProps = (state, props) => {
     props.match.params.sessionId,
     props.match.params.endId
   );
+  console.log(state.archeryTrackerReducer.sessions);
   const session = state.archeryTrackerReducer.sessions.find(
-    session => session.id === parseInt(props.match.params.sessionId, 10)
+    session => session.id === props.match.params.sessionId
   );
   if (!session.ends) return { end: null };
 
   const end = session.ends.find(
-    end => end.id === parseInt(props.match.params.endNumber, 10)
+    end => end._id === props.match.params.endNumber
   );
   console.log("MAP STATE TO PROPS END", end);
   return {
-    end: end
+    session: session,
+    end: end,
+    endNum: session.ends.indexOf(end) + 1
   };
 };
 export default connect(mapStateToProps)(End);

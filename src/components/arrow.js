@@ -3,8 +3,8 @@ import "./arrow.css";
 
 export default function Arrow(props) {
   return (
-    <span className={`score ${colorMapping[props.arrow.arrowScore]}`}>
-      {props.arrow.arrowScore}
+    <span className={`score ${colorMapping[props.arrow.score]}`}>
+      {props.arrow.score}
     </span>
   );
 }

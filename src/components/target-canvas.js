@@ -4,14 +4,12 @@ import target from "../images/target.png";
 export default class TargetCanvas extends React.Component {
   constructor(props) {
     super(props);
-    console.log("CANVAS CONSTRUCTOR");
     this.setCanvasRef = element => {
       this.canvas = element;
     };
   }
 
   componentDidMount() {
-    console.log("CANVAS DID MOUNT", this.myRef, this.props.arrows);
     this.initTarget();
   }
 
@@ -131,7 +129,6 @@ export default class TargetCanvas extends React.Component {
   }
 
   handleMouseUp(e) {
-    console.log("MOUSE UP", e);
     const pos = this.getMousePos(this.canvas, e);
     const newArrow = this.generatePointOnTarget(pos, false);
     this.props.createArrow(newArrow);
@@ -178,10 +175,7 @@ export default class TargetCanvas extends React.Component {
     );
 
     this.props.arrows.forEach(arrow =>
-      this.drawDot(
-        arrow.arrowCoordinates,
-        arrow.isInverted ? "#FFFFFF" : "#000000"
-      )
+      this.drawDot(arrow.coordinates, arrow.isInverted ? "#FFFFFF" : "#000000")
     );
   }
 
@@ -244,8 +238,8 @@ export default class TargetCanvas extends React.Component {
     }
 
     this.props.arrows.forEach(arrow => {
-      const newX = -x * this.zoomFactor + arrow.arrowCoordinates.x * 2;
-      const newY = -y * this.zoomFactor + arrow.arrowCoordinates.y * 2;
+      const newX = -x * this.zoomFactor + arrow.coordinates.x * 2;
+      const newY = -y * this.zoomFactor + arrow.coordinates.y * 2;
       this.drawDot(
         { x: newX, y: isTouch ? newY + this.touchCursorOffset : newY },
         arrow.isInverted ? "#FFFFFF" : "#000000"
