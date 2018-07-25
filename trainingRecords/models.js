@@ -24,7 +24,8 @@ let trainingRecordSchema = mongoose.Schema(
         ]
       }
     ],
-    trainingFactors: [String]
+    trainingFactors: [String],
+    chart: [{ name: String, score: Number }]
   },
 
   { timestamps: { createdAt: "created" } }
@@ -39,6 +40,7 @@ trainingRecordSchema.methods.serialize = function() {
     score: this.score,
     maxScore: this.maxScore,
     ends: this.ends,
+    chart: this.chart,
     created: this.created
   };
 };

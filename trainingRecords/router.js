@@ -19,51 +19,47 @@ const jsonParser = bodyParser.json();
 // Post to create new Training Factor
 router.post("/", [jwtAuth, jsonParser], (req, res) => {
   // trim and normalize training factor values
-  const normalizedTrainingFactors = req.body.trainingFactors.map(factor =>
-    factor.trim().toLowerCase()
-  );
-
-  let createTrainingRecord = function() {
-    let trainingRecord = new TrainingRecord();
-    trainingRecord.user = req.user.id;
-    trainingRecord.distance = req.body.distance;
-    trainingRecord.distanceUnits = req.body.distanceUnits;
-    trainingRecord.score = 0;
-    trainingRecord.maxScore = 0;
-    trainingRecord.ends = [];
-    trainingRecord.trainingFactors = [...normalizedTrainingFactors];
-    return trainingRecord.save();
-  };
-
-  let createTrainingFactor = createTrainingRecord().then(trainingRecord => {
-    return TrainingFactor.insertMany(
-      normalizedTrainingFactors.map(factor => ({
-        user: req.user.id,
-        name: factor
-      }))
+  let normalizedTrainingFactors = [];
+  if (req.body.trainingFactors) {
+    normalizedTrainingFactors = req.body.trainingFactors.map(factor =>
+      factor.trim().toLowerCase()
     );
-  });
+  }
 
-  return Promise.all([createTrainingRecord(), createTrainingFactor])
-    .then(([trainingRecord, trainingFactors]) => {
-      return res.status(201).json(trainingRecord.serialize());
+  return TrainingFactor.insertMany(
+    normalizedTrainingFactors.map(factor => ({
+      user: req.user.id,
+      name: factor
+    }))
+  )
+    .then(factor => {
+      let trainingRecord = new TrainingRecord();
+      trainingRecord.user = req.user.id;
+      trainingRecord.distance = req.body.distance;
+      trainingRecord.distanceUnits = req.body.distanceUnits;
+      trainingRecord.score = 0;
+      trainingRecord.maxScore = 0;
+      trainingRecord.ends = [];
+      trainingRecord.trainingFactors = [...normalizedTrainingFactors];
+      return trainingRecord.save();
+    })
+    .then(newRecord => {
+      return res.status(201).json(newRecord.serialize());
     })
     .catch(err => {
       console.log(err);
-      // Forward validation errors on to the client, otherwise give a 500
-      // error because something unexpected has happened
-      if (err.reason === "ValidationError") {
-        return res.status(err.code).json(err);
-      }
       res.status(500).json({ code: 500, message: "Internal server error" });
     });
 });
 
 router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
   // trim and normalize training factor values
-  const normalizedTrainingFactors = req.body.trainingFactors.map(factor =>
-    factor.trim().toLowerCase()
-  );
+  let normalizedTrainingFactors = [];
+  if (req.body.trainingFactors) {
+    normalizedTrainingFactors = req.body.trainingFactors.map(factor =>
+      factor.trim().toLowerCase()
+    );
+  }
 
   const updated = {};
   updated["trainingFactors"] = normalizedTrainingFactors;
@@ -74,26 +70,54 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
     }
   });
 
-  return TrainingFactor.insertMany(
-    normalizedTrainingFactors.map(factor => ({
-      user: req.user.id,
-      name: factor.name
-    }))
-  )
-    .then(factor => {
-      return TrainingRecord.findByIdAndUpdate(
-        req.params.id,
-        { $set: updated },
-        { new: true }
-      );
-    })
-    .then(updatedRecord => {
-      return res.status(200).json(updatedRecord.serialize());
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ code: 500, message: "Internal server error" });
-    });
+  return (
+    TrainingFactor.insertMany(
+      normalizedTrainingFactors.map(factor => ({
+        user: req.user.id,
+        name: factor
+      }))
+    )
+      .then(factor => {
+        return TrainingRecord.findByIdAndUpdate(
+          req.params.id,
+          { $set: updated },
+          { new: true }
+        );
+      })
+      // calculate current and maximum session score
+      .then(updatedRecord => {
+        let sessionScore = 0;
+        let maxSessionScore = 0;
+        let chart = [];
+        updatedRecord.ends.forEach((end, index) => {
+          let endScore = 0;
+          end.arrows.forEach(arrow => {
+            sessionScore += arrow.score;
+            maxSessionScore += 10;
+            endScore += arrow.score;
+          });
+          chart.push({ name: `end${index + 1}`, score: endScore });
+        });
+        return TrainingRecord.findByIdAndUpdate(
+          updatedRecord.id,
+          {
+            $set: {
+              score: sessionScore,
+              maxScore: maxSessionScore,
+              chart: chart
+            }
+          },
+          { new: true }
+        );
+      })
+      .then(updatedRecord => {
+        return res.status(200).json(updatedRecord.serialize());
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ code: 500, message: "Internal server error" });
+      })
+  );
 });
 
 // Get training record by id
