@@ -154,4 +154,27 @@ router.get("/", jwtAuth, (req, res) => {
     });
 });
 
+// Get a page of training Records for a user
+router.get("/page/:pageNumber", jwtAuth, async (req, res) => {
+  try {
+    const page = parseInt(req.params.pageNumber, 10);
+    const trainingRecordsCount = await TrainingRecord.countDocuments({
+      user: req.user.id
+    });
+    const pageCount = Math.trunc(trainingRecordsCount / 5) + 1;
+    const trainingRecords = await TrainingRecord.find({ user: req.user.id })
+      .sort({ created: -1 })
+      .skip(page * 5)
+      .limit(5);
+
+    return res.json({
+      pageCount,
+      trainingRecords: trainingRecords.map(record => record.serialize())
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, message: "Internal server error" });
+  }
+});
+
 module.exports = { router };
