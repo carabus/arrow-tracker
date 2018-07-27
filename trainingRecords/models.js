@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 
 let trainingRecordSchema = mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    distance: Number,
-    distanceUnits: String,
-    score: Number,
-    maxScore: Number,
+    user: { type: String, required: true },
+    distance: { type: Number, required: true },
+    distanceUnits: { type: String, required: true },
+    score: { type: Number, default: 0 },
+    maxScore: { type: Number, default: 0 },
     ends: [
       {
         arrows: [

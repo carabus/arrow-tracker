@@ -26,15 +26,17 @@ router.post("/", [jwtAuth, jsonParser], (req, res) => {
     );
   }
 
+  console.log(normalizedTrainingFactors);
+
   return TrainingFactor.insertMany(
     normalizedTrainingFactors.map(factor => ({
-      user: req.user.id,
+      user: req.user.username,
       name: factor
     }))
   )
     .then(factor => {
       let trainingRecord = new TrainingRecord();
-      trainingRecord.user = req.user.id;
+      trainingRecord.user = req.user.username;
       trainingRecord.distance = req.body.distance;
       trainingRecord.distanceUnits = req.body.distanceUnits;
       trainingRecord.score = 0;
@@ -73,7 +75,7 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
   return (
     TrainingFactor.insertMany(
       normalizedTrainingFactors.map(factor => ({
-        user: req.user.id,
+        user: req.user.username,
         name: factor
       }))
     )
@@ -144,9 +146,11 @@ router.delete("/:id", jwtAuth, (req, res) => {
     });
 });
 
-// Get all training Records for a user
+// Get latest training Records for a user
 router.get("/", jwtAuth, (req, res) => {
-  return TrainingRecord.find({ user: req.user.id })
+  return TrainingRecord.find({ user: req.user.username })
+    .sort({ created: -1 })
+    .limit(10)
     .then(records => res.json(records.map(record => record.serialize())))
     .catch(err => {
       console.log(err);
@@ -159,10 +163,12 @@ router.get("/page/:pageNumber", jwtAuth, async (req, res) => {
   try {
     const page = parseInt(req.params.pageNumber, 10);
     const trainingRecordsCount = await TrainingRecord.countDocuments({
-      user: req.user.id
+      user: req.user.username
     });
     const pageCount = Math.trunc(trainingRecordsCount / 5) + 1;
-    const trainingRecords = await TrainingRecord.find({ user: req.user.id })
+    const trainingRecords = await TrainingRecord.find({
+      user: req.user.username
+    })
       .sort({ created: -1 })
       .skip(page * 5)
       .limit(5);

@@ -16,7 +16,7 @@ const jsonParser = bodyParser.json();
 
 // Get all training factors for a user
 router.get("/", jwtAuth, (req, res) => {
-  return TrainingFactor.distinct("name", { user: req.user.userId })
+  return TrainingFactor.distinct("name", { user: req.user.username })
     .then(factors => factors.map(factor => ({ id: factor, name: factor })))
     .then(factors => res.json(factors))
     .catch(err => {

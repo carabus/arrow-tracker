@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 
 let trainingFactorSchema = mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  user: { type: String, required: true },
   name: { type: String, required: true }
 });
 
