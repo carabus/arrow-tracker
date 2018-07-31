@@ -22,7 +22,7 @@ router.get("/progress", jwtAuth, (req, res) => {
     { user: req.user.username } /*,
     "created score maxScore"*/
   )
-    .sort({ created: -1 })
+    .sort({ created: 1 })
     .then(records => {
       console.log(records);
       return res.json(
@@ -38,13 +38,16 @@ router.get("/progress", jwtAuth, (req, res) => {
     });
 });
 
-router.post("/compare", jwtAuth, (req, res) => {
+router.post("/compare", [jwtAuth, jsonParser], (req, res) => {
   // Get sessions with specific training factors
   return TrainingRecord.find(
-    { user: req.user.username, trainingFactors: req.body.selectedFactor },
+    {
+      user: req.user.username,
+      trainingFactors: req.body.selectedFactors
+    },
     "created score maxScore"
   )
-    .sort({ created: -1 })
+    .sort({ created: 1 })
     .then(records =>
       res.json(
         records.map((record, index) => ({
