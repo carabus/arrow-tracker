@@ -9,7 +9,6 @@ passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate("jwt", { session: false });
 
 const { TrainingRecord } = require("../trainingRecords");
-const { TrainingFactor } = require("./models");
 
 const router = express.Router();
 
