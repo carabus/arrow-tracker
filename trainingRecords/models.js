@@ -25,7 +25,8 @@ let trainingRecordSchema = mongoose.Schema(
       }
     ],
     trainingFactors: [String],
-    chart: [{ name: String, score: Number }]
+    chart: [{ name: String, score: Number }],
+    rankingDistance: { type: Number }
   },
 
   { timestamps: { createdAt: "created" } }
@@ -41,6 +42,7 @@ trainingRecordSchema.methods.serialize = function() {
     maxScore: this.maxScore,
     ends: this.ends,
     chart: this.chart,
+    rankingDistance: this.rankingDistance,
     created: this.created
   };
 };

@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const { app, runServer, closeServer } = require("../server");
 const { User } = require("../users");
 const { Rank } = require("../ranks");
+const { TrainingRecord } = require("../trainingRecords");
 const { JWT_SECRET, TEST_DATABASE_URL } = require("../config");
 
 const expect = chai.expect;
@@ -47,6 +48,45 @@ describe("api/rank", function() {
     }
   ];
 
+  const trainingRecord1 = {
+    distance: 30,
+    distanceUnits: "meters",
+    ends: [
+      {
+        arrows: [
+          {
+            score: 8
+          },
+          {
+            score: 8
+          },
+          {
+            score: 8
+          }
+        ]
+      }
+    ]
+  };
+  const trainingRecord2 = {
+    distance: 16,
+    distanceUnits: "yards",
+    ends: [
+      {
+        arrows: [
+          {
+            score: 5
+          },
+          {
+            score: 5
+          },
+          {
+            score: 5
+          }
+        ]
+      }
+    ]
+  };
+
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
@@ -80,7 +120,9 @@ describe("api/rank", function() {
   }
 
   afterEach(function() {
-    return Rank.remove({}).then(() => User.remove({}));
+    return Rank.remove({})
+      .then(() => User.remove({}))
+      .then(() => TrainingRecord.remove());
   });
 
   function createRanks() {
@@ -99,6 +141,114 @@ describe("api/rank", function() {
         .then(res => {
           expect(res).to.have.status(200);
           expect(res.body).to.equal(50);
+        });
+    });
+  });
+
+  describe("POST", function() {
+    it("Should calculate and insert user rank", function() {
+      return chai
+        .request(app)
+        .post(`/api/trainingRecords/`)
+        .send(trainingRecord1)
+        .set("authorization", `Bearer ${USERS["user1"].token}`)
+        .then(res => {
+          return chai
+            .request(app)
+            .put(`/api/trainingRecords/${res.body.id}`)
+            .send(trainingRecord1)
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(() => {
+          return chai
+            .request(app)
+            .post(`/api/trainingRecords/`)
+            .send(trainingRecord2)
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(res => {
+          return chai
+            .request(app)
+            .put(`/api/trainingRecords/${res.body.id}`)
+            .send(trainingRecord2)
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+
+        .then(() => {
+          return chai
+            .request(app)
+            .post("/api/ranks/")
+            .send({})
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(res => {
+          expect(res).to.have.status(201);
+        })
+        .then(() => {
+          return Rank.findOne({ user: "user1" });
+        })
+        .then(rank => {
+          console.log(rank);
+          expect(rank).to.not.be.null;
+          expect(rank.rank).to.equal(70.5);
+        });
+    });
+
+    it("Should upsert user rank on update", function() {
+      return chai
+        .request(app)
+        .post(`/api/trainingRecords/`)
+        .send(trainingRecord1)
+        .set("authorization", `Bearer ${USERS["user1"].token}`)
+        .then(res => {
+          return chai
+            .request(app)
+            .put(`/api/trainingRecords/${res.body.id}`)
+            .send(trainingRecord1)
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(() => {
+          return chai
+            .request(app)
+            .post("/api/ranks/")
+            .send({})
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(res => {
+          expect(res).to.have.status(201);
+        })
+        .then(() => {
+          return chai
+            .request(app)
+            .post(`/api/trainingRecords/`)
+            .send(trainingRecord2)
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(res => {
+          return chai
+            .request(app)
+            .put(`/api/trainingRecords/${res.body.id}`)
+            .send(trainingRecord2)
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(() => {
+          return chai
+            .request(app)
+            .post("/api/ranks/")
+            .send({})
+            .set("authorization", `Bearer ${USERS["user1"].token}`);
+        })
+        .then(res => {
+          expect(res).to.have.status(201);
+        })
+        .then(() => {
+          return Rank.find({ user: "user1" });
+        })
+        .then(rank => {
+          console.log(rank);
+          expect(rank).to.be.an("array");
+          expect(rank).to.have.length(1);
+          expect(rank[0].rank).to.equal(70.5);
         });
     });
   });

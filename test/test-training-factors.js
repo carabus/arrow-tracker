@@ -54,12 +54,6 @@ describe("api/trainingFactors", function() {
       });
   }
 
-  function createTrainingRecords(user, trainingRecords) {
-    return TrainingRecord.insertMany(
-      trainingRecords.map(record => Object.assign({}, record, { user }))
-    );
-  }
-
   afterEach(function() {
     return TrainingRecord.remove({}).then(() =>
       User.remove({}).then(() => TrainingFactor.remove({}))

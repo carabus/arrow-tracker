@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 let userRankSchema = mongoose.Schema(
   {
-    user: { type: String, required: true },
+    user: { type: String, required: true, unique: true },
     rank: { type: Number, required: true }
   },
   { timestamps: { updatedAt: "updatedAt" } }

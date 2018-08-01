@@ -26,8 +26,6 @@ router.post("/", [jwtAuth, jsonParser], (req, res) => {
     );
   }
 
-  console.log(normalizedTrainingFactors);
-
   return TrainingFactor.insertMany(
     normalizedTrainingFactors.map(factor => ({
       user: req.user.username,
@@ -43,16 +41,26 @@ router.post("/", [jwtAuth, jsonParser], (req, res) => {
       trainingRecord.maxScore = 0;
       trainingRecord.ends = [];
       trainingRecord.trainingFactors = [...normalizedTrainingFactors];
+      // get units independent distance
+      trainingRecord.rankingDistance = getRankingDistance(
+        req.body.distance,
+        req.body.distanceUnits
+      );
       return trainingRecord.save();
     })
     .then(newRecord => {
-      return res.status(201).json(newRecord.serialize());
+      res.status(201).json(newRecord.serialize());
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({ code: 500, message: "Internal server error" });
     });
 });
+
+function getRankingDistance(distance, units) {
+  if (units === "meters") return distance;
+  return Math.round(distance * 0.9144);
+}
 
 router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
   // trim and normalize training factor values
@@ -71,6 +79,13 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
       updated[field] = req.body[field];
     }
   });
+
+  if ("distance" in req.body || "distanceUnits" in req.body) {
+    updated["rankingDistance"] = getRankingDistance(
+      req.body.distance,
+      req.body.distanceUnits
+    );
+  }
 
   return (
     TrainingFactor.insertMany(
@@ -113,7 +128,7 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
         );
       })
       .then(updatedRecord => {
-        return res.status(200).json(updatedRecord.serialize());
+        res.status(200).json(updatedRecord.serialize());
       })
       .catch(err => {
         console.log(err);
@@ -151,7 +166,9 @@ router.get("/", jwtAuth, (req, res) => {
   return TrainingRecord.find({ user: req.user.username })
     .sort({ created: -1 })
     .limit(10)
-    .then(records => res.json(records.map(record => record.serialize())))
+    .then(records => {
+      res.json(records.map(record => record.serialize()));
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json({ code: 500, message: "Internal server error" });
@@ -173,7 +190,7 @@ router.get("/page/:pageNumber", jwtAuth, async (req, res) => {
       .skip(page * 5)
       .limit(5);
 
-    return res.json({
+    res.json({
       pageCount,
       trainingRecords: trainingRecords.map(record => record.serialize())
     });

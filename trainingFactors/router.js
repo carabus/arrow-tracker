@@ -18,7 +18,9 @@ const jsonParser = bodyParser.json();
 router.get("/", jwtAuth, (req, res) => {
   return TrainingFactor.distinct("name", { user: req.user.username })
     .then(factors => factors.map(factor => ({ id: factor, name: factor })))
-    .then(factors => res.json(factors))
+    .then(factors => {
+      res.json(factors);
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json({ message: "Internal server error" });
