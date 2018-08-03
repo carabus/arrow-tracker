@@ -188,7 +188,6 @@ describe("api/rank", function() {
           return Rank.findOne({ user: "user1" });
         })
         .then(rank => {
-          console.log(rank);
           expect(rank).to.not.be.null;
           expect(rank.rank).to.equal(70.5);
         });
@@ -245,7 +244,6 @@ describe("api/rank", function() {
           return Rank.find({ user: "user1" });
         })
         .then(rank => {
-          console.log(rank);
           expect(rank).to.be.an("array");
           expect(rank).to.have.length(1);
           expect(rank[0].rank).to.equal(70.5);

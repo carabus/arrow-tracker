@@ -34,7 +34,6 @@ router.get("/", jwtAuth, (req, res) => {
 router.post("/", jwtAuth, (req, res) => {
   return TrainingRecord.find()
     .then(trainingRecords => {
-      console.log("Training Records", trainingRecords);
       const avgRank =
         trainingRecords
           .map(

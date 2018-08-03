@@ -171,7 +171,6 @@ describe("api/charts/progress", function() {
             .set("authorization", `Bearer ${USERS["user1"].token}`);
         })
         .then(res => {
-          console.log(res.body);
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array");
           expect(res.body).to.have.length(2);
@@ -219,7 +218,6 @@ describe("api/charts/progress", function() {
             .set("authorization", `Bearer ${USERS["user1"].token}`);
         })
         .then(res => {
-          console.log(res.body);
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array");
           expect(res.body).to.have.length(2);
@@ -265,7 +263,6 @@ describe("api/charts/progress", function() {
             .set("authorization", `Bearer ${USERS["user1"].token}`);
         })
         .then(res => {
-          console.log(res.body);
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array");
           expect(res.body).to.have.length(1);
@@ -309,7 +306,6 @@ describe("api/charts/progress", function() {
             .set("authorization", `Bearer ${USERS["user1"].token}`);
         })
         .then(res => {
-          console.log(res.body);
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array");
           expect(res.body).to.have.length(1);

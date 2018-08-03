@@ -23,7 +23,6 @@ router.get("/progress", jwtAuth, (req, res) => {
   )
     .sort({ created: 1 })
     .then(records => {
-      console.log(records);
       return res.json(
         records.map((record, index) => ({
           session: index + 1,
