@@ -46,14 +46,14 @@ router.post("/compare", [jwtAuth, jsonParser], (req, res) => {
     "created score maxScore"
   )
     .sort({ created: 1 })
-    .then(records =>
+    .then(records => {
       res.json(
         records.map((record, index) => ({
           session: index + 1,
           score: Math.round((record.score / record.maxScore) * 100)
         }))
-      )
-    )
+      );
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json({ code: 500, message: "Internal server error" });

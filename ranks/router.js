@@ -21,7 +21,8 @@ router.get("/", jwtAuth, (req, res) => {
     .sort({ rank: 1 })
     .then(ranks => {
       const i = ranks.findIndex(rank => rank.user === req.user.username) + 1;
-      return (100 * (i - 0.5)) / ranks.length;
+      if (i === -1) return res.json(0);
+      return Math.round((100 * (i - 0.5)) / ranks.length);
     })
     .then(percentile => res.json(percentile))
     .catch(err => {

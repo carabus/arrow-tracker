@@ -1,3 +1,5 @@
+// This script creates demo data using backend endpoints
+
 const fetch = require("node-fetch");
 const faker = require("faker");
 const jwt = require("jsonwebtoken");
@@ -11,7 +13,7 @@ const start = async () => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const username = `${firstName}.${lastName}`;
-    const password = faker.internet.password();
+    const password = "password1234";
     const token = "";
 
     users.push({ username, password, firstName, lastName, token });
@@ -114,7 +116,10 @@ function generateSessions(username) {
 
     const distance = getRandomInt(10, 30);
     const distanceUnits = distanceUnitsList[getRandomInt(0, 1)];
-    const trainingFactors = [additionalFactorsList[getRandomInt(0, 3)]];
+    const hasFactors = getRandomInt(0, 1);
+    const trainingFactors = hasFactors
+      ? [additionalFactorsList[getRandomInt(0, 3)]]
+      : [];
     sessions.push({ distance, distanceUnits, trainingFactors, ends });
   }
   return sessions;
