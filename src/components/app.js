@@ -15,6 +15,7 @@ import LandingPage from "./landing-page";
 import Dashboard from "./dashboard";
 import RegistrationPage from "./registration-page";
 import { refreshAuthToken } from "../actions/auth";
+import { computeUserRank } from "../actions/profile";
 import Session from "./session";
 import End from "./end";
 import NewSession from "./new-session";
@@ -38,6 +39,10 @@ class App extends Component {
     this.refreshInterval = setInterval(
       () => this.props.dispatch(refreshAuthToken()),
       60 * 60 * 1000 // One hour
+    );
+    this.statsGenInterval = setInterval(
+      () => this.props.dispatch(computeUserRank()),
+      60 * 5 * 1000
     );
   }
 
