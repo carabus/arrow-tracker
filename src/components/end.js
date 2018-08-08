@@ -44,8 +44,6 @@ export class End extends React.Component {
   }
 
   render() {
-    console.log("RENDER END: PROPS", this.props);
-
     if (!this.props.end) return null;
 
     const arrows = this.props.end.arrows.map(arrow => (
@@ -66,6 +64,18 @@ export class End extends React.Component {
           </div>
           <div>
             {arrows}
+            <button
+              type="button"
+              onClick={() =>
+                this.createArrow({
+                  point: { x: -1, y: -1 },
+                  score: 0,
+                  isInverted: false
+                })
+              }
+            >
+              Miss
+            </button>
             <button
               type="button"
               onClick={() =>
