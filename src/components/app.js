@@ -59,9 +59,8 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          {/*}
           <HeaderBar />
-    {*/}
+
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/register" component={RegistrationPage} />
