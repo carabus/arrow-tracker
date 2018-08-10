@@ -13,7 +13,7 @@ body {
 nav,
 footer {
   padding: 1% 0;
-  background-color: #aaa;
+  background-color: gainsboro;
 }
 
 nav {
@@ -25,17 +25,49 @@ nav {
 }
 
 header {
-  padding: 45px 15px;
+  margin-top: 2%;
+  border-top: solid transparent 30px;
+  padding: 0 15px;
 }
 
 section {
-  min-height: 200px;
-  padding: 30px 15px;
-  background-color: #bbb;
+  padding: 10px 15px;
+  background-color: white;
 }
 
-section:nth-child(even) {
-  background-color: #ddd;
+h1 {
+  margin: 15px 0 0 0;
+  font-size: 70px;
+}
+
+.b {
+  background-color: black;
+  color: #fff535;
+}
+
+.form-error {
+  color: rgb(253, 27, 20);
+}
+
+.max-width {
+  max-width: 380px;
+}
+
+.bg-yellow {
+  background-color: rgba(255, 245, 53, 0.2);
+}
+
+.bg-blue {
+  background-color: rgba(65, 183, 200, 0.2);
+}
+
+.bg-red {
+  background-color: rgba(253, 27, 20, 0.2);
+}
+
+h2,
+h3 {
+  margin: 15px 0;
 }
 
 p {
@@ -47,28 +79,76 @@ p + p {
   margin-top: 15px;
 }
 
-dream-description::before {
-  font-family: Georgia, serif;
-  position: absolute;
-  font-size: 6em;
-  line-height: 1;
-  top: 0;
-  left: 0;
-  content: "here";
+button {
+  margin: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  padding: 10px;
+  border: solid #444 1px;
+  color: #444;
+  font-weight: bold;
 }
 
-table {
-  width: 100%;
+/*
+.btn-grad {
+  background-image: linear-gradient(to right, #f09819 0%, #edde5d 51%);
 }
+.btn-grad:hover {
+  background-position: right center;
+}
+.button-secondary {
+  border: 1px solid #d7dada;
+  color: #000000;
+  background-color: #f4f5f5;
+  background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f4f5f5, endColorstr=#dfdddd);
+}
+
+.button-secondary:hover {
+  border: 1px solid #bfc4c4;
+  background-color: #d9dddd;
+  background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
+}*/
+/*
+.button_secondary {
+  border: 1px solid #b7b7b7;
+  color: #000000;
+  background-color: #d3d3d3;
+  background-image: linear-gradient(to bottom, #d3d3d3, #707070);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d3d3d3, endColorstr=#707070);
+}
+
+.button_secondary:hover {
+  border: 1px solid #a0a0a0;
+  background-color: #bababa;
+  background-image: linear-gradient(to bottom, #bababa, #575757);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#bababa, endColorstr=#575757);
+}*/
+
+.button-primary {
+  border: 1px solid #616261;
+  color: #ffffff;
+  background-color: #7d7e7d;
+  background-image: linear-gradient(to bottom, #7d7e7d, #0e0e0e);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#7d7e7d, endColorstr=#0e0e0e);
+}
+
+.button-primary:hover {
+  border: 1px solid #4a4b4a;
+  background-color: #646464;
+  background-image: linear-gradient(to bottom, #646464, #282828);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#646464, endColorstr=#282828);
+}
+
+.sub-section {
+  padding: 5px 0;
+}
+
 .help {
   font-size: 12px;
 }
 
-.tag {
-  border: solid black 1px;
-  padding: 5px;
-  font-size: 12px;
-}
 #container-compare,
 #container {
   margin: 0 auto;
@@ -86,29 +166,30 @@ dd ul {
 }
 
 form {
+  margin: 0 auto;
+  max-width: 500px;
   text-align: left;
 }
 
 input,
 textarea {
-  max-width: 500px;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
 }
 
 input[type="number"] {
   width: 50px;
 }
 
+button:disabled {
+  color: darkgray;
+}
+
 label {
   display: block;
 }
 
-label.add-options-group {
-  display: inline;
-}
-
-input[type="checkbox"] {
-  display: inline;
-}
 fieldset {
   text-align: left;
   border: none;
@@ -120,7 +201,6 @@ fieldset {
 }
 
 canvas {
-  border: 1px solid #000;
   cursor: crosshair;
   touch-action: none;
 }

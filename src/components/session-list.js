@@ -28,9 +28,7 @@ export function SessionList(props) {
 
   return (
     <section>
-      <header>
-        <h2>My Training Sessions</h2>
-      </header>
+      <h3>My Training Sessions</h3>
       <div className="session-list">
         <ul>{sessions}</ul>
       </div>

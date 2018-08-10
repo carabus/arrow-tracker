@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import LoginForm from "./login-form";
+import MainHeader from "./main-header";
 
 export function LandingPage(props) {
   // If we are logged in redirect straight to the user's dashboard
@@ -11,20 +11,25 @@ export function LandingPage(props) {
   }
   return (
     <main role="main">
-      <header role="banner">
-        <h1>Archery Tracker</h1>
-      </header>
-
+      <MainHeader />
       <section>
-        <header>
-          <h3>Start Now</h3>
-          <LoginForm />
-          <Link to="/register">Register</Link>
-        </header>
+        <p>Nock.. Draw.. Loose!</p>
+        <p className="max-width">
+          Record your archery training scores and see how you rate against other
+          app users.
+        </p>
+        <div className="sub-section">
+          <Link to="/register">
+            <button className="button-primary">Sign Up Now</button>
+          </Link>
+        </div>
+        <p>
+          or <Link to="/login">Log in</Link>
+        </p>
       </section>
-      <section>
+      <section className="bg-yellow">
         <header>
-          <h3>Track your archery training scores easily on your phone</h3>
+          <h2>Track your archery training scores easily on your phone</h2>
         </header>
         <p>
           [<em>placeholder for video of entering scores</em>]
@@ -32,9 +37,9 @@ export function LandingPage(props) {
       </section>
       <section>
         <header>
-          <h3>
+          <h2>
             Gain useful insights into you training through interactive charts.
-          </h3>
+          </h2>
         </header>
         <p>
           [<em>placeholder for video of compare charts</em>]
@@ -49,9 +54,9 @@ export function LandingPage(props) {
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </section>
-      <section>
+      <section className="bg-yellow">
         <header>
-          <h3>Find out how you rate against other app users</h3>
+          <h2>Find out how you rate against other app users</h2>
         </header>
         <p>
           [<em>placeholder for image related to ratings</em>]

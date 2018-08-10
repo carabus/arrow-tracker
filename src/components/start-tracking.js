@@ -5,7 +5,9 @@ export default function StartTracking(props) {
   return (
     <section>
       <Link to={`/new/session`}>
-        <button type="button">+ Start tracking</button>
+        <button className="button-primary" type="button">
+          + Start recording
+        </button>
       </Link>
     </section>
   );

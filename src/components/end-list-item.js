@@ -15,22 +15,23 @@ export function EndListItem(props) {
     <section>
       <h2>End {props.endNum}</h2>
       <p>{arrows}</p>
-
-      <button
-        type="button"
-        onClick={() => {
-          props.history.push(
-            `/session/${props.session.id}/end/${props.end._id}`
-          );
-        }}
-      >
-        Edit
-      </button>
-      <button
-        onClick={() => props.dispatch(deleteEnd(props.session, props.end))}
-      >
-        Delete
-      </button>
+      <div className="sub-section">
+        <button
+          type="button"
+          onClick={() => {
+            props.history.push(
+              `/session/${props.session.id}/end/${props.end._id}`
+            );
+          }}
+        >
+          Edit
+        </button>
+        <button
+          onClick={() => props.dispatch(deleteEnd(props.session, props.end))}
+        >
+          Delete
+        </button>
+      </div>
     </section>
   );
 }

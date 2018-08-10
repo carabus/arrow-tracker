@@ -14,6 +14,7 @@ import HeaderBar from "./header-bar";
 import LandingPage from "./landing-page";
 import Dashboard from "./dashboard";
 import RegistrationPage from "./registration-page";
+import LoginForm from "./login-form";
 import { refreshAuthToken } from "../actions/auth";
 import { computeUserRank } from "../actions/profile";
 import Session from "./session";
@@ -58,10 +59,13 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
+          {/*}
           <HeaderBar />
+    {*/}
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/register" component={RegistrationPage} />
+            <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={Dashboard} />
 
             <Route exact path="/session/:sessionId" component={Session} />
@@ -72,6 +76,7 @@ class App extends Component {
               path="/session/:sessionId/end/:endNumber"
               component={End}
             />
+            <Route exact path="*" component={LandingPage} />
           </Switch>
         </div>
       </Router>

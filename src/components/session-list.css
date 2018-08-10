@@ -1,12 +1,13 @@
 .session-list ul {
   margin: 0 auto;
-  width: 100%;
+  max-width: 600px;
   list-style-type: none;
   padding: 0;
 }
 
 .session-list li {
-  border: solid black 1px;
+  width: 100%;
+  border: solid #444 1px;
   padding: 7px;
   text-align: left;
   display: flex;
