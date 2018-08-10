@@ -72,6 +72,7 @@ class App extends Component {
               path="/session/:sessionId/end/:endNumber"
               component={End}
             />
+            <Route exact path="/" component={LandingPage} />
           </Switch>
         </div>
       </Router>
