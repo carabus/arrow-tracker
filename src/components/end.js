@@ -3,15 +3,23 @@ import { connect } from "react-redux";
 
 import {
   createEnd,
+  /*
   createArrow,
-  removeLastArrow,
-  fetchSessions
+  removeLastArrow,*/
+  fetchSessions,
+  createArrow1,
+  removeLastArrow1,
+  updateSession
 } from "../actions";
 import TargetCanvas from "./target-canvas";
 import Arrow from "./arrow";
 import NavigationTrail from "./navigation-trail";
 
 export class End extends React.Component {
+  componentWillUnmount() {
+    console.log("Component Will Unmount");
+    this.props.dispatch(updateSession(this.props.session));
+  }
   componentDidMount() {
     if (!this.props.session) {
       this.props.dispatch(fetchSessions());
@@ -25,7 +33,7 @@ export class End extends React.Component {
 
   createArrow(arrow) {
     this.props.dispatch(
-      createArrow(
+      createArrow1(
         this.props.session,
         this.props.end,
         arrow.point,
@@ -35,20 +43,11 @@ export class End extends React.Component {
     );
   }
 
-  removeLastArrow() {
-    this.props.dispatch(
-      removeLastArrow(
-        parseInt(this.props.match.params.sessionId, 10),
-        parseInt(this.props.end.id, 10)
-      )
-    );
-  }
-
   render() {
     if (!this.props.end) return null;
 
-    const arrows = this.props.end.arrows.map(arrow => (
-      <Arrow arrow={arrow} key={arrow._id} />
+    const arrows = this.props.end.arrows.map((arrow, index) => (
+      <Arrow arrow={arrow} key={index} />
     ));
 
     return (
@@ -84,7 +83,7 @@ export class End extends React.Component {
               type="button"
               onClick={() =>
                 this.props.dispatch(
-                  removeLastArrow(this.props.session, this.props.end)
+                  removeLastArrow1(this.props.session, this.props.end)
                 )
               }
             >
@@ -121,7 +120,9 @@ const mapStateToProps = (state, props) => {
   const session = state.archeryTrackerReducer.sessions.find(
     session => session.id === props.match.params.sessionId
   );
-  if (!session.ends) return { end: null };
+
+  if (!session) return { session: null, end: null };
+  if (!session.ends) return { session: session, end: null };
 
   const end = session.ends.find(
     end => end._id === props.match.params.endNumber

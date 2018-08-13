@@ -10,7 +10,6 @@ import {
 import "./app.css";
 
 import { loadData } from "../actions";
-import HeaderBar from "./header-bar";
 import LandingPage from "./landing-page";
 import Dashboard from "./dashboard";
 import RegistrationPage from "./registration-page";
@@ -59,8 +58,6 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <HeaderBar />
-
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/register" component={RegistrationPage} />
@@ -75,7 +72,7 @@ class App extends Component {
               path="/session/:sessionId/end/:endNumber"
               component={End}
             />
-            <Route exact path="*" component={LandingPage} />
+            <Redirect to="/" />
           </Switch>
         </div>
       </Router>

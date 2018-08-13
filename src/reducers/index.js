@@ -74,6 +74,64 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
       break;
     }
+
+    case actions.CREATE_ARROW1: {
+      console.log(state.sessions);
+      console.log(action);
+      const newArrow = {
+        coordinates: action.point,
+        score: action.score,
+        isInverted: action.isInverted
+      };
+      let sessions = state.sessions.map(session => {
+        if (session.id !== action.session.id) {
+          return session;
+        }
+
+        let ends = session.ends.map(end => {
+          if (end.id !== action.end.id) {
+            return end;
+          }
+          return Object.assign({}, end, { arrows: [...end.arrows, newArrow] });
+        });
+        return Object.assign({}, session, {
+          ends: [...ends]
+        });
+      });
+
+      console.log(sessions, state.sessions);
+      return Object.assign({}, state, {
+        sessions
+      });
+
+      break;
+    }
+
+    case actions.REMOVE_LAST_ARROW1: {
+      let sessions = state.sessions.map(session => {
+        if (session.id !== action.session.id) {
+          return session;
+        }
+
+        let ends = session.ends.map(end => {
+          if (end.id !== action.end.id) {
+            return end;
+          }
+          return Object.assign({}, end, {
+            arrows: end.arrows.slice(0, end.arrows.length - 1)
+          });
+        });
+        return Object.assign({}, session, {
+          ends: [...ends]
+        });
+      });
+      console.log(sessions, state.sessions);
+      return Object.assign({}, state, {
+        sessions
+      });
+      break;
+    }
+
     default:
       return { ...state };
   }

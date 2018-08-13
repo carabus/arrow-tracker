@@ -27,7 +27,7 @@ export function LandingPage(props) {
           or <Link to="/login">Log in</Link>
         </p>
       </section>
-      <section className="bg-yellow">
+      <section>
         <header>
           <h2>Track your archery training scores easily on your phone</h2>
         </header>
@@ -54,7 +54,7 @@ export function LandingPage(props) {
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </section>
-      <section className="bg-yellow">
+      <section>
         <header>
           <h2>Find out how you rate against other app users</h2>
         </header>

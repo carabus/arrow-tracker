@@ -153,6 +153,23 @@ export const deleteEnd = (session, end) => dispatch => {
   dispatch(updateSession(session));
 };
 
+export const CREATE_ARROW1 = "CREATE_ARROW1";
+export const createArrow1 = (session, end, point, score, isInverted) => ({
+  type: CREATE_ARROW1,
+  session,
+  end,
+  point,
+  score,
+  isInverted
+});
+
+export const REMOVE_LAST_ARROW1 = "REMOVE_LAST_ARROW1";
+export const removeLastArrow1 = (session, end) => ({
+  type: REMOVE_LAST_ARROW1,
+  session,
+  end
+});
+/*
 export const CREATE_ARROW = "CREATE_ARROW";
 export const createArrow = (
   session,
@@ -173,4 +190,4 @@ export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
 export const removeLastArrow = (session, end) => dispatch => {
   session.ends[session.ends.indexOf(end)].arrows.splice(-1, 1);
   dispatch(updateSession(session));
-};
+};*/

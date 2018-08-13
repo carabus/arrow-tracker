@@ -6,12 +6,12 @@
 
 .red {
   color: black;
-  background-color: #fd1b14;
+  background-color: rgb(253, 27, 20);
 }
 
 .blue {
   color: black;
-  background-color: #41b7c8;
+  background-color: rgb(65, 183, 200);
 }
 
 .yellow {

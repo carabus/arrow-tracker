@@ -2,7 +2,27 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("./images/arrows-background.jpg") no-repeat fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 body {
+  /*
+  background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.6)),
+    url("./images/arrows-background.jpg");
+  background-size: cover;
+
+  background-attachment: fixed;
+  */
   font-family: "Open Sans", sans-serif;
   font-size: 20px;
   color: #444;
@@ -32,12 +52,11 @@ header {
 
 section {
   padding: 10px 15px;
-  background-color: white;
 }
 
 h1 {
   margin: 15px 0 0 0;
-  font-size: 70px;
+  font-size: 100px;
 }
 
 .b {
@@ -142,7 +161,7 @@ button {
 }
 
 .sub-section {
-  padding: 5px 0;
+  padding: 7px 0;
 }
 
 .help {
@@ -157,7 +176,7 @@ button {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 10px;
-  background-color: #fff;
+  background-color: white;
 }
 
 dd ul {
