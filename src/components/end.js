@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import "./end.css";
 
 import {
   createEnd,
@@ -14,10 +15,10 @@ import {
 import TargetCanvas from "./target-canvas";
 import Arrow from "./arrow";
 import NavigationTrail from "./navigation-trail";
+import HeaderBar from "./header-bar";
 
 export class End extends React.Component {
   componentWillUnmount() {
-    console.log("Component Will Unmount");
     this.props.dispatch(updateSession(this.props.session));
   }
   componentDidMount() {
@@ -50,68 +51,74 @@ export class End extends React.Component {
       <Arrow arrow={arrow} key={index} />
     ));
 
+    const headerContent = (
+      <NavigationTrail sessionId={this.props.match.params.sessionId} />
+    );
+
     return (
-      <main role="main">
-        <header>
-          <h1>End #{this.props.endNum}</h1>
-        </header>
-        <NavigationTrail sessionId={this.props.match.params.sessionId} />
-        <section>
-          <div className="sub-section">
-            <TargetCanvas
-              arrows={this.props.end.arrows}
-              createArrow={this.createArrow}
-            />
-          </div>
-          <div className="sub-section">
-            {arrows}
+      <div>
+        <HeaderBar content={headerContent} />
+        <main role="main">
+          <header>
+            <h1>End #{this.props.endNum}</h1>
+          </header>
+          <section>
+            <div className="sub-section">
+              <TargetCanvas
+                arrows={this.props.end.arrows}
+                createArrow={this.createArrow}
+              />
+            </div>
+            <div className="sub-section">
+              {arrows}
+              <button
+                className="button-secondary"
+                type="button"
+                onClick={() =>
+                  this.createArrow({
+                    point: { x: -1, y: -1 },
+                    score: 0,
+                    isInverted: false
+                  })
+                }
+              >
+                Miss
+              </button>
+              <button
+                className="button-secondary"
+                type="button"
+                onClick={() =>
+                  this.props.dispatch(
+                    removeLastArrow1(this.props.session, this.props.end)
+                  )
+                }
+              >
+                Undo
+              </button>
+            </div>
+          </section>
+          <section>
             <button
               className="button-secondary"
               type="button"
-              onClick={() =>
-                this.createArrow({
-                  point: { x: -1, y: -1 },
-                  score: 0,
-                  isInverted: false
-                })
-              }
+              onClick={() => this.props.history.goBack()}
             >
-              Miss
+              Back
             </button>
             <button
-              className="button-secondary"
+              className="button-primary"
               type="button"
               onClick={() =>
                 this.props.dispatch(
-                  removeLastArrow1(this.props.session, this.props.end)
+                  createEnd(this.props.session, this.props.history)
                 )
               }
             >
-              Undo
+              + New End
             </button>
-          </div>
-        </section>
-        <section>
-          <button
-            className="button-secondary"
-            type="button"
-            onClick={() => this.props.history.goBack()}
-          >
-            Back
-          </button>
-          <button
-            className="button-primary"
-            type="button"
-            onClick={() =>
-              this.props.dispatch(
-                createEnd(this.props.session, this.props.history)
-              )
-            }
-          >
-            + New End
-          </button>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
     );
   }
 }

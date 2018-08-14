@@ -15,6 +15,8 @@ import {
 import EndListItem from "./end-list-item";
 import SessionDetails from "./session-details";
 import FormattedDate from "./formatted-date";
+import NavigationTrail from "./navigation-trail";
+import HeaderBar from "./header-bar";
 
 export class Session extends React.Component {
   componentDidMount() {
@@ -51,8 +53,6 @@ export class Session extends React.Component {
           <XAxis dataKey="name" />
           <YAxis />
           <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Legend />
           <Line
             type="monotone"
             dataKey="score"
@@ -63,33 +63,44 @@ export class Session extends React.Component {
       </ResponsiveContainer>
     );
 
+    const headerContent = <NavigationTrail />;
+
     return (
-      <main role="main">
-        <header role="banner">
-          <h1>Training session</h1>
-          <p>
-            Started on <FormattedDate date={this.props.session.created} />
-          </p>
-        </header>
-        <SessionDetails
-          session={this.props.session}
-          history={this.props.history}
-        />
-        <section>{simpleLineChart}</section>
-        {endList}
-        <section>
-          <button
-            type="button"
-            onClick={() =>
-              this.props.dispatch(
-                createEnd(this.props.session, this.props.history)
-              )
-            }
-          >
-            + New End
-          </button>
-        </section>
-      </main>
+      <div>
+        <HeaderBar content={headerContent} />
+        <main role="main">
+          <header role="banner">
+            <h1>Training session</h1>
+            <section className="sub-section">
+              <p>
+                Started on <FormattedDate date={this.props.session.created} />
+              </p>
+            </section>
+          </header>
+          <SessionDetails
+            session={this.props.session}
+            history={this.props.history}
+          />
+          <section className="white-gradient">
+            <h2>Score Chart</h2>
+            {simpleLineChart}
+          </section>
+          {endList}
+          <section>
+            <button
+              className="button-primary"
+              type="button"
+              onClick={() =>
+                this.props.dispatch(
+                  createEnd(this.props.session, this.props.history)
+                )
+              }
+            >
+              + New End
+            </button>
+          </section>
+        </main>
+      </div>
     );
   }
 }

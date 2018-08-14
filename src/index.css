@@ -15,6 +15,14 @@ html {
   background-size: cover;
 }
 
+.green {
+  background-color: rgba(34, 139, 34, 0.2);
+}
+
+.white-gradient {
+  background: linear-gradient(transparent, white);
+}
+
 body {
   /*
   background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.6)),
@@ -56,6 +64,10 @@ section {
 
 h1 {
   margin: 15px 0 0 0;
+  font-size: 60px;
+}
+
+.big {
   font-size: 100px;
 }
 
@@ -99,6 +111,7 @@ p + p {
 }
 
 button {
+  cursor: pointer;
   margin: 5px;
   font-family: "Open Sans", sans-serif;
   font-size: 20px;
@@ -108,43 +121,33 @@ button {
   font-weight: bold;
 }
 
-/*
-.btn-grad {
-  background-image: linear-gradient(to right, #f09819 0%, #edde5d 51%);
-}
-.btn-grad:hover {
-  background-position: right center;
-}
 .button-secondary {
-  border: 1px solid #d7dada;
-  color: #000000;
-  background-color: #f4f5f5;
-  background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f4f5f5, endColorstr=#dfdddd);
+  border: 1px solid #444;
+  color: #444;
+  background-color: transparent;
 }
 
 .button-secondary:hover {
-  border: 1px solid #bfc4c4;
-  background-color: #d9dddd;
-  background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
-}*/
-/*
-.button_secondary {
-  border: 1px solid #b7b7b7;
-  color: #000000;
-  background-color: #d3d3d3;
-  background-image: linear-gradient(to bottom, #d3d3d3, #707070);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d3d3d3, endColorstr=#707070);
+  border: 1px solid #444;
+  background-color: gainsboro;
 }
 
-.button_secondary:hover {
-  border: 1px solid #a0a0a0;
-  background-color: #bababa;
-  background-image: linear-gradient(to bottom, #bababa, #575757);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#bababa, endColorstr=#575757);
-}*/
+/*
+.button-secondary {
+  border: 1px solid gainsboro;
+  color: #444;
+  background-color: white;
+  background-image: linear-gradient(to bottom, white, #7d7e7d);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=white, endColorstr=#7d7e7d);
+}
 
+.button-secondary:hover {
+  border: 1px solid gainsboro;
+  background-color: gainsboro;
+  background-image: linear-gradient(to bottom, gainsboro, #646464);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=gainsboro, endColorstr=#646464);
+}
+*/
 .button-primary {
   border: 1px solid #616261;
   color: #ffffff;
@@ -178,12 +181,12 @@ button {
   padding: 10px;
   background-color: white;
 }
-
+/*
 dd ul {
   margin: 0 auto;
   width: 100px;
 }
-
+*/
 form {
   margin: 0 auto;
   max-width: 500px;
@@ -222,4 +225,44 @@ fieldset {
 canvas {
   cursor: crosshair;
   touch-action: none;
+}
+
+.stripes:nth-child(odd) {
+  background-color: white;
+}
+.stripes:nth-child(even) {
+  background-color: gainsboro;
+}
+
+dl {
+  max-width: 380px;
+  margin: 0 auto;
+}
+dt {
+  font-weight: bold;
+  float: left;
+  width: 50%;
+  text-align: right;
+  padding: 0.25em;
+  clear: left;
+  padding-right: 10px;
+}
+dd {
+  margin: 0;
+  text-align: left;
+  float: left;
+  width: 50%;
+  padding: 0.25em 0;
+  padding-left: 10px;
+}
+dl:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+dd ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
 }

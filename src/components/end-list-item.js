@@ -12,11 +12,12 @@ export function EndListItem(props) {
   ));
 
   return (
-    <section>
-      <h2>End {props.endNum}</h2>
-      <p>{arrows}</p>
+    <section className="stripes">
+      <h2>End #{props.endNum}</h2>
+      <div className="sub-section">{arrows}</div>
       <div className="sub-section">
         <button
+          className="button-secondary"
           type="button"
           onClick={() => {
             props.history.push(
@@ -27,6 +28,7 @@ export function EndListItem(props) {
           Edit
         </button>
         <button
+          className="button-secondary"
           onClick={() => props.dispatch(deleteEnd(props.session, props.end))}
         >
           Delete

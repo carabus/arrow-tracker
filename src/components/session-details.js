@@ -22,9 +22,13 @@ export class SessionDetails extends React.Component {
   render() {
     console.log(this.props);
 
-    const optionsList = this.props.session.trainingFactors.map(factor => (
+    let optionsList = this.props.session.trainingFactors.map(factor => (
       <li key={factor}>{factor}</li>
     ));
+
+    if (!optionsList.length) {
+      optionsList.push(<li key={"none"}>{"none"}</li>);
+    }
 
     if (this.state.editing) {
       return (
@@ -42,13 +46,19 @@ export class SessionDetails extends React.Component {
           <dd>
             {this.props.session.distance} {this.props.session.distanceUnits}
           </dd>
-          <dt>Additional options</dt>
+          <dt>Training Factors</dt>
           <dd>
             <ul>{optionsList}</ul>
           </dd>
         </dl>
-        <button onClick={() => this.setEditing(true)}>Edit</button>
         <button
+          className="button-secondary"
+          onClick={() => this.setEditing(true)}
+        >
+          Edit
+        </button>
+        <button
+          className="button-secondary"
           onClick={() =>
             this.props.dispatch(
               deleteSession(this.props.session, this.props.history)
