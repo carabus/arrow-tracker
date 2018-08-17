@@ -108,13 +108,15 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
         let chart = [];
         updatedRecord.ends.forEach((end, index) => {
           let endScore = 0;
+
           end.arrows.forEach(arrow => {
-            sessionScore += arrow.score;
-            maxSessionScore += 10;
             endScore += arrow.score;
           });
-          chart.push({ name: `end${index + 1}`, score: endScore });
+          maxSessionScore += end.arrows.length * 10;
+          sessionScore += endScore;
+          chart.push({ name: `end #${index + 1}`, score: endScore });
         });
+        if (!maxSessionScore) maxSessionScore = 10;
         return TrainingRecord.findByIdAndUpdate(
           updatedRecord.id,
           {

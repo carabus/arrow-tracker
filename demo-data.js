@@ -5,7 +5,7 @@ const faker = require("faker");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, TEST_DATABASE_URL } = require("./config");
 
-API_BASE_URL = "http://localhost:8080/api";
+API_BASE_URL = "https://secret-brushlands-10612.herokuapp.com/api";
 
 const start = async () => {
   let users = [];
