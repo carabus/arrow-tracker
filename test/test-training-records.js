@@ -188,7 +188,7 @@ describe("api/trainingRecords", function() {
           expect(_trainingRecord.score).to.equal(11);
           expect(_trainingRecord.maxScore).to.equal(20);
           expect(_trainingRecord.chart).to.have.length(1);
-          expect(_trainingRecord.chart[0].name).to.equal("end1");
+          expect(_trainingRecord.chart[0].name).to.equal("end #1");
           expect(_trainingRecord.chart[0].score).to.equal(11);
         });
     });
