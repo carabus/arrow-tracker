@@ -9,6 +9,9 @@ import { required, nonEmpty } from "../validators";
 import "./login-form.css";
 
 export class LoginForm extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   onSubmit(values) {
     return this.props.dispatch(login(values.username, values.password));
   }
@@ -29,12 +32,11 @@ export class LoginForm extends React.Component {
       <main>
         <MainHeader />
         <section>
-          <h2>Log in</h2>
-
           <form
             className="login-form"
             onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
           >
+            <h2>Log in</h2>
             {error}
             <label htmlFor="username">Username</label>
             <Field

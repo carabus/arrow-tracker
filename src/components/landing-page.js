@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import MainHeader from "./main-header";
 
 export function LandingPage(props) {
+  window.scrollTo(0, 0);
   // If we are logged in redirect straight to the user's dashboard
   if (props.loggedIn) {
     return <Redirect to="/dashboard" />;

@@ -1,4 +1,5 @@
 import React from "react";
+import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { createEnd, fetchSessions } from "../actions";
@@ -23,8 +24,18 @@ export class Session extends React.Component {
     if (!this.props.session) {
       this.props.dispatch(fetchSessions());
     }
+    window.scrollTo(0, 0);
   }
   render() {
+    if (!this.props.session && this.props.isLoading) {
+      return (
+        <main>
+          <section>
+            <p>Loading...</p>
+          </section>
+        </main>
+      );
+    }
     if (!this.props.session) {
       return (
         <main>
@@ -88,6 +99,7 @@ export class Session extends React.Component {
           {endList}
           <section>
             <button
+              disabled={this.props.isLoading}
               className="button-primary"
               type="button"
               onClick={() =>
@@ -109,7 +121,8 @@ const mapStateToProps = (state, props) => {
   return {
     session: state.archeryTrackerReducer.sessions.find(
       session => session.id === props.match.params.sessionId
-    )
+    ),
+    isLoading: state.archeryTrackerReducer.isLoading
   };
 };
-export default connect(mapStateToProps)(Session);
+export default requiresLogin()(connect(mapStateToProps)(Session));

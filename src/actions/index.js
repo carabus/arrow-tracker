@@ -13,7 +13,13 @@ export const fetchSessionsError = error => ({
   error
 });
 
+export const IS_LOADING = "IS_LOADING";
+export const isLoading = () => ({
+  type: IS_LOADING
+});
+
 export const fetchSessions = () => (dispatch, getState) => {
+  dispatch(isLoading());
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/trainingRecords`, {
     method: "GET",
@@ -45,6 +51,7 @@ export const updateSessionError = error => ({
 });
 
 export const updateSession = (session, history) => (dispatch, getState) => {
+  dispatch(isLoading());
   console.log("UPDATE SESSION", session);
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/trainingRecords/${session.id}`, {

@@ -55,6 +55,9 @@ class App extends Component {
   }
 
   render() {
+    if (this.props.errorSessions || this.props.errorCharts) {
+      return <div>There was an error</div>;
+    }
     return (
       <Router>
         <div className="app">
@@ -82,7 +85,9 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   hasAuthToken: state.auth.authToken !== null,
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
+  errorSessions: state.archeryTrackerReducer.error,
+  errorCharts: state.profileReducer.error
 });
 
 // Deal with update blocking - https://reacttraining.com/react-router/web/guides/dealing-with-update-blocking

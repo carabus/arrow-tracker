@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import requiresLogin from "./requires-login";
 import "./end.css";
 
 import {
@@ -25,6 +26,7 @@ export class End extends React.Component {
     if (!this.props.session) {
       this.props.dispatch(fetchSessions());
     }
+    window.scrollTo(0, 0);
   }
 
   constructor(props) {
@@ -45,7 +47,24 @@ export class End extends React.Component {
   }
 
   render() {
-    if (!this.props.end) return null;
+    if (!this.props.end && this.props.isLoading) {
+      return (
+        <main>
+          <section>
+            <p>Loading...</p>
+          </section>
+        </main>
+      );
+    }
+    if (!this.props.end) {
+      return (
+        <main>
+          <section>
+            <p>No such End</p>
+          </section>
+        </main>
+      );
+    }
 
     const arrows = this.props.end.arrows.map((arrow, index) => (
       <Arrow arrow={arrow} key={index} />
@@ -107,6 +126,7 @@ export class End extends React.Component {
             </button>
             <button
               className="button-primary"
+              disabled={this.props.isLoading}
               type="button"
               onClick={() =>
                 this.props.dispatch(
@@ -128,8 +148,18 @@ const mapStateToProps = (state, props) => {
     session => session.id === props.match.params.sessionId
   );
 
-  if (!session) return { session: null, end: null };
-  if (!session.ends) return { session: session, end: null };
+  if (!session)
+    return {
+      session: null,
+      end: null,
+      isLoading: state.archeryTrackerReducer.isLoading
+    };
+  if (!session.ends)
+    return {
+      session: session,
+      end: null,
+      isLoading: state.archeryTrackerReducer.isLoading
+    };
 
   const end = session.ends.find(
     end => end._id === props.match.params.endNumber
@@ -138,7 +168,8 @@ const mapStateToProps = (state, props) => {
   return {
     session: session,
     end: end,
-    endNum: session.ends.indexOf(end) + 1
+    endNum: session.ends.indexOf(end) + 1,
+    isLoading: state.archeryTrackerReducer.isLoading
   };
 };
-export default connect(mapStateToProps)(End);
+export default requiresLogin()(connect(mapStateToProps)(End));

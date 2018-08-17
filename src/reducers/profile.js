@@ -9,7 +9,8 @@ const initialState = {
       selectedFactors: [],
       chart: { name: "normal training", data: [] }
     }
-  ]
+  ],
+  error: null
 
   /*
 

@@ -2,7 +2,8 @@ import * as actions from "../actions";
 
 const initialState = {
   sessions: [],
-  error: null
+  error: null,
+  isLoading: false
 };
 
 export const archeryTrackerReducer = (state = initialState, action) => {
@@ -11,12 +12,14 @@ export const archeryTrackerReducer = (state = initialState, action) => {
     case actions.FETCH_SESSIONS_SUCCESS: {
       return Object.assign({}, state, {
         sessions: action.sessions,
+        isLoading: false,
         error: null
       });
       break;
     }
     case actions.FETCH_SESSIONS_ERROR: {
       return Object.assign({}, state, {
+        isLoading: false,
         error: action.error
       });
       break;
@@ -32,6 +35,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
       return Object.assign({}, state, {
         sessions,
+        isLoading: false,
         error: null
       });
 
@@ -40,6 +44,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
 
     case actions.UPDATE_SESSION_ERROR: {
       return Object.assign({}, state, {
+        isLoading: false,
         error: action.error
       });
       break;
@@ -129,6 +134,11 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         sessions
       });
+      break;
+    }
+
+    case actions.IS_LOADING: {
+      return Object.assign({}, state, { isLoading: true });
       break;
     }
 

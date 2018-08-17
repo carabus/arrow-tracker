@@ -15,6 +15,7 @@ export class Dashboard extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchSessions());
     this.props.dispatch(fetchTrainingFactors());
+    window.scrollTo(0, 0);
   }
 
   logOut() {
