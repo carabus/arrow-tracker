@@ -1,0 +1,44 @@
+.scrolled nav {
+  transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+  background: rgba(45, 51, 63, 100%);
+}
+
+nav {
+  transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+  height: 60px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  background: transparent;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+  height: 100%;
+}
+
+nav .container a {
+  margin-right: 1rem;
+}
+nav .container img {
+  width: 40px;
+  height: 40px;
+}
+
+nav .menu ul {
+  list-style: none;
+}
+
+nav .menu a,
+nav .menu a:visited,
+nav .menu a:active {
+  color: white;
+  text-decoration: none;
+}

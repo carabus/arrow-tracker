@@ -2,19 +2,6 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100%;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.8)
-    ),
-    url("./images/arrows-background.jpg") no-repeat fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
 .white-gradient {
   background: linear-gradient(transparent, white);
 }
@@ -34,31 +21,13 @@ body {
 
   background-attachment: fixed;
   */
-  font-family: "Open Sans", sans-serif;
-  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
   color: #444;
   text-align: center;
   line-height: 1.5;
-}
-
-nav,
-footer {
-  padding: 1% 0;
-  background-color: gainsboro;
-}
-
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-
-header {
-  margin-top: 2%;
-  border-top: solid transparent 30px;
-  padding: 0 15px;
+  margin: 0;
 }
 
 section {
@@ -116,7 +85,6 @@ p + p {
 button {
   cursor: pointer;
   margin: 5px;
-  font-family: "Open Sans", sans-serif;
   font-size: 20px;
   padding: 10px;
   border: solid #444 1px;

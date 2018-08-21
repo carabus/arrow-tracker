@@ -4,7 +4,6 @@ import requiresLogin from "./requires-login";
 import StartTracking from "./start-tracking";
 import SessionList from "./session-list";
 import Stats from "./stats";
-import MainHeader from "./main-header";
 import { connect } from "react-redux";
 import { fetchSessions } from "../actions";
 import { fetchTrainingFactors } from "../actions/profile";
@@ -26,7 +25,6 @@ export class Dashboard extends React.Component {
   render() {
     return (
       <main role="main">
-        <MainHeader />
         <section>
           <h2>Dashboard</h2>
         </section>
