@@ -11,7 +11,7 @@ export function LandingPage(props) {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <div>
+    <div class="landing-page">
       <header>
         <HeaderBar />
         <div className="view">

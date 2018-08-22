@@ -1,4 +1,4 @@
-header {
+.landing-page header {
   height: 100vh;
   min-height: 600px;
 }
@@ -21,12 +21,12 @@ header {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-h1 {
+.landing-page h1 {
   color: white;
   text-transform: uppercase;
 }
 
-header button {
+.landing-page header button {
   border: solid white 1px;
   text-transform: uppercase;
   color: white;

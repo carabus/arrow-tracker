@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 import RegistrationForm from "./registration-form";
+import appIcon from "../images/app-icon.svg";
+import "./login-form.css";
 
 export function RegistrationPage(props) {
   // If we are logged in (which happens automatically when registration
@@ -11,12 +13,25 @@ export function RegistrationPage(props) {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <main role="main">
-      <section>
-        <h2>Sign Up</h2>
-        <RegistrationForm />
-      </section>
-    </main>
+    <div className="login-form">
+      <main role="main">
+        <div className="single-form-container">
+          <div className="card">
+            <div className="card-header">
+              <Link to="/">
+                <img className="logo" src={appIcon} alt="Archery Tracker App" />
+              </Link>
+            </div>
+            <div className="card-body">
+              <h2>
+                <i class="fas fa-lock" /> Sign Up
+              </h2>
+              <RegistrationForm />
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
 

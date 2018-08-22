@@ -51,7 +51,7 @@ export class RegistrationForm extends React.Component {
           name="passwordConfirm"
           validate={[required, nonEmpty, matchesPassword]}
         />
-        <div className="sub-section">
+        <div className="sub-section centered-text">
           <button
             className="button-primary"
             type="submit"
@@ -59,9 +59,6 @@ export class RegistrationForm extends React.Component {
           >
             Sign Up
           </button>
-          <Link to="/">
-            <button type="button">Cancel</button>
-          </Link>
         </div>
       </form>
     );

@@ -2,17 +2,6 @@
   box-sizing: border-box;
 }
 
-.white-gradient {
-  background: linear-gradient(transparent, white);
-}
-
-.login-form {
-  padding: 25px;
-  background-color: white;
-  border: solid #444 3px;
-  border-radius: 10px;
-}
-
 body {
   /*
   background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.6)),
@@ -39,33 +28,12 @@ h1 {
   font-size: 45px;
 }
 
-.big {
-  font-size: 70px;
-}
-
-.b {
-  background-color: black;
-  color: #fff535;
-}
-
 .form-error {
   color: rgb(253, 27, 20);
 }
 
 .max-width {
   max-width: 380px;
-}
-
-.bg-yellow {
-  background-color: rgba(255, 245, 53, 0.2);
-}
-
-.bg-blue {
-  background-color: rgba(65, 183, 200, 0.2);
-}
-
-.bg-red {
-  background-color: rgba(253, 27, 20, 0.2);
 }
 
 h2,
@@ -103,39 +71,27 @@ button {
   background-color: gainsboro;
 }
 
-/*
-.button-secondary {
-  border: 1px solid gainsboro;
-  color: #444;
-  background-color: white;
-  background-image: linear-gradient(to bottom, white, #7d7e7d);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=white, endColorstr=#7d7e7d);
-}
-
-.button-secondary:hover {
-  border: 1px solid gainsboro;
-  background-color: gainsboro;
-  background-image: linear-gradient(to bottom, gainsboro, #646464);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=gainsboro, endColorstr=#646464);
-}
-*/
 .button-primary {
-  border: 1px solid #616261;
   color: #ffffff;
-  background-color: #7d7e7d;
-  background-image: linear-gradient(to bottom, #7d7e7d, #0e0e0e);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#7d7e7d, endColorstr=#0e0e0e);
+  background-color: rgba(45, 51, 63, 100%);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 0.125rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 
 .button-primary:hover {
-  border: 1px solid #4a4b4a;
-  background-color: #646464;
-  background-image: linear-gradient(to bottom, #646464, #282828);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#646464, endColorstr=#282828);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
 .sub-section {
   padding: 7px 0;
+}
+
+.centered-text {
+  text-align: center;
 }
 
 .help {
@@ -259,4 +215,36 @@ dd ul {
 
 .custom-select .Select-value {
   margin: 3px;
+}
+
+/*LATEST*/
+
+.card {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border: 0;
+  font-weight: 400;
+  background-color: white;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-header {
+  padding: 1.6rem 1rem;
+  text-align: center;
+  color: #fff !important;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.single-form-container {
+  max-width: 400px;
+  margin: 0 auto;
 }

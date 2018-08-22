@@ -5,6 +5,8 @@ import { Link, Redirect } from "react-router-dom";
 import Input from "./input";
 import { login } from "../actions/auth";
 import { required, nonEmpty } from "../validators";
+import "./login-form.css";
+import appIcon from "../images/app-icon.svg";
 
 export class LoginForm extends React.Component {
   componentDidMount() {
@@ -27,44 +29,60 @@ export class LoginForm extends React.Component {
       );
     }
     return (
-      <main>
-        <section>
-          <form
-            className="login-form"
-            onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
-          >
-            <h2>Log in</h2>
-            {error}
-            <label htmlFor="username">Username</label>
-            <Field
-              component={Input}
-              type="text"
-              name="username"
-              id="username"
-              validate={[required, nonEmpty]}
-            />
-            <label htmlFor="password">Password</label>
-            <Field
-              component={Input}
-              type="password"
-              name="password"
-              id="password"
-              validate={[required, nonEmpty]}
-            />
-            <div className="sub-section">
-              <button
-                className="button-primary"
-                disabled={this.props.pristine || this.props.submitting}
-              >
-                Log in
-              </button>
-              <Link to="/">
-                <button type="button">Cancel</button>
-              </Link>
+      <div class="login-form">
+        <main>
+          <div className="single-form-container">
+            <div className="card">
+              <div className="card-header">
+                <Link to="/">
+                  <img
+                    className="logo"
+                    src={appIcon}
+                    alt="Archery Tracker App"
+                  />
+                </Link>
+              </div>
+              <div className="card-body">
+                <h2>
+                  <i class="fas fa-lock" /> Log In
+                </h2>
+                <form
+                  className="login-form"
+                  onSubmit={this.props.handleSubmit(values =>
+                    this.onSubmit(values)
+                  )}
+                >
+                  {error}
+                  <label htmlFor="username">Username</label>
+                  <Field
+                    component={Input}
+                    type="text"
+                    name="username"
+                    id="username"
+                    validate={[required, nonEmpty]}
+                  />
+                  <label htmlFor="password">Password</label>
+                  <Field
+                    component={Input}
+                    type="password"
+                    name="password"
+                    id="password"
+                    validate={[required, nonEmpty]}
+                  />
+                  <div className="sub-section centered-text">
+                    <button
+                      className="button-primary"
+                      disabled={this.props.pristine || this.props.submitting}
+                    >
+                      Log in
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-          </form>
-        </section>
-      </main>
+          </div>
+        </main>
+      </div>
     );
   }
 }
