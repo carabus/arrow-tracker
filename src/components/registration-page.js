@@ -24,7 +24,7 @@ export function RegistrationPage(props) {
             </div>
             <div className="card-body">
               <h2>
-                <i class="fas fa-lock" /> Sign Up
+                <i class="fas fa-pen" /> Sign Up
               </h2>
               <RegistrationForm />
             </div>

@@ -1,0 +1,155 @@
+.session nav {
+  background: rgba(45, 51, 63, 100%);
+}
+
+.session main {
+  padding-top: 100px;
+  background-color: whitesmoke;
+}
+
+.session header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.session .row {
+  margin-top: 0;
+}
+
+.session .card-header {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: -2.25rem;
+  padding: 16px 16px;
+  text-align: center;
+  color: #fff !important;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  background-color: #09c !important;
+}
+
+.session .card-header p {
+  font-size: 14px;
+  color: white;
+}
+
+.session .flex-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.session h1 {
+  font-weight: 400;
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.session h2 {
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.session .card {
+  margin-bottom: 50px;
+}
+
+.session .big-text {
+  font-size: 24px;
+  margin-top: 0;
+  line-height: 1;
+}
+
+.session .table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.session .table-cell {
+  display: flex;
+  align-items: center;
+}
+
+.session .table-cell .end-num {
+  margin-right: 10px;
+}
+
+.session .nowrap-cell {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.session .recharts-responsive-container {
+  margin-left: -20px;
+}
+
+.session .edit,
+.session .delete {
+  color: #ffffff;
+  background-color: #09c !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 0.125rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+.session .create {
+  color: #ffffff;
+  background-color: transparent;
+  border-radius: 50%;
+  font-weight: 300;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  font-size: 16px;
+  border: white solid 2px;
+}
+
+.session .big-text ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.session .big-text li {
+  display: inline;
+}
+
+.session .big-text li::after {
+  content: ", ";
+}
+
+.session .big-text li:last-of-type::after {
+  content: "";
+}
+
+@media only screen and (max-width: 700px) {
+  .session .table-row {
+    display: block;
+  }
+
+  .session .table-cell {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .session .table-cell .end-num {
+    margin-right: unset;
+  }
+
+  .session .nowrap-cell {
+    display: block;
+    margin-top: 10px;
+  }
+}

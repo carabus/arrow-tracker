@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import SimpleSessionDetailsForm from "./simple-session-details-form";
 import { deleteSession } from "../actions";
+import FormattedDate from "./formatted-date";
 
 export class SessionDetails extends React.Component {
   constructor(props) {
@@ -39,33 +40,40 @@ export class SessionDetails extends React.Component {
       );
     }
 
+    let scorePercent = Math.round(
+      (this.props.session.score / this.props.session.maxScore) * 100
+    );
+
     return (
       <section>
-        <dl>
-          <dt>Distance</dt>
-          <dd>
-            {this.props.session.distance} {this.props.session.distanceUnits}
-          </dd>
-          <dt>Training Factors</dt>
-          <dd>
-            <ul>{optionsList}</ul>
-          </dd>
-        </dl>
-        <button
-          className="button-secondary"
-          onClick={() => this.setEditing(true)}
-        >
-          Edit
+        <p>Score</p>
+        <p className="big-text">
+          {" "}
+          {this.props.session.score} / {this.props.session.maxScore} (
+          {scorePercent}
+          %)
+        </p>
+        <p>Distance</p>
+        <p className="big-text">
+          {this.props.session.distance} {this.props.session.distanceUnits}
+        </p>
+        <p>Training Factors</p>
+        <p className="big-text">
+          <ul>{optionsList}</ul>
+        </p>
+        <hr />
+        <button className="edit" onClick={() => this.setEditing(true)}>
+          <i class="fas fa-pen" />
         </button>
         <button
-          className="button-secondary"
+          className="delete"
           onClick={() =>
             this.props.dispatch(
               deleteSession(this.props.session, this.props.history)
             )
           }
         >
-          Delete
+          <i class="fas fa-trash" />
         </button>
       </section>
     );

@@ -13,6 +13,14 @@ export class SimpleSessionDetailsForm extends React.Component {
     selectedOption: []
   };
 
+  onCancel = () => {
+    if (this.props.currentSession) {
+      this.props.editingCallback();
+    } else {
+      this.props.history.push("/dashboard");
+    }
+  };
+
   onSubmit = event => {
     event.preventDefault();
 
@@ -107,11 +115,13 @@ export class SimpleSessionDetailsForm extends React.Component {
           >
             Submit
           </button>
-          <Link to="/dashboard">
-            <button type="button" className="button-secondary">
-              Cancel
-            </button>
-          </Link>
+          <button
+            type="button"
+            className="button-secondary"
+            onClick={() => this.onCancel()}
+          >
+            Cancel
+          </button>
         </form>
       </section>
     );

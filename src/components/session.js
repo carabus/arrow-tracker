@@ -15,9 +15,10 @@ import {
 } from "recharts";
 import EndListItem from "./end-list-item";
 import SessionDetails from "./session-details";
-import FormattedDate from "./formatted-date";
 import NavigationTrail from "./navigation-trail";
 import HeaderBar from "./header-bar";
+import "./session.css";
+import FormattedDate from "./formatted-date";
 
 export class Session extends React.Component {
   componentDidMount() {
@@ -31,7 +32,7 @@ export class Session extends React.Component {
       return (
         <main>
           <section>
-            <p>Loading...</p>
+            <p className="centered-text">Loading...</p>
           </section>
         </main>
       );
@@ -40,20 +41,25 @@ export class Session extends React.Component {
       return (
         <main>
           <section>
-            <p>No Such Session</p>
+            <p className="centered-text">No Such Session</p>
           </section>
         </main>
       );
     }
 
-    const endList = this.props.session.ends.map((end, index) => (
-      <EndListItem
-        session={this.props.session}
-        end={end}
-        key={end._id}
-        endNum={index + 1}
-      />
-    ));
+    const endList = this.props.session.ends.map((end, index) => {
+      return (
+        <div>
+          <EndListItem
+            session={this.props.session}
+            end={end}
+            key={end._id}
+            endNum={index + 1}
+          />
+          <hr />
+        </div>
+      );
+    });
 
     const simpleLineChart = (
       <ResponsiveContainer width="100%" height={300}>
@@ -64,10 +70,11 @@ export class Session extends React.Component {
           <XAxis dataKey="name" />
           <YAxis />
           <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
           <Line
             type="monotone"
             dataKey="score"
-            stroke="#8884d8"
+            stroke="#007bff"
             activeDot={{ r: 8 }}
           />
         </LineChart>
@@ -77,39 +84,57 @@ export class Session extends React.Component {
     const headerContent = <NavigationTrail />;
 
     return (
-      <div>
-        <HeaderBar content={headerContent} />
+      <div class="session">
+        <HeaderBar />
         <main role="main">
-          <header role="banner">
-            <h1>Training session</h1>
-            <section className="sub-section">
-              <p>
-                Started on <FormattedDate date={this.props.session.created} />
-              </p>
-            </section>
-          </header>
-          <SessionDetails
-            session={this.props.session}
-            history={this.props.history}
-          />
-          <section className="white-gradient">
-            <h2>Score Chart</h2>
-            {simpleLineChart}
+          <section className="card">
+            <div className="row">
+              <div className="column-40">
+                <div className="card-header">
+                  <div className="flex-header">
+                    <header role="banner">
+                      <h1>Training Session</h1>
+                    </header>
+                  </div>
+                  <p className="centered-text ">
+                    Started on{" "}
+                    <FormattedDate date={this.props.session.created} />
+                  </p>
+                </div>
+
+                <SessionDetails
+                  session={this.props.session}
+                  history={this.props.history}
+                />
+              </div>
+              <div className="column-60">
+                <h2>End Scores</h2>
+                {simpleLineChart}
+              </div>
+            </div>
           </section>
-          {endList}
-          <section>
-            <button
-              disabled={this.props.isLoading}
-              className="button-primary"
-              type="button"
-              onClick={() =>
-                this.props.dispatch(
-                  createEnd(this.props.session, this.props.history)
-                )
-              }
-            >
-              + New End
-            </button>
+          <section className="card">
+            <div className="card-header">
+              <div className="flex-header">
+                <div width="20px" />
+                <h2>Ends</h2>
+                <div>
+                  <button
+                    disabled={this.props.isLoading}
+                    className="create"
+                    type="button"
+                    onClick={() =>
+                      this.props.dispatch(
+                        createEnd(this.props.session, this.props.history)
+                      )
+                    }
+                  >
+                    <i class="fas fa-plus" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="card-body">{endList}</div>
           </section>
         </main>
       </div>

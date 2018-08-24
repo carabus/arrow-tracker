@@ -5,19 +5,19 @@ import { withRouter } from "react-router";
 import Arrow from "./arrow";
 
 export function EndListItem(props) {
-  console.log("END LIST ITEM", props.end);
-  console.log(props);
   const arrows = props.end.arrows.map(arrow => (
     <Arrow key={arrow._id} arrow={arrow} />
   ));
 
   return (
-    <section className="stripes">
-      <h2>End #{props.endNum}</h2>
-      <div className="sub-section">{arrows}</div>
-      <div className="sub-section">
+    <section className="table-row">
+      <div className="table-cell">
+        <div class="end-num">#{props.endNum}</div>
+        <div>{arrows}</div>
+      </div>
+      <div className="nowrap-cell">
         <button
-          className="button-secondary"
+          className="edit"
           type="button"
           onClick={() => {
             props.history.push(
@@ -25,13 +25,13 @@ export function EndListItem(props) {
             );
           }}
         >
-          Edit
+          <i class="fas fa-pen" />
         </button>
         <button
-          className="button-secondary"
+          className="delete"
           onClick={() => props.dispatch(deleteEnd(props.session, props.end))}
         >
-          Delete
+          <i class="fas fa-trash" />
         </button>
       </div>
     </section>
