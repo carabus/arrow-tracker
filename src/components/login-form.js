@@ -53,22 +53,26 @@ export class LoginForm extends React.Component {
                   )}
                 >
                   {error}
-                  <label htmlFor="username">Username</label>
-                  <Field
-                    component={Input}
-                    type="text"
-                    name="username"
-                    id="username"
-                    validate={[required, nonEmpty]}
-                  />
-                  <label htmlFor="password">Password</label>
-                  <Field
-                    component={Input}
-                    type="password"
-                    name="password"
-                    id="password"
-                    validate={[required, nonEmpty]}
-                  />
+                  <div className="form-section">
+                    <label htmlFor="username">Username</label>
+                    <Field
+                      component={Input}
+                      type="text"
+                      name="username"
+                      id="username"
+                      validate={[required, nonEmpty]}
+                    />
+                  </div>
+                  <div className="form-section">
+                    <label htmlFor="password">Password</label>
+                    <Field
+                      component={Input}
+                      type="password"
+                      name="password"
+                      id="password"
+                      validate={[required, nonEmpty]}
+                    />
+                  </div>
                   <div className="sub-section centered-text">
                     <button
                       className="button-primary"

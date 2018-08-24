@@ -102,7 +102,7 @@ export function LandingPage(props) {
         </div>
       </main>
       <footer>
-        <p>Archery image by Andreas Overland</p>
+        <p>Photo by Andreas Overland</p>
       </footer>
     </div>
   );

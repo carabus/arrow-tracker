@@ -91,7 +91,7 @@ export class End extends React.Component {
                   createArrow={this.createArrow}
                 />
               </div>
-              <div className="card-body">
+              <div className="card-body flat-top">
                 <div className="sub-section">{arrows}</div>
                 <div className="sub-section">
                   <button
