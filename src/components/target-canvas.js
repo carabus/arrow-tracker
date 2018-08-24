@@ -1,5 +1,5 @@
 import React from "react";
-import target from "../images/target.png";
+import target from "../images/target1.png";
 
 export default class TargetCanvas extends React.Component {
   constructor(props) {

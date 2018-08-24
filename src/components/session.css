@@ -19,6 +19,10 @@
   margin-top: 0;
 }
 
+.session .card-body {
+  padding-top: 0 !important;
+}
+
 .session .card-header {
   margin-left: 2%;
   margin-right: 2%;

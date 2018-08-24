@@ -21,11 +21,13 @@
 .yellow {
   color: #444;
   background-color: #ffc107;
+  font-weight: 400;
 }
 
 .white {
   color: #444;
   background-color: white;
+  font-weight: 400;
 }
 
 .black {

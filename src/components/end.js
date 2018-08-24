@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
-import "./end.css";
+import "./session.css";
 
 import {
   createEnd,
@@ -51,7 +51,7 @@ export class End extends React.Component {
       return (
         <main>
           <section>
-            <p>Loading...</p>
+            <p class="centered-text">Loading...</p>
           </section>
         </main>
       );
@@ -60,7 +60,7 @@ export class End extends React.Component {
       return (
         <main>
           <section>
-            <p>No such End</p>
+            <p class="centered-text">No such End</p>
           </section>
         </main>
       );
@@ -75,67 +75,66 @@ export class End extends React.Component {
     );
 
     return (
-      <div>
+      <div class="session">
         <HeaderBar content={headerContent} />
         <main role="main">
-          <header>
-            <h1>End #{this.props.endNum}</h1>
-          </header>
-          <section>
-            <div className="sub-section">
-              <TargetCanvas
-                arrows={this.props.end.arrows}
-                createArrow={this.createArrow}
-              />
+          <section className="card">
+            <div className="card-header">
+              <header>
+                <h1>End #{this.props.endNum}</h1>
+              </header>
             </div>
-            <div className="sub-section">
-              {arrows}
-              <button
-                className="button-secondary"
-                type="button"
-                onClick={() =>
-                  this.createArrow({
-                    point: { x: -1, y: -1 },
-                    score: 0,
-                    isInverted: false
-                  })
-                }
-              >
-                Miss
-              </button>
-              <button
-                className="button-secondary"
-                type="button"
-                onClick={() =>
-                  this.props.dispatch(
-                    removeLastArrow1(this.props.session, this.props.end)
-                  )
-                }
-              >
-                Undo
-              </button>
-            </div>
-          </section>
-          <section>
-            <button
-              className="button-secondary"
-              type="button"
-              onClick={() => this.props.history.goBack()}
-            >
-              Back
-            </button>
-            <button
-              className="button-primary"
-              disabled={this.props.isLoading}
-              type="button"
-              onClick={() =>
-                this.props.dispatch(
-                  createEnd(this.props.session, this.props.history)
-                )
-              }
-            >
-              + New End
-            </button>
+            <section>
+              <div className="sub-section">
+                <TargetCanvas
+                  arrows={this.props.end.arrows}
+                  createArrow={this.createArrow}
+                />
+              </div>
+              <div className="card-body">
+                <div className="sub-section">{arrows}</div>
+                <div className="sub-section">
+                  <button
+                    className="button-secondary"
+                    type="button"
+                    onClick={() =>
+                      this.createArrow({
+                        point: { x: -1, y: -1 },
+                        score: 0,
+                        isInverted: false
+                      })
+                    }
+                  >
+                    Miss
+                  </button>
+                  <button
+                    className="button-secondary"
+                    type="button"
+                    onClick={() =>
+                      this.props.dispatch(
+                        removeLastArrow1(this.props.session, this.props.end)
+                      )
+                    }
+                  >
+                    Undo
+                  </button>
+                </div>
+                <hr />
+                <button
+                  className="button-primary"
+                  disabled={this.props.isLoading}
+                  type="button"
+                  onClick={() =>
+                    this.props.dispatch(
+                      createEnd(this.props.session, this.props.history)
+                    )
+                  }
+                >
+                  New End
+                </button>
+              </div>
+            </section>
+            <section />
           </section>
         </main>
       </div>
