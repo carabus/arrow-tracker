@@ -114,7 +114,7 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
           });
           maxSessionScore += end.arrows.length * 10;
           sessionScore += endScore;
-          chart.push({ name: `end #${index + 1}`, score: endScore });
+          chart.push({ name: `#${index + 1}`, score: endScore });
         });
         if (!maxSessionScore) maxSessionScore = 10;
         return TrainingRecord.findByIdAndUpdate(
