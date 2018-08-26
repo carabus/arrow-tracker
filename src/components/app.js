@@ -7,7 +7,6 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-import "./app.css";
 
 import { loadData } from "../actions";
 import LandingPage from "./landing-page";

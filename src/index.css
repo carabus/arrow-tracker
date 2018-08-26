@@ -87,7 +87,7 @@ button {
 }
 
 .centered-text {
-  text-align: center;
+  text-align: center !important;
 }
 
 .help {
@@ -198,4 +198,54 @@ canvas {
 .single-form-container {
   max-width: 400px;
   margin: 0 auto;
+}
+
+/* circular chart */
+
+.flex-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.flex-wrapper .single-chart {
+  width: 30% !important;
+  justify-content: space-around !important;
+}
+
+.flex-wrapper .circular-chart {
+  display: block !important;
+  margin: 10px auto !important;
+  max-width: 80% !important;
+  max-height: 250px !important;
+}
+
+.flex-wrapper .circle-bg {
+  fill: none !important;
+  stroke: #eee !important;
+  stroke-width: 3.8 !important;
+}
+
+.flex-wrapper .circle {
+  fill: none !important;
+  stroke-width: 2.8 !important;
+  stroke-linecap: round !important;
+  animation: progress 1s ease-out forwards !important;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}
+
+.flex-wrapper .circular-chart.orange .circle {
+  stroke: #ff9f00;
+}
+
+.flex-wrapper .percentage {
+  fill: #666;
+  font-family: sans-serif;
+  font-size: 0.5em;
+  text-anchor: middle;
 }

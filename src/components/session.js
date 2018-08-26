@@ -49,11 +49,10 @@ export class Session extends React.Component {
 
     const endList = this.props.session.ends.map((end, index) => {
       return (
-        <div>
+        <div key={end._id}>
           <EndListItem
             session={this.props.session}
             end={end}
-            key={end._id}
             endNum={index + 1}
           />
           <hr />

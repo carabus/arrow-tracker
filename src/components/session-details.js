@@ -58,9 +58,9 @@ export class SessionDetails extends React.Component {
           {this.props.session.distance} {this.props.session.distanceUnits}
         </p>
         <p>Training Factors</p>
-        <p className="big-text">
+        <div className="big-text">
           <ul>{optionsList}</ul>
-        </p>
+        </div>
         <hr />
         <button className="edit" onClick={() => this.setEditing(true)}>
           <i class="fas fa-pen" />

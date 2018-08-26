@@ -29,7 +29,7 @@ export class LoginForm extends React.Component {
       );
     }
     return (
-      <div class="login-form">
+      <div className="login-form">
         <main>
           <div className="single-form-container">
             <div className="card">
@@ -44,7 +44,7 @@ export class LoginForm extends React.Component {
               </div>
               <div className="card-body">
                 <h2>
-                  <i class="fas fa-lock" /> Log In
+                  <i className="fas fa-lock" /> Log In
                 </h2>
                 <form
                   className="login-form"

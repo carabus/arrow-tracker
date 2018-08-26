@@ -1,0 +1,152 @@
+import React from "react";
+import { connect } from "react-redux";
+import {
+  LineChart,
+  Line,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from "recharts";
+
+import Select from "react-select";
+import "react-select/dist/react-select.css";
+import {
+  fetchCompareChart,
+  addCompareChart,
+  removeCompareChart,
+  removeCompareChartOption
+} from "../actions/profile";
+
+export class CompareChart extends React.Component {
+  chartColors = [
+    "#007bff",
+    "#6610f2",
+    "#6f42c1",
+    "#e83e8c",
+    "#dc3545",
+    "#fd7e14",
+    "#ffc107",
+    "#28a745",
+    "#20c997",
+    "#17a2b8"
+  ];
+
+  handleAddOption() {
+    this.props.dispatch(addCompareChart());
+  }
+
+  handleRemoveOption(optionIndex) {
+    this.props.dispatch(removeCompareChartOption(optionIndex));
+  }
+
+  handleChangeOption(selectedOption, optionIndex) {
+    if (selectedOption && selectedOption.length != 0) {
+      this.props.dispatch(
+        fetchCompareChart(
+          optionIndex,
+          Object.values(selectedOption).map(option => option.name)
+        )
+      );
+    }
+
+    if (selectedOption && selectedOption.length === 0) {
+      this.props.dispatch(removeCompareChart(optionIndex));
+    }
+  }
+
+  render() {
+    const optionsSelect = this.props.compareChart.map((chart, index) => (
+      <div key={index} className="table-row">
+        <div className="flex-full-width">
+          <Select
+            name="form-field-name"
+            value={
+              !index
+                ? [{ id: "normal training", name: "normal training" }]
+                : chart.selectedFactors
+            }
+            multi={true}
+            onChange={selectedOption =>
+              this.handleChangeOption(selectedOption, index)
+            }
+            valueKey="id"
+            labelKey="name"
+            options={this.props.trainingFactors}
+            disabled={!index ? true : false}
+          />
+        </div>
+        <div>
+          <button
+            className="delete-option"
+            disabled={!index ? true : false}
+            onClick={() => this.handleRemoveOption(index)}
+          >
+            <i class="fas fa-minus" />
+          </button>
+        </div>
+      </div>
+    ));
+
+    const compareChart = (
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart
+          data={this.props.compareChart.map(chart => chart.chart)}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <XAxis
+            dataKey="session"
+            type="category"
+            allowDuplicatedCategory={false}
+          />
+
+          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Legend />
+          {this.props.compareChart
+            .filter(chart => chart.chart !== null)
+            .map((s, i) => (
+              <Line
+                type="monotone"
+                dataKey="score"
+                data={s.chart.data}
+                name={s.chart.name}
+                key={s.chart.name}
+                stroke={this.chartColors[i]}
+              />
+            ))}
+        </LineChart>
+      </ResponsiveContainer>
+    );
+
+    return (
+      <div>
+        <section className="card">
+          <div className="card-header">
+            <h2>Compare Training Factors</h2>
+          </div>
+          <div className="row card-body">
+            <div className="column-40">
+              <p className="big-text">
+                Add Chart{" "}
+                <button
+                  class="add-option"
+                  onClick={() => this.handleAddOption()}
+                >
+                  <i class="fas fa-plus" />
+                </button>
+              </p>
+              <form>{optionsSelect}</form>
+            </div>
+            <div className="column-60">{compareChart}</div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+}
+
+export default connect()(CompareChart);

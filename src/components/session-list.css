@@ -1,17 +1,16 @@
 .session-list ul {
   margin: 0 auto;
-  max-width: 600px;
   list-style-type: none;
   padding: 0;
 }
 
 .session-list li {
   width: 100%;
-  border: solid #444 1px;
   padding: 7px;
   text-align: left;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .session-date {
