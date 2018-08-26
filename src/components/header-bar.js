@@ -24,13 +24,34 @@ export class HeaderBar extends React.Component {
     } else {
       menuButton = <Link to="/login">Login</Link>;
     }
+
+    let navigation = null;
+    if (this.props.sessionId) {
+      navigation = <li>Session</li>;
+    }
+    if (this.props.sessionId && this.props.endId) {
+      navigation = (
+        <div>
+          <Link to={`/session/${this.props.sessionId}`}>
+            <li>Session</li>
+          </Link>
+          <li>End</li>
+        </div>
+      );
+    }
+
     return (
       <nav>
         <div className="container">
-          <div className="logo">
-            <Link to="/dashboard">
-              <img width="50px" height="50px" src={appIcon} />
-            </Link>
+          <div className="sub-container">
+            <div className="logo">
+              <Link to="/dashboard">
+                <img width="50px" height="50px" src={appIcon} />
+              </Link>
+            </div>
+            <div className="breadcrumb">
+              <ul>{navigation}</ul>
+            </div>
           </div>
           <div className="menu">
             <ul>

@@ -76,7 +76,10 @@ export class End extends React.Component {
 
     return (
       <div class="session">
-        <HeaderBar content={headerContent} />
+        <HeaderBar
+          sessionId={this.props.session.id}
+          endId={this.props.end._id}
+        />
         <main role="main">
           <section className="card">
             <div className="card-header">

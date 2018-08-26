@@ -24,21 +24,46 @@ nav .container {
   height: 100%;
 }
 
+nav .sub-container {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
 nav .container a {
-  margin-right: 1rem;
+  /*margin-right: 1rem;*/
 }
 nav .container img {
   width: 40px;
   height: 40px;
 }
 
-nav .menu ul {
+nav .menu ul,
+nav .breadcrumb ul {
   list-style: none;
+  padding-left: 0;
+}
+
+nav .breadcrumb li {
+  display: inline-block;
+  padding-left: 7px;
+}
+
+nav .breadcrumb li::before {
+  content: "/";
+  margin-right: 7px;
+}
+
+nav .breadcrumb ul:last-child {
+  color: darkgray;
 }
 
 nav .menu a,
 nav .menu a:visited,
-nav .menu a:active {
+nav .menu a:active,
+nav .breadcrumb a,
+nav .breadcrumb a:visited,
+nav .breadcrumb a:active {
   color: white;
   text-decoration: none;
 }

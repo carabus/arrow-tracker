@@ -15,7 +15,6 @@ import {
 } from "recharts";
 import EndListItem from "./end-list-item";
 import SessionDetails from "./session-details";
-import NavigationTrail from "./navigation-trail";
 import HeaderBar from "./header-bar";
 import "./session.css";
 import FormattedDate from "./formatted-date";
@@ -80,11 +79,9 @@ export class Session extends React.Component {
       </ResponsiveContainer>
     );
 
-    const headerContent = <NavigationTrail />;
-
     return (
       <div class="session">
-        <HeaderBar />
+        <HeaderBar sessionId={this.props.session.id} />
         <main role="main">
           <section className="card">
             <div className="row">
