@@ -125,7 +125,7 @@ export class Dashboard extends React.Component {
               </div>
             </div>
           </section>
-          <SessionList />
+          <SessionList sessions={this.props.sessions} />
           <CompareChart
             compareChart={this.props.compareChart}
             dispatch={this.props.dispatch}
