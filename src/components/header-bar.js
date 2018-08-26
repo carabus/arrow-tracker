@@ -2,12 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { clearAuth } from "../actions/auth";
 import { clearAuthToken } from "../local-storage";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import appIcon from "../images/app-icon.svg";
 import "./header-bar.css";
 
 export class HeaderBar extends React.Component {
-  logOut() {
+  logOut(e) {
+    e.preventDefault();
     this.props.dispatch(clearAuth());
     clearAuthToken();
   }
@@ -17,7 +18,7 @@ export class HeaderBar extends React.Component {
     let menuButton;
     if (this.props.loggedIn) {
       menuButton = (
-        <a href="javascript:void(0)" onClick={() => this.logOut()}>
+        <a href="" onClick={e => this.logOut(e)}>
           Log out
         </a>
       );
@@ -46,7 +47,12 @@ export class HeaderBar extends React.Component {
           <div className="sub-container">
             <div className="logo">
               <Link to="/dashboard">
-                <img width="50px" height="50px" src={appIcon} />
+                <img
+                  width="50px"
+                  height="50px"
+                  src={appIcon}
+                  alt="Archery Tracker App"
+                />
               </Link>
             </div>
             <div className="breadcrumb">

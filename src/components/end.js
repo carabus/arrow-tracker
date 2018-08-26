@@ -15,7 +15,6 @@ import {
 } from "../actions";
 import TargetCanvas from "./target-canvas";
 import Arrow from "./arrow";
-import NavigationTrail from "./navigation-trail";
 import HeaderBar from "./header-bar";
 
 export class End extends React.Component {
@@ -69,10 +68,6 @@ export class End extends React.Component {
     const arrows = this.props.end.arrows.map((arrow, index) => (
       <Arrow arrow={arrow} key={index} />
     ));
-
-    const headerContent = (
-      <NavigationTrail sessionId={this.props.match.params.sessionId} />
-    );
 
     return (
       <div class="session">

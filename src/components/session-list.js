@@ -17,33 +17,52 @@ export class SessionList extends React.Component {
   };
 
   render() {
-    const sessions = this.props.sessions.map((session, index) => {
-      const scorePercent = Math.round((session.score / session.maxScore) * 100);
-      if (this.state.isExpanded || (!this.state.isExpanded && index < 3)) {
-        return (
-          <div key={session.id}>
-            <li
-              onClick={() => this.props.history.push(`/session/${session.id}`)}
-            >
-              <div>
-                <div>
-                  Training at {session.distance} {session.distanceUnits}
-                </div>
-                <div className="session-date">
-                  <FormattedDate date={session.created} />
-                </div>
-              </div>
+    let showMore;
+    if (this.props.sessions.length) {
+      showMore = (
+        <a href="" onClick={e => this.handleExpand(e)}>
+          {this.state.isExpanded ? "Show Less" : "Show More"}
+        </a>
+      );
+    }
 
-              <div>
-                {session.score} / {session.maxScore} ( {scorePercent}% )
-              </div>
-            </li>
-            <hr />
-          </div>
+    let sessions;
+    if (!this.props.sessions.length) {
+      sessions = <p className="centered-text">No recent training sessions</p>;
+    } else {
+      sessions = this.props.sessions.map((session, index) => {
+        const scorePercent = Math.round(
+          (session.score / session.maxScore) * 100
         );
-      }
-    });
+        if (this.state.isExpanded || (!this.state.isExpanded && index < 3)) {
+          return (
+            <div key={session.id}>
+              <li
+                onClick={() =>
+                  this.props.history.push(`/session/${session.id}`)
+                }
+              >
+                <div>
+                  <div>
+                    Training at {session.distance} {session.distanceUnits}
+                  </div>
+                  <div className="session-date">
+                    <FormattedDate date={session.created} />
+                  </div>
+                </div>
 
+                <div>
+                  {session.score} / {session.maxScore} ( {scorePercent}% )
+                </div>
+              </li>
+              <hr />
+            </div>
+          );
+        } else {
+          return null;
+        }
+      });
+    }
     return (
       <section className="card">
         <div className="card-header">
@@ -51,9 +70,7 @@ export class SessionList extends React.Component {
         </div>
         <div className="card-body session-list">
           <ul>{sessions}</ul>
-          <a href="javascript:void(0)" onClick={e => this.handleExpand(e)}>
-            {this.state.isExpanded ? "Show Less" : "Show More"}
-          </a>
+          {showMore}
         </div>
       </section>
     );

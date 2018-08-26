@@ -15,14 +15,12 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         isLoading: false,
         error: null
       });
-      break;
     }
     case actions.FETCH_SESSIONS_ERROR: {
       return Object.assign({}, state, {
         isLoading: false,
         error: action.error
       });
-      break;
     }
 
     case actions.UPDATE_SESSION_SUCCESS: {
@@ -38,8 +36,6 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         isLoading: false,
         error: null
       });
-
-      break;
     }
 
     case actions.UPDATE_SESSION_ERROR: {
@@ -47,7 +43,6 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.error
       });
-      break;
     }
 
     case actions.DELETE_SESSION_SUCCESS: {
@@ -56,28 +51,24 @@ export const archeryTrackerReducer = (state = initialState, action) => {
           session => session.id !== action.session.id
         )
       });
-      break;
     }
 
     case actions.DELETE_SESSION_ERROR: {
       return Object.assign({}, state, {
         error: action.error
       });
-      break;
     }
 
     case actions.CREATE_SESSION_SUCCESS: {
       return Object.assign({}, state, {
         sessions: [...state.sessions, action.session]
       });
-      break;
     }
 
     case actions.CREATE_SESSION_ERROR: {
       return Object.assign({}, state, {
         error: action.error
       });
-      break;
     }
 
     case actions.CREATE_ARROW1: {
@@ -108,8 +99,6 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         sessions
       });
-
-      break;
     }
 
     case actions.REMOVE_LAST_ARROW1: {
@@ -134,12 +123,10 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         sessions
       });
-      break;
     }
 
     case actions.IS_LOADING: {
       return Object.assign({}, state, { isLoading: true });
-      break;
     }
 
     default:

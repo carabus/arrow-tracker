@@ -7,8 +7,6 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-
-import { loadData } from "../actions";
 import LandingPage from "./landing-page";
 import Dashboard from "./dashboard";
 import RegistrationPage from "./registration-page";

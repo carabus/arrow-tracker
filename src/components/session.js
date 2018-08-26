@@ -1,7 +1,6 @@
 import React from "react";
 import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { createEnd, fetchSessions } from "../actions";
 import {
   LineChart,
@@ -10,8 +9,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
+  Tooltip
 } from "recharts";
 import EndListItem from "./end-list-item";
 import SessionDetails from "./session-details";

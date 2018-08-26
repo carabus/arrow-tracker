@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import SimpleSessionDetailsForm from "./simple-session-details-form";
 import { deleteSession } from "../actions";
-import FormattedDate from "./formatted-date";
 
 export class SessionDetails extends React.Component {
   constructor(props) {

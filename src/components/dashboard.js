@@ -1,10 +1,7 @@
 import React from "react";
 import requiresLogin from "./requires-login";
-
-import StartTracking from "./start-tracking";
 import SessionList from "./session-list";
-import compareChart, { CompareChart } from "./compare-chart";
-
+import { CompareChart } from "./compare-chart";
 import {
   LineChart,
   Line,
@@ -12,8 +9,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
+  Tooltip
 } from "recharts";
 import { connect } from "react-redux";
 import { fetchSessions } from "../actions";
@@ -26,10 +22,7 @@ import "./dashboard.css";
 import {
   fetchProgressChart,
   fetchUserRank,
-  fetchCompareChart,
-  addCompareChart,
-  removeCompareChart,
-  removeCompareChartOption
+  fetchCompareChart
 } from "../actions/profile";
 import { Link } from "react-router-dom";
 
@@ -49,25 +42,34 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    const progressChart = (
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={this.props.progressChart}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <XAxis dataKey="session" />
-          <YAxis />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Line
-            type="monotone"
-            dataKey="score"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    );
+    let progressChart;
+    if (!this.props.progressChart.length) {
+      progressChart = (
+        <div className="card-body">
+          <p className="centered-text">Not enough data to display chart</p>
+        </div>
+      );
+    } else {
+      progressChart = (
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart
+            data={this.props.progressChart}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="session" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Line
+              type="monotone"
+              dataKey="score"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      );
+    }
 
     return (
       <div className="session dashboard">

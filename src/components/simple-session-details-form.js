@@ -2,9 +2,7 @@ import React from "react";
 import { createSession } from "../actions";
 import { updateSession } from "../actions";
 import { connect } from "react-redux";
-import SessionOption from "./session-option";
 import Select from "react-select";
-import { Link } from "react-router-dom";
 import "react-select/dist/react-select.css";
 import { fetchTrainingFactors } from "../actions/profile";
 

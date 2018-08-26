@@ -43,7 +43,7 @@ export class CompareChart extends React.Component {
   }
 
   handleChangeOption(selectedOption, optionIndex) {
-    if (selectedOption && selectedOption.length != 0) {
+    if (selectedOption && selectedOption.length !== 0) {
       this.props.dispatch(
         fetchCompareChart(
           optionIndex,
@@ -84,7 +84,7 @@ export class CompareChart extends React.Component {
             disabled={!index ? true : false}
             onClick={() => this.handleRemoveOption(index)}
           >
-            <i class="fas fa-minus" />
+            <i className="fas fa-minus" />
           </button>
         </div>
       </div>
@@ -122,27 +122,40 @@ export class CompareChart extends React.Component {
       </ResponsiveContainer>
     );
 
+    let cardContent;
+    if (!this.props.compareChart.length || !this.props.trainingFactors.length) {
+      cardContent = (
+        <div class="card-body">
+          <p className="centered-text">Not enough data to display chart</p>
+        </div>
+      );
+    } else {
+      cardContent = (
+        <div className="row card-body">
+          <div className="column-40">
+            <p className="big-text">
+              Add Chart{" "}
+              <button
+                className="add-option"
+                onClick={() => this.handleAddOption()}
+              >
+                <i className="fas fa-plus" />
+              </button>
+            </p>
+            <form>{optionsSelect}</form>
+          </div>
+          <div className="column-60">{compareChart}</div>
+        </div>
+      );
+    }
+
     return (
       <div>
         <section className="card">
           <div className="card-header">
             <h2>Compare Training Factors</h2>
           </div>
-          <div className="row card-body">
-            <div className="column-40">
-              <p className="big-text">
-                Add Chart{" "}
-                <button
-                  class="add-option"
-                  onClick={() => this.handleAddOption()}
-                >
-                  <i class="fas fa-plus" />
-                </button>
-              </p>
-              <form>{optionsSelect}</form>
-            </div>
-            <div className="column-60">{compareChart}</div>
-          </div>
+          {cardContent}
         </section>
       </div>
     );

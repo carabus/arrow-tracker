@@ -41,6 +41,7 @@ export function LandingPage(props) {
             <div className="column-60">
               <div className="box-shadow">
                 <img
+                  alt=""
                   width="100%"
                   height="100%"
                   src="http://lorempixel.com/400/200/nature/3"
@@ -71,6 +72,7 @@ export function LandingPage(props) {
             <div className="column-60">
               <div className="box-shadow">
                 <img
+                  alt=""
                   width="100%"
                   height="100%"
                   src="http://lorempixel.com/400/200/nature/2"
@@ -83,6 +85,7 @@ export function LandingPage(props) {
             <div className="column-60">
               <div className="box-shadow">
                 <img
+                  alt=""
                   width="100%"
                   height="100%"
                   src="http://lorempixel.com/400/200/nature/2"

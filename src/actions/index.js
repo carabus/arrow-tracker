@@ -156,7 +156,7 @@ export const createEnd = (session, history) => dispatch => {
 
 export const DELETE_END = "DELETE_END";
 export const deleteEnd = (session, end) => dispatch => {
-  session.ends = session.ends.filter(currentEnd => currentEnd._id != end._id);
+  session.ends = session.ends.filter(currentEnd => currentEnd._id !== end._id);
   dispatch(updateSession(session));
 };
 
