@@ -1,72 +1,113 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-
-import LoginForm from "./login-form";
+import { HeaderBar } from "./header-bar";
+import "./landing-page.css";
+import recordImg from "../images/record.gif";
+import analyzeImg from "../images/analyze.png";
+import competeImg from "../images/compete.png";
 
 export function LandingPage(props) {
+  window.scrollTo(0, 0);
   // If we are logged in redirect straight to the user's dashboard
   if (props.loggedIn) {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <main role="main">
-      <header role="banner">
-        <h1>Archery Tracker</h1>
+    <div className="landing-page">
+      <header>
+        <HeaderBar />
+        <div className="view">
+          <div className="mask">
+            <div className="container">
+              <h1>Archery Tracker</h1>
+              <p>
+                Record your archery training scores and see how you rate against
+                other users
+              </p>
+              <div>
+                <a href="#explore">
+                  <button type="button">Explore</button>
+                </a>
+                <Link to="/register">
+                  <button type="button">Sign up</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </header>
+      <main role="main">
+        <h2 id="explore">Explore Archery Tracker</h2>
+        <div className="container">
+          <div className="row">
+            <div className="column-60">
+              <div className="box-shadow">
+                <img
+                  alt="Video showing scores entering in Archery Tracker"
+                  width="100%"
+                  src={recordImg}
+                />
+              </div>
+            </div>
+            <div className="column-40">
+              <h3>Record</h3>
+              <hr />
+              <p>
+                Record your archery training scores easily on your phone and
+                access them anywhere.
+              </p>
+            </div>
+          </div>
 
-      <section>
-        <header>
-          <h3>Start Now</h3>
-          <LoginForm />
-          <Link to="/register">Register</Link>
-        </header>
-      </section>
-      <section>
-        <header>
-          <h3>Track your archery training scores easily on your phone</h3>
-        </header>
-        <p>
-          [<em>placeholder for video of entering scores</em>]
-        </p>
-      </section>
-      <section>
-        <header>
-          <h3>
-            Gain useful insights into you training through interactive charts.
-          </h3>
-        </header>
-        <p>
-          [<em>placeholder for video of compare charts</em>]
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </section>
-      <section>
-        <header>
-          <h3>Find out how you rate against other app users</h3>
-        </header>
-        <p>
-          [<em>placeholder for image related to ratings</em>]
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </section>
-    </main>
+          <div className="row">
+            <div className="column-40">
+              <h3>Analyze</h3>
+              <hr />
+              <p>
+                Ever had a feeling that your archery is better on Sunday then on
+                Monday? Or that those fancy arrows don't really make a
+                difference? Archery Tracker helps quantify how external factors
+                affect your training.
+              </p>
+            </div>
+            <div className="column-60">
+              <div className="box-shadow">
+                <img
+                  alt="Screenshot of a chart used to compare archery training sessions with different training factors"
+                  width="100%"
+                  src={analyzeImg}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="column-60">
+              <div className="box-shadow">
+                <img
+                  alt="Screenshot of user Dashboard showing user's rating and scores chart"
+                  width="100%"
+                  src={competeImg}
+                />
+              </div>
+            </div>
+            <div className="column-40">
+              <h3>Compete</h3>
+              <hr />
+              <p>
+                Archery Tracker adds a social element to you training by
+                calculating your rank percentile across the whole user base,
+                taking users training distances into account.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <p>Photo by Andreas Overland</p>
+      </footer>
+    </div>
   );
 }
 

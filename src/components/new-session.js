@@ -1,34 +1,48 @@
 import React from "react";
 import { connect } from "react-redux";
+import requiresLogin from "./requires-login";
 import { SimpleSessionDetailsForm } from "./simple-session-details-form";
 import FormattedDate from "./formatted-date";
+import HeaderBar from "./header-bar";
+import "./session.css";
 
 export function NewSession(props) {
-  console.log("NEW SESSION", props);
   const currentDate = new Date();
   return (
-    <main role="main">
-      <header>
-        <h1>New Training Session</h1>
-        <p>
-          Started on <FormattedDate date={currentDate} />
-        </p>
-      </header>
-      <SimpleSessionDetailsForm
-        startDate={currentDate}
-        dispatch={props.dispatch}
-        history={props.history}
-        trainingFactors={props.trainingFactors}
-      />
-    </main>
+    <div className="session">
+      <HeaderBar />
+      <main role="main">
+        <section className="card">
+          <div className="card-header">
+            <div className="flex-header">
+              <header>
+                <h1 className="small">New Training Session</h1>
+              </header>
+            </div>
+            <p className="centered-text">
+              Started on <FormattedDate date={currentDate} />
+            </p>
+          </div>
+          <div className="card-body">
+            <SimpleSessionDetailsForm
+              startDate={currentDate}
+              dispatch={props.dispatch}
+              history={props.history}
+              trainingFactors={props.trainingFactors}
+              isLoading={props.isLoading}
+            />
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 
 const mapStateToProps = state => {
-  console.log("NEW SESSION MAP STATE TO PROPS");
   return {
-    trainingFactors: state.profileReducer.trainingFactors
+    trainingFactors: state.profileReducer.trainingFactors,
+    isLoading: state.archeryTrackerReducer.isLoading
   };
 };
 
-export default connect(mapStateToProps)(NewSession);
+export default requiresLogin()(connect(mapStateToProps)(NewSession));

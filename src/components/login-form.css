@@ -1,0 +1,28 @@
+.login-form header {
+  text-align: center;
+}
+
+.login-form header h1 {
+  font-size: 20px;
+  color: white;
+}
+
+.login-form .logo {
+  width: 50px;
+  height: 50px;
+}
+
+.login-form .card-header {
+  background-color: rgba(45, 51, 63, 100%);
+  text-align: left !important;
+}
+
+.login-form .card {
+  margin-top: 70px;
+}
+
+@media only screen and (max-width: 600px) {
+  .login-form .card {
+    margin-top: 0;
+  }
+}

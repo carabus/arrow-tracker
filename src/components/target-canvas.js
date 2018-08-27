@@ -1,5 +1,5 @@
 import React from "react";
-import target from "../images/target.png";
+import target from "../images/target1.png";
 
 export default class TargetCanvas extends React.Component {
   constructor(props) {
@@ -14,13 +14,11 @@ export default class TargetCanvas extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("CANVAS DID UPDATE", this.myRef, this.props.arrows);
     this.context = this.canvas.getContext("2d");
     this.doCanvas();
   }
 
   render() {
-    console.log("CANVAS RENDER");
     return <canvas ref={this.setCanvasRef} width="300" height="300" />;
   }
 

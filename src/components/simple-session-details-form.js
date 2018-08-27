@@ -2,7 +2,6 @@ import React from "react";
 import { createSession } from "../actions";
 import { updateSession } from "../actions";
 import { connect } from "react-redux";
-import SessionOption from "./session-option";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 import { fetchTrainingFactors } from "../actions/profile";
@@ -12,15 +11,20 @@ export class SimpleSessionDetailsForm extends React.Component {
     selectedOption: []
   };
 
+  onCancel = () => {
+    if (this.props.currentSession) {
+      this.props.editingCallback();
+    } else {
+      this.props.history.push("/dashboard");
+    }
+  };
+
   onSubmit = event => {
     event.preventDefault();
-    console.log(this.state.selectedOption);
 
     const selectedOptionsNames = Object.values(this.state.selectedOption).map(
       option => option.name
     );
-
-    console.log(selectedOptionsNames);
 
     if (this.props.currentSession) {
       let updatedSession = this.props.currentSession;
@@ -46,7 +50,6 @@ export class SimpleSessionDetailsForm extends React.Component {
 
   componentDidMount() {
     if (!this.props.trainingFactors.length) {
-      console.log("I did not fetch any training factors");
       this.props.dispatch(fetchTrainingFactors());
     }
     if (this.props.currentSession) {
@@ -57,25 +60,18 @@ export class SimpleSessionDetailsForm extends React.Component {
           return { id: option, name: option };
         }
       );
-      console.log("STATE", selectedOption);
       this.setState({ selectedOption });
     }
   }
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    // selectedOption can be null when the `x` (close) button is clicked
-    if (selectedOption) {
-      console.log(`Selected:`, selectedOption);
-    }
   };
 
   render() {
-    console.log("SESSION FORM PROPS", this.props);
-
     return (
       <section>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} className="login-form">
           <div className="form-section">
             <label htmlFor="distance">Distance</label>
             <input
@@ -98,6 +94,7 @@ export class SimpleSessionDetailsForm extends React.Component {
             <fieldset>
               <legend>Additional Options</legend>
               <Select.Creatable
+                className="custom-select"
                 name="form-field-name"
                 value={this.state.selectedOption}
                 multi={true}
@@ -109,8 +106,18 @@ export class SimpleSessionDetailsForm extends React.Component {
             </fieldset>
           </div>
 
-          <button type="submit">Submit</button>
-          <button type="button" onClick={() => this.props.editingCallback()}>
+          <button
+            disabled={this.props.isLoading}
+            type="submit"
+            className="button-primary"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            className="button-secondary"
+            onClick={() => this.onCancel()}
+          >
             Cancel
           </button>
         </form>
@@ -120,7 +127,6 @@ export class SimpleSessionDetailsForm extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("MAP STATE TO PROPS FORM");
   return {
     trainingFactors: state.profileReducer.trainingFactors
   };
