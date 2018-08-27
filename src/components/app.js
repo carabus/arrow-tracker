@@ -73,6 +73,7 @@ class App extends Component {
               component={End}
             />
             <Redirect to="/" />
+
           </Switch>
         </div>
       </Router>
