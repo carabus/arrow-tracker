@@ -22,9 +22,13 @@ export class SessionDetails extends React.Component {
   render() {
     console.log(this.props);
 
-    const optionsList = this.props.session.trainingFactors.map(factor => (
+    let optionsList = this.props.session.trainingFactors.map(factor => (
       <li key={factor}>{factor}</li>
     ));
+
+    if (!optionsList.length) {
+      optionsList.push(<li key={"none"}>{"none"}</li>);
+    }
 
     if (this.state.editing) {
       return (
@@ -35,27 +39,40 @@ export class SessionDetails extends React.Component {
       );
     }
 
+    let scorePercent = Math.round(
+      (this.props.session.score / this.props.session.maxScore) * 100
+    );
+
     return (
       <section>
-        <dl>
-          <dt>Distance</dt>
-          <dd>
-            {this.props.session.distance} {this.props.session.distanceUnits}
-          </dd>
-          <dt>Additional options</dt>
-          <dd>
-            <ul>{optionsList}</ul>
-          </dd>
-        </dl>
-        <button onClick={() => this.setEditing(true)}>Edit</button>
+        <p>Score</p>
+        <p className="big-text">
+          {" "}
+          {this.props.session.score} / {this.props.session.maxScore} (
+          {scorePercent}
+          %)
+        </p>
+        <p>Distance</p>
+        <p className="big-text">
+          {this.props.session.distance} {this.props.session.distanceUnits}
+        </p>
+        <p>Training Factors</p>
+        <div className="big-text">
+          <ul>{optionsList}</ul>
+        </div>
+        <hr />
+        <button className="edit" onClick={() => this.setEditing(true)}>
+          <i className="fas fa-pen" />
+        </button>
         <button
+          className="delete"
           onClick={() =>
             this.props.dispatch(
               deleteSession(this.props.session, this.props.history)
             )
           }
         >
-          Delete
+          <i className="fas fa-trash" />
         </button>
       </section>
     );

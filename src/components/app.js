@@ -7,13 +7,10 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-import "./app.css";
-
-import { loadData } from "../actions";
-import HeaderBar from "./header-bar";
 import LandingPage from "./landing-page";
 import Dashboard from "./dashboard";
 import RegistrationPage from "./registration-page";
+import LoginForm from "./login-form";
 import { refreshAuthToken } from "../actions/auth";
 import { computeUserRank } from "../actions/profile";
 import Session from "./session";
@@ -55,13 +52,16 @@ class App extends Component {
   }
 
   render() {
+    if (this.props.errorSessions || this.props.errorCharts) {
+      return <div>There was an error</div>;
+    }
     return (
       <Router>
         <div className="app">
-          <HeaderBar />
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/register" component={RegistrationPage} />
+            <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={Dashboard} />
 
             <Route exact path="/session/:sessionId" component={Session} />
@@ -72,7 +72,8 @@ class App extends Component {
               path="/session/:sessionId/end/:endNumber"
               component={End}
             />
-            <Route exact path="*" component={LandingPage} />
+            <Redirect to="/" />
+
           </Switch>
         </div>
       </Router>
@@ -82,7 +83,9 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   hasAuthToken: state.auth.authToken !== null,
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
+  errorSessions: state.archeryTrackerReducer.error,
+  errorCharts: state.profileReducer.error
 });
 
 // Deal with update blocking - https://reacttraining.com/react-router/web/guides/dealing-with-update-blocking
