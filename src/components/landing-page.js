@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { HeaderBar } from "./header-bar";
 import "./landing-page.css";
+import recordImg from "../images/record.gif";
+import analyzeImg from "../images/analyze.png";
+import competeImg from "../images/compete.png";
 
 export function LandingPage(props) {
   window.scrollTo(0, 0);
@@ -41,10 +44,9 @@ export function LandingPage(props) {
             <div className="column-60">
               <div className="box-shadow">
                 <img
-                  alt=""
+                  alt="Video showing scores entering in Archery Tracker"
                   width="100%"
-                  height="100%"
-                  src="http://lorempixel.com/400/200/nature/3"
+                  src={recordImg}
                 />
               </div>
             </div>
@@ -72,10 +74,9 @@ export function LandingPage(props) {
             <div className="column-60">
               <div className="box-shadow">
                 <img
-                  alt=""
+                  alt="Screenshot of a chart used to compare archery training sessions with different training factors"
                   width="100%"
-                  height="100%"
-                  src="http://lorempixel.com/400/200/nature/2"
+                  src={analyzeImg}
                 />
               </div>
             </div>
@@ -85,10 +86,9 @@ export function LandingPage(props) {
             <div className="column-60">
               <div className="box-shadow">
                 <img
-                  alt=""
+                  alt="Screenshot of user Dashboard showing user's rating and scores chart"
                   width="100%"
-                  height="100%"
-                  src="http://lorempixel.com/400/200/nature/2"
+                  src={competeImg}
                 />
               </div>
             </div>

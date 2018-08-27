@@ -176,6 +176,11 @@ export const removeLastArrow1 = (session, end) => ({
   session,
   end
 });
+
+export const RESET = "RESET";
+export const reset = () => ({
+  type: RESET
+});
 /*
 export const CREATE_ARROW = "CREATE_ARROW";
 export const createArrow = (

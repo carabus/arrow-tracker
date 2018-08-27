@@ -1,4 +1,5 @@
 import * as actions from "../actions/profile";
+import { RESET } from "../actions";
 
 const initialState = {
   trainingFactors: [],
@@ -129,6 +130,10 @@ export const profileReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         error: action.error
       });
+    }
+
+    case RESET: {
+      return initialState;
     }
 
     default:

@@ -6,6 +6,8 @@ import {
   AUTH_ERROR
 } from "../actions/auth";
 
+import { RESET } from "../actions";
+
 const initialState = {
   authToken: null, // authToken !== null does not mean it has been validated
   currentUser: null,
@@ -38,6 +40,8 @@ export default function reducer(state = initialState, action) {
       loading: false,
       error: action.error
     });
+  } else if (action.type === RESET) {
+    return initialState;
   }
   return state;
 }

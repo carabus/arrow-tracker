@@ -88,7 +88,7 @@ export class Dashboard extends React.Component {
                   </header>
                 </div>
                 <section>
-                  <p className="centered-text">
+                  <div className="centered-text">
                     Your rank{" "}
                     <button
                       data-tip
@@ -107,7 +107,7 @@ export class Dashboard extends React.Component {
                         Sessions with bigger distance are given more weight.
                       </div>
                     </ReactTooltip>
-                  </p>
+                  </div>
                   <div className="flex-wrapper">
                     <div className="single-chart">
                       <svg
@@ -142,7 +142,7 @@ export class Dashboard extends React.Component {
                 </section>
               </div>
               <div className="column-60">
-                <h2>Avg Session Scores (%)</h2>
+                <h2>Session Scores (%)</h2>
                 {progressChart}
               </div>
             </div>

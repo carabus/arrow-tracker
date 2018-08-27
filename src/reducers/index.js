@@ -129,6 +129,10 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       return Object.assign({}, state, { isLoading: true });
     }
 
+    case actions.RESET: {
+      return initialState;
+    }
+
     default:
       return { ...state };
   }

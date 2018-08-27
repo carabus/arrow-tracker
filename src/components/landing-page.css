@@ -120,7 +120,7 @@ main {
 }
 
 main p {
-  max-width: 800px;
+  max-width: 1000px;
   text-align: left;
   margin: 0 auto;
   color: #444;
@@ -128,7 +128,7 @@ main p {
 }
 
 main .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 15px;
 }
