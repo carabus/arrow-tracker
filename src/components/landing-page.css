@@ -86,6 +86,11 @@ h3 {
   order: 0;
 }
 
+.card-column-no-body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .box-shadow {
   height: 100%;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);

@@ -19,7 +19,7 @@ import {
   removeCompareChart,
   removeCompareChartOption
 } from "../actions/profile";
-
+import ReactTooltip from "react-tooltip";
 export class CompareChart extends React.Component {
   chartColors = [
     "#007bff",
@@ -59,7 +59,7 @@ export class CompareChart extends React.Component {
 
   render() {
     const optionsSelect = this.props.compareChart.map((chart, index) => (
-      <div key={index} className="table-row">
+      <div key={index} className="option-row">
         <div className="flex-full-width">
           <Select
             name="form-field-name"
@@ -91,7 +91,7 @@ export class CompareChart extends React.Component {
     ));
 
     const compareChart = (
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={250}>
         <LineChart
           data={this.props.compareChart.map(chart => chart.chart)}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -125,14 +125,14 @@ export class CompareChart extends React.Component {
     let cardContent;
     if (!this.props.compareChart.length || !this.props.trainingFactors.length) {
       cardContent = (
-        <div class="card-body">
+        <div className="card-body">
           <p className="centered-text">Not enough data to display chart</p>
         </div>
       );
     } else {
       cardContent = (
-        <div className="row card-body">
-          <div className="column-40">
+        <div className="row">
+          <div className="column-40 card-column-no-body">
             <p className="big-text">
               Add Chart{" "}
               <button
@@ -144,7 +144,7 @@ export class CompareChart extends React.Component {
             </p>
             <form>{optionsSelect}</form>
           </div>
-          <div className="column-60">{compareChart}</div>
+          <div className="column-60 card-column-no-body">{compareChart}</div>
         </div>
       );
     }
@@ -153,7 +153,28 @@ export class CompareChart extends React.Component {
       <div>
         <section className="card">
           <div className="card-header">
-            <h2>Compare Training Factors</h2>
+            <div className="flex-header">
+              <div width="20px" />
+              <h2>Compare Training Factors</h2>
+              <div>
+                <button
+                  data-tip
+                  data-for="compare"
+                  data-event="click"
+                  className="tooltip"
+                >
+                  <i className="fas fa-question" />
+                </button>
+                <ReactTooltip id="compare" globalEventOff="click">
+                  <div>
+                    Compare scores for sessions with different training factors.
+                  </div>
+                  <div>
+                    Sessions with no training factors are selected by default.
+                  </div>
+                </ReactTooltip>
+              </div>
+            </div>
           </div>
           {cardContent}
         </section>

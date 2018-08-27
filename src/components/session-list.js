@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import FormattedDate from "./formatted-date";
 import "./session-list.css";
+import ReactTooltip from "react-tooltip";
 
 export class SessionList extends React.Component {
   state = {
@@ -66,8 +67,25 @@ export class SessionList extends React.Component {
     return (
       <section className="card">
         <div className="card-header">
-          <h2>Recent Training Sessions</h2>
+          <div className="flex-header">
+            <div width="20px" />
+            <h2>Recent Training Sessions</h2>
+            <div>
+              <button
+                data-tip
+                data-for="list"
+                data-event="click"
+                className="tooltip"
+              >
+                <i className="fas fa-question" />
+              </button>
+              <ReactTooltip id="list" globalEventOff="click">
+                <div>Up to 10 recent sessions are displayed</div>
+              </ReactTooltip>
+            </div>
+          </div>
         </div>
+
         <div className="card-body session-list">
           <ul>{sessions}</ul>
           {showMore}

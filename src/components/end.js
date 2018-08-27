@@ -50,7 +50,7 @@ export class End extends React.Component {
       return (
         <main>
           <section>
-            <p class="centered-text">Loading...</p>
+            <p className="centered-text">Loading...</p>
           </section>
         </main>
       );
@@ -59,7 +59,7 @@ export class End extends React.Component {
       return (
         <main>
           <section>
-            <p class="centered-text">No such End</p>
+            <p className="centered-text">No such End</p>
           </section>
         </main>
       );
@@ -70,7 +70,7 @@ export class End extends React.Component {
     ));
 
     return (
-      <div class="session">
+      <div className="session">
         <HeaderBar
           sessionId={this.props.session.id}
           endId={this.props.end._id}

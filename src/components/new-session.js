@@ -19,7 +19,7 @@ export function NewSession(props) {
                 <h1 className="small">New Training Session</h1>
               </header>
             </div>
-            <p class="centered-text">
+            <p className="centered-text">
               Started on <FormattedDate date={currentDate} />
             </p>
           </div>

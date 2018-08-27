@@ -25,6 +25,7 @@ import {
   fetchCompareChart
 } from "../actions/profile";
 import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 
 export class Dashboard extends React.Component {
   componentDidMount() {
@@ -51,7 +52,7 @@ export class Dashboard extends React.Component {
       );
     } else {
       progressChart = (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={250}>
           <LineChart
             data={this.props.progressChart}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -87,7 +88,26 @@ export class Dashboard extends React.Component {
                   </header>
                 </div>
                 <section>
-                  <p className="centered-text">Your rank is</p>
+                  <p className="centered-text">
+                    Your rank{" "}
+                    <button
+                      data-tip
+                      data-for="rank"
+                      data-event="click"
+                      className="tooltip"
+                    >
+                      <i className="fas fa-question" />
+                    </button>
+                    <ReactTooltip id="rank" globalEventOff="click">
+                      <div>
+                        Rank percentile of average session score across all app
+                        users.
+                      </div>
+                      <div>
+                        Sessions with bigger distance are given more weight.
+                      </div>
+                    </ReactTooltip>
+                  </p>
                   <div className="flex-wrapper">
                     <div className="single-chart">
                       <svg

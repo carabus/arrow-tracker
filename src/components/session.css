@@ -72,6 +72,7 @@
   text-align: left;
 }
 
+.session .option-row,
 .session .table-row {
   display: flex;
   justify-content: space-between;
@@ -103,18 +104,24 @@
 .session .edit,
 .session .delete,
 .session .add-option,
-.session .delete-option {
+.session .delete-option,
+.session .tooltip {
   color: #ffffff;
   background-color: #09c !important;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   border-radius: 0.125rem;
   font-weight: 300;
   text-transform: uppercase;
-  padding: 10px;
+  padding: 8px 10px;
   font-size: 16px;
   border: none;
 }
 
+.session .tooltip:focus {
+  outline: 0;
+}
+
+.session .card-header .tooltip,
 .session .create {
   color: #ffffff;
   background-color: transparent;
@@ -162,5 +169,12 @@
   .session .nowrap-cell {
     display: block;
     margin-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .session main {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

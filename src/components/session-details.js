@@ -62,7 +62,7 @@ export class SessionDetails extends React.Component {
         </div>
         <hr />
         <button className="edit" onClick={() => this.setEditing(true)}>
-          <i class="fas fa-pen" />
+          <i className="fas fa-pen" />
         </button>
         <button
           className="delete"
@@ -72,7 +72,7 @@ export class SessionDetails extends React.Component {
             )
           }
         >
-          <i class="fas fa-trash" />
+          <i className="fas fa-trash" />
         </button>
       </section>
     );

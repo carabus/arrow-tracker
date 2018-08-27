@@ -12,7 +12,7 @@ export function EndListItem(props) {
   return (
     <section className="table-row">
       <div className="table-cell">
-        <div class="end-num">#{props.endNum}</div>
+        <div className="end-num">#{props.endNum}</div>
         <div>{arrows}</div>
       </div>
       <div className="nowrap-cell">
@@ -25,13 +25,13 @@ export function EndListItem(props) {
             );
           }}
         >
-          <i class="fas fa-pen" />
+          <i className="fas fa-pen" />
         </button>
         <button
           className="delete"
           onClick={() => props.dispatch(deleteEnd(props.session, props.end))}
         >
-          <i class="fas fa-trash" />
+          <i className="fas fa-trash" />
         </button>
       </div>
     </section>

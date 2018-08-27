@@ -58,7 +58,7 @@ export class Session extends React.Component {
     });
 
     const simpleLineChart = (
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={250}>
         <LineChart
           data={this.props.session.chart}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -78,7 +78,7 @@ export class Session extends React.Component {
     );
 
     return (
-      <div class="session">
+      <div className="session">
         <HeaderBar sessionId={this.props.session.id} />
         <main role="main">
           <section className="card">
@@ -123,7 +123,7 @@ export class Session extends React.Component {
                       )
                     }
                   >
-                    <i class="fas fa-plus" />
+                    <i className="fas fa-plus" />
                   </button>
                 </div>
               </div>
