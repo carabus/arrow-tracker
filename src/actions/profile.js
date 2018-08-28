@@ -7,9 +7,9 @@ export const fetchTrainingFactorsSuccess = trainingFactors => ({
   trainingFactors
 });
 
-export const FETCH_TRAINING_FACTORS_ERROR = "FETCH_TRAINING_FACTORS_ERROR";
-export const fetchTrainingFactorsError = error => ({
-  type: FETCH_TRAINING_FACTORS_ERROR,
+export const FETCH_PROFILE_ERROR = "FETCH_PROFILE_ERROR";
+export const fetchProfileError = error => ({
+  type: FETCH_PROFILE_ERROR,
   error
 });
 
@@ -28,7 +28,7 @@ export const fetchTrainingFactors = () => (dispatch, getState) => {
       dispatch(fetchTrainingFactorsSuccess(data));
     })
     .catch(err => {
-      dispatch(fetchTrainingFactorsError(err));
+      dispatch(fetchProfileError(err));
     });
 };
 
@@ -41,12 +41,6 @@ export const PROGRESS_CHART_SUCCESS = "PROGRESS_CHART_SUCCESS";
 export const progressChartSuccess = progressChart => ({
   type: PROGRESS_CHART_SUCCESS,
   progressChart
-});
-
-export const PROGRESS_CHART_ERROR = "PROGRESS_CHART_ERROR";
-export const progressChartError = error => ({
-  type: PROGRESS_CHART_ERROR,
-  error
 });
 
 export const fetchProgressChart = () => (dispatch, getState) => {
@@ -65,7 +59,7 @@ export const fetchProgressChart = () => (dispatch, getState) => {
       dispatch(progressChartSuccess(data));
     })
     .catch(err => {
-      dispatch(progressChartError(err));
+      dispatch(fetchProfileError(err));
     });
 };
 
@@ -103,12 +97,6 @@ export const compareChartSuccess = (
   optionIndex
 });
 
-export const COMPARE_CHART_ERROR = "COMPARE_CHART_ERROR";
-export const compareChartError = error => ({
-  type: COMPARE_CHART_ERROR,
-  error
-});
-
 export const fetchCompareChart = (optionIndex, selectedFactors) => (
   dispatch,
   getState
@@ -130,7 +118,7 @@ export const fetchCompareChart = (optionIndex, selectedFactors) => (
       dispatch(compareChartSuccess(data, selectedFactors, optionIndex));
     })
     .catch(err => {
-      dispatch(compareChartError(err));
+      dispatch(fetchProfileError(err));
     });
 };
 
@@ -163,12 +151,6 @@ export const fetchUserRankSuccess = rank => ({
   rank
 });
 
-export const FETCH_USER_RANK_ERROR = "FETCH_USER_RANK_ERROR";
-export const fetchUserRankError = error => ({
-  type: FETCH_USER_RANK_ERROR,
-  error
-});
-
 export const fetchUserRank = () => (dispatch, getState) => {
   dispatch(fetchUserRankRequest());
   const authToken = getState().auth.authToken;
@@ -184,6 +166,6 @@ export const fetchUserRank = () => (dispatch, getState) => {
       dispatch(fetchUserRankSuccess(data));
     })
     .catch(err => {
-      dispatch(fetchUserRankError(err));
+      dispatch(fetchProfileError(err));
     });
 };

@@ -10,8 +10,8 @@ import "./header-bar.css";
 export class HeaderBar extends React.Component {
   logOut(e) {
     e.preventDefault();
-    this.props.dispatch(reset());
     this.props.dispatch(clearAuth());
+    this.props.dispatch(reset());
     clearAuthToken();
   }
 

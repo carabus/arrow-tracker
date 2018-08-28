@@ -22,7 +22,7 @@ export const profileReducer = (state = initialState, action) => {
         error: null
       });
     }
-    case actions.FETCH_TRAINING_FACTORS_ERROR: {
+    case actions.FETCH_PROFILE_ERROR: {
       return Object.assign({}, state, {
         error: action.error
       });
@@ -32,11 +32,6 @@ export const profileReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         progressChart: action.progressChart,
         error: null
-      });
-    }
-    case actions.PROGRESS_CHART_ERROR: {
-      return Object.assign({}, state, {
-        error: action.error
       });
     }
 
@@ -114,21 +109,10 @@ export const profileReducer = (state = initialState, action) => {
       });
     }
 
-    case actions.COMPARE_CHART_ERROR: {
-      return Object.assign({}, state, {
-        error: action.error
-      });
-    }
-
     case actions.FETCH_USER_RANK_SUCCESS: {
       return Object.assign({}, state, {
         rank: action.rank,
         error: null
-      });
-    }
-    case actions.FETCH_USER_RANK_ERROR: {
-      return Object.assign({}, state, {
-        error: action.error
       });
     }
 
