@@ -54,6 +54,10 @@ export const updateSession = (session, history) => (dispatch, getState) => {
   dispatch(isLoading());
   console.log("UPDATE SESSION", session);
   const authToken = getState().auth.authToken;
+  console.log("Auth token", authToken);
+  if (!authToken) {
+    return;
+  }
   return fetch(`${API_BASE_URL}/trainingRecords/${session.id}`, {
     method: "PUT",
     headers: {
@@ -160,9 +164,9 @@ export const deleteEnd = (session, end) => dispatch => {
   dispatch(updateSession(session));
 };
 
-export const CREATE_ARROW1 = "CREATE_ARROW1";
-export const createArrow1 = (session, end, point, score, isInverted) => ({
-  type: CREATE_ARROW1,
+export const CREATE_ARROW = "CREATE_ARROW";
+export const createArrow = (session, end, point, score, isInverted) => ({
+  type: CREATE_ARROW,
   session,
   end,
   point,
@@ -170,9 +174,9 @@ export const createArrow1 = (session, end, point, score, isInverted) => ({
   isInverted
 });
 
-export const REMOVE_LAST_ARROW1 = "REMOVE_LAST_ARROW1";
-export const removeLastArrow1 = (session, end) => ({
-  type: REMOVE_LAST_ARROW1,
+export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
+export const removeLastArrow = (session, end) => ({
+  type: REMOVE_LAST_ARROW,
   session,
   end
 });
@@ -181,25 +185,3 @@ export const RESET = "RESET";
 export const reset = () => ({
   type: RESET
 });
-/*
-export const CREATE_ARROW = "CREATE_ARROW";
-export const createArrow = (
-  session,
-  end,
-  point,
-  score,
-  isInverted
-) => dispatch => {
-  session.ends[session.ends.indexOf(end)].arrows.push({
-    coordinates: point,
-    score,
-    isInverted
-  });
-  dispatch(updateSession(session));
-};
-
-export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
-export const removeLastArrow = (session, end) => dispatch => {
-  session.ends[session.ends.indexOf(end)].arrows.splice(-1, 1);
-  dispatch(updateSession(session));
-};*/

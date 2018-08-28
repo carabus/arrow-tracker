@@ -71,7 +71,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
     }
 
-    case actions.CREATE_ARROW1: {
+    case actions.CREATE_ARROW: {
       console.log(state.sessions);
       console.log(action);
       const newArrow = {
@@ -101,7 +101,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
     }
 
-    case actions.REMOVE_LAST_ARROW1: {
+    case actions.REMOVE_LAST_ARROW: {
       let sessions = state.sessions.map(session => {
         if (session.id !== action.session.id) {
           return session;

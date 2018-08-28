@@ -5,12 +5,9 @@ import "./session.css";
 
 import {
   createEnd,
-  /*
-  createArrow,
-  removeLastArrow,*/
   fetchSessions,
-  createArrow1,
-  removeLastArrow1,
+  createArrow,
+  removeLastArrow,
   updateSession
 } from "../actions";
 import TargetCanvas from "./target-canvas";
@@ -35,7 +32,7 @@ export class End extends React.Component {
 
   createArrow(arrow) {
     this.props.dispatch(
-      createArrow1(
+      createArrow(
         this.props.session,
         this.props.end,
         arrow.point,
@@ -110,7 +107,7 @@ export class End extends React.Component {
                     type="button"
                     onClick={() =>
                       this.props.dispatch(
-                        removeLastArrow1(this.props.session, this.props.end)
+                        removeLastArrow(this.props.session, this.props.end)
                       )
                     }
                   >
