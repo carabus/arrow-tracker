@@ -38,24 +38,11 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
     }
 
-    case actions.UPDATE_SESSION_ERROR: {
-      return Object.assign({}, state, {
-        isLoading: false,
-        error: action.error
-      });
-    }
-
     case actions.DELETE_SESSION_SUCCESS: {
       return Object.assign({}, state, {
         sessions: state.sessions.filter(
           session => session.id !== action.session.id
         )
-      });
-    }
-
-    case actions.DELETE_SESSION_ERROR: {
-      return Object.assign({}, state, {
-        error: action.error
       });
     }
 
@@ -65,15 +52,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       });
     }
 
-    case actions.CREATE_SESSION_ERROR: {
-      return Object.assign({}, state, {
-        error: action.error
-      });
-    }
-
     case actions.CREATE_ARROW: {
-      console.log(state.sessions);
-      console.log(action);
       const newArrow = {
         coordinates: action.point,
         score: action.score,
@@ -95,7 +74,6 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         });
       });
 
-      console.log(sessions, state.sessions);
       return Object.assign({}, state, {
         sessions
       });

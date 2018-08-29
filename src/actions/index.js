@@ -44,12 +44,6 @@ export const updateSessionSuccess = session => ({
   session
 });
 
-export const UPDATE_SESSION_ERROR = "UPDATE_SESSION_ERROR";
-export const updateSessionError = error => ({
-  type: UPDATE_SESSION_ERROR,
-  error
-});
-
 export const updateSession = (session, history) => (dispatch, getState) => {
   dispatch(isLoading());
   console.log("UPDATE SESSION", session);
@@ -80,7 +74,7 @@ export const updateSession = (session, history) => (dispatch, getState) => {
       }
     })
     .catch(err => {
-      dispatch(updateSessionError(err));
+      dispatch(fetchSessionError(err));
     });
 };
 
@@ -88,12 +82,6 @@ export const DELETE_SESSION_SUCCESS = "DELETE_SESSION_SUCCESS";
 export const deleteSessionSuccess = session => ({
   type: DELETE_SESSION_SUCCESS,
   session
-});
-
-export const DELETE_SESSION_ERROR = "DELETE_SESSION_ERROR";
-export const deleteSessionError = error => ({
-  type: DELETE_SESSION_ERROR,
-  error
 });
 
 export const deleteSession = (session, history) => (dispatch, getState) => {
@@ -114,7 +102,7 @@ export const deleteSession = (session, history) => (dispatch, getState) => {
       }
     })
     .catch(err => {
-      dispatch(deleteSessionError(err));
+      dispatch(fetchSessionError(err));
     });
 };
 
@@ -122,12 +110,6 @@ export const CREATE_SESSION_SUCCESS = "CREATE_SESSION_SUCCESS";
 export const createSessionSuccess = session => ({
   type: CREATE_SESSION_SUCCESS,
   session
-});
-
-export const CREATE_SESSION_ERROR = "CREATE_SESSION_ERROR";
-export const createSessionError = error => ({
-  type: CREATE_SESSION_ERROR,
-  error
 });
 
 export const createSession = (session, history) => (dispatch, getState) => {
@@ -148,7 +130,7 @@ export const createSession = (session, history) => (dispatch, getState) => {
       dispatch(createEnd(session, history));
     })
     .catch(err => {
-      dispatch(createSessionError(err));
+      dispatch(fetchSessionError(err));
     });
 };
 

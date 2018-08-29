@@ -1,5 +1,4 @@
 import * as actions from "./profile";
-import { fetchTrainingFactors, fetchTrainingFactorsSuccess } from "./profile";
 import { API_BASE_URL } from "../config";
 
 describe("fetchTrainingFactorsSuccess", () => {
@@ -219,7 +218,10 @@ describe("computeUserRanks", () => {
 
     global.fetch = jest.fn().mockImplementation(() =>
       Promise.resolve({
-        ok: true
+        ok: true,
+        json() {
+          return {};
+        }
       })
     );
 
