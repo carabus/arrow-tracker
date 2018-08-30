@@ -46,9 +46,7 @@ export const updateSessionSuccess = session => ({
 
 export const updateSession = (session, history) => (dispatch, getState) => {
   dispatch(isLoading());
-  console.log("UPDATE SESSION", session);
   const authToken = getState().auth.authToken;
-  console.log("Auth token", authToken);
   if (!authToken) {
     return;
   }
@@ -96,7 +94,6 @@ export const deleteSession = (session, history) => (dispatch, getState) => {
     .then(res => normalizeResponseErrors(res))
     .then(data => {
       dispatch(deleteSessionSuccess(session));
-      console.log("AFTER DISPATCH", history);
       if (history) {
         history.push("/dashboard");
       }
@@ -113,7 +110,6 @@ export const createSessionSuccess = session => ({
 });
 
 export const createSession = (session, history) => (dispatch, getState) => {
-  console.log("CREATE SESSION", session);
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/trainingRecords`, {
     method: "POST",
