@@ -11,7 +11,9 @@ export class SessionList extends React.Component {
   };
 
   handleExpand = e => {
-    e.preventDefault();
+    {
+      /*}e.preventDefault();{*/
+    }
     this.setState({
       isExpanded: !this.state.isExpanded
     });
@@ -19,7 +21,7 @@ export class SessionList extends React.Component {
 
   render() {
     let showMore;
-    if (this.props.sessions.length) {
+    if (this.props.sessions.length && this.props.sessions.length > 3) {
       showMore = (
         <a href="" onClick={e => this.handleExpand(e)}>
           {this.state.isExpanded ? "Show Less" : "Show More"}

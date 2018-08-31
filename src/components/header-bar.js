@@ -9,7 +9,7 @@ import "./header-bar.css";
 
 export class HeaderBar extends React.Component {
   logOut(e) {
-    e.preventDefault();
+    //e.preventDefault();
     this.props.dispatch(clearAuth());
     this.props.dispatch(reset());
     clearAuthToken();
@@ -20,7 +20,7 @@ export class HeaderBar extends React.Component {
     let menuButton;
     if (this.props.loggedIn) {
       menuButton = (
-        <a href="" onClick={e => this.logOut(e)}>
+        <a href="" className="logout" onClick={e => this.logOut(e)}>
           Log out
         </a>
       );
