@@ -20,8 +20,6 @@ export class SessionDetails extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-
     let optionsList = this.props.session.trainingFactors.map(factor => (
       <li key={factor}>{factor}</li>
     ));
