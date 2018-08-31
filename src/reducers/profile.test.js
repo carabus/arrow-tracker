@@ -257,7 +257,7 @@ describe("reset", () => {
           selectedFactors: [],
           chart: {
             name: "normal training",
-            data: [{ id: "barebow", name: "barebow" }]
+            data: [{ session: 1, score: 68 }]
           }
         }
       ],
@@ -294,7 +294,7 @@ describe("default", () => {
           selectedFactors: [],
           chart: {
             name: "normal training",
-            data: [{ id: "barebow", name: "barebow" }]
+            data: [{ session: 1, score: 68 }]
           }
         }
       ],
@@ -309,7 +309,7 @@ describe("default", () => {
           selectedFactors: [],
           chart: {
             name: "normal training",
-            data: [{ id: "barebow", name: "barebow" }]
+            data: [{ session: 1, score: 68 }]
           }
         }
       ],
