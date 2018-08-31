@@ -72,7 +72,7 @@ export const updateSession = (session, history) => (dispatch, getState) => {
       }
     })
     .catch(err => {
-      dispatch(fetchSessionError(err));
+      dispatch(fetchSessionsError(err));
     });
 };
 
@@ -99,7 +99,7 @@ export const deleteSession = (session, history) => (dispatch, getState) => {
       }
     })
     .catch(err => {
-      dispatch(fetchSessionError(err));
+      dispatch(fetchSessionsError(err));
     });
 };
 
@@ -126,7 +126,7 @@ export const createSession = (session, history) => (dispatch, getState) => {
       dispatch(createEnd(session, history));
     })
     .catch(err => {
-      dispatch(fetchSessionError(err));
+      dispatch(fetchSessionsError(err));
     });
 };
 
