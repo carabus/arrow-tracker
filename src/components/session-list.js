@@ -11,9 +11,7 @@ export class SessionList extends React.Component {
   };
 
   handleExpand = e => {
-    {
-      /*}e.preventDefault();{*/
-    }
+    e.preventDefault();
     this.setState({
       isExpanded: !this.state.isExpanded
     });

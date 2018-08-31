@@ -38,7 +38,8 @@ describe("<SessionList/>", () => {
 
   it("Shows all sessions when Show More was clicked", () => {
     const wrapper = shallow(<SessionList sessions={sessionListLong} />);
-    wrapper.find("a").simulate("click");
+    const mockedEvent = { preventDefault: jest.fn() };
+    wrapper.find("a").simulate("click", mockedEvent);
     expect(wrapper.find("li").length).toBe(10);
   });
 

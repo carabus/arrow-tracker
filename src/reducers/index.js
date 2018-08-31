@@ -86,7 +86,7 @@ export const archeryTrackerReducer = (state = initialState, action) => {
         }
 
         let ends = session.ends.map(end => {
-          if (end.id !== action.end.id) {
+          if (end._id !== action.end._id) {
             return end;
           }
           return Object.assign({}, end, {
