@@ -17,7 +17,7 @@ import Session from "./session";
 import End from "./end";
 import NewSession from "./new-session";
 
-class App extends Component {
+export class App extends Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.loggedIn && this.props.loggedIn) {
       // When we are logged in, refresh the auth token periodically
@@ -73,7 +73,6 @@ class App extends Component {
               component={End}
             />
             <Redirect to="/" />
-
           </Switch>
         </div>
       </Router>

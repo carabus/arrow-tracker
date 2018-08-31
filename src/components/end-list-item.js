@@ -37,9 +37,4 @@ export function EndListItem(props) {
     </section>
   );
 }
-/*
-const mapStateToProps = (state, props) => ({
-  end: state.archeryTrackerReducer.ends.find(end => props.endId === end.id)
-});
-*/
 export default withRouter(connect()(EndListItem));

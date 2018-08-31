@@ -44,16 +44,12 @@ export const updateSessionSuccess = session => ({
   session
 });
 
-export const UPDATE_SESSION_ERROR = "UPDATE_SESSION_ERROR";
-export const updateSessionError = error => ({
-  type: UPDATE_SESSION_ERROR,
-  error
-});
-
 export const updateSession = (session, history) => (dispatch, getState) => {
   dispatch(isLoading());
-  console.log("UPDATE SESSION", session);
   const authToken = getState().auth.authToken;
+  if (!authToken) {
+    return;
+  }
   return fetch(`${API_BASE_URL}/trainingRecords/${session.id}`, {
     method: "PUT",
     headers: {
@@ -76,7 +72,7 @@ export const updateSession = (session, history) => (dispatch, getState) => {
       }
     })
     .catch(err => {
-      dispatch(updateSessionError(err));
+      dispatch(fetchSessionsError(err));
     });
 };
 
@@ -84,12 +80,6 @@ export const DELETE_SESSION_SUCCESS = "DELETE_SESSION_SUCCESS";
 export const deleteSessionSuccess = session => ({
   type: DELETE_SESSION_SUCCESS,
   session
-});
-
-export const DELETE_SESSION_ERROR = "DELETE_SESSION_ERROR";
-export const deleteSessionError = error => ({
-  type: DELETE_SESSION_ERROR,
-  error
 });
 
 export const deleteSession = (session, history) => (dispatch, getState) => {
@@ -104,13 +94,12 @@ export const deleteSession = (session, history) => (dispatch, getState) => {
     .then(res => normalizeResponseErrors(res))
     .then(data => {
       dispatch(deleteSessionSuccess(session));
-      console.log("AFTER DISPATCH", history);
       if (history) {
         history.push("/dashboard");
       }
     })
     .catch(err => {
-      dispatch(deleteSessionError(err));
+      dispatch(fetchSessionsError(err));
     });
 };
 
@@ -120,14 +109,7 @@ export const createSessionSuccess = session => ({
   session
 });
 
-export const CREATE_SESSION_ERROR = "CREATE_SESSION_ERROR";
-export const createSessionError = error => ({
-  type: CREATE_SESSION_ERROR,
-  error
-});
-
 export const createSession = (session, history) => (dispatch, getState) => {
-  console.log("CREATE SESSION", session);
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/trainingRecords`, {
     method: "POST",
@@ -144,7 +126,7 @@ export const createSession = (session, history) => (dispatch, getState) => {
       dispatch(createEnd(session, history));
     })
     .catch(err => {
-      dispatch(createSessionError(err));
+      dispatch(fetchSessionsError(err));
     });
 };
 
@@ -160,9 +142,9 @@ export const deleteEnd = (session, end) => dispatch => {
   dispatch(updateSession(session));
 };
 
-export const CREATE_ARROW1 = "CREATE_ARROW1";
-export const createArrow1 = (session, end, point, score, isInverted) => ({
-  type: CREATE_ARROW1,
+export const CREATE_ARROW = "CREATE_ARROW";
+export const createArrow = (session, end, point, score, isInverted) => ({
+  type: CREATE_ARROW,
   session,
   end,
   point,
@@ -170,9 +152,9 @@ export const createArrow1 = (session, end, point, score, isInverted) => ({
   isInverted
 });
 
-export const REMOVE_LAST_ARROW1 = "REMOVE_LAST_ARROW1";
-export const removeLastArrow1 = (session, end) => ({
-  type: REMOVE_LAST_ARROW1,
+export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
+export const removeLastArrow = (session, end) => ({
+  type: REMOVE_LAST_ARROW,
   session,
   end
 });
@@ -181,25 +163,3 @@ export const RESET = "RESET";
 export const reset = () => ({
   type: RESET
 });
-/*
-export const CREATE_ARROW = "CREATE_ARROW";
-export const createArrow = (
-  session,
-  end,
-  point,
-  score,
-  isInverted
-) => dispatch => {
-  session.ends[session.ends.indexOf(end)].arrows.push({
-    coordinates: point,
-    score,
-    isInverted
-  });
-  dispatch(updateSession(session));
-};
-
-export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";
-export const removeLastArrow = (session, end) => dispatch => {
-  session.ends[session.ends.indexOf(end)].arrows.splice(-1, 1);
-  dispatch(updateSession(session));
-};*/

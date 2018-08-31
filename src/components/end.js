@@ -5,12 +5,9 @@ import "./session.css";
 
 import {
   createEnd,
-  /*
-  createArrow,
-  removeLastArrow,*/
   fetchSessions,
-  createArrow1,
-  removeLastArrow1,
+  createArrow,
+  removeLastArrow,
   updateSession
 } from "../actions";
 import TargetCanvas from "./target-canvas";
@@ -35,7 +32,7 @@ export class End extends React.Component {
 
   createArrow(arrow) {
     this.props.dispatch(
-      createArrow1(
+      createArrow(
         this.props.session,
         this.props.end,
         arrow.point,
@@ -93,7 +90,7 @@ export class End extends React.Component {
                 <div className="sub-section">{arrows}</div>
                 <div className="sub-section">
                   <button
-                    className="button-secondary"
+                    className="button-secondary button-miss"
                     type="button"
                     onClick={() =>
                       this.createArrow({
@@ -106,11 +103,11 @@ export class End extends React.Component {
                     Miss
                   </button>
                   <button
-                    className="button-secondary"
+                    className="button-secondary button-undo"
                     type="button"
                     onClick={() =>
                       this.props.dispatch(
-                        removeLastArrow1(this.props.session, this.props.end)
+                        removeLastArrow(this.props.session, this.props.end)
                       )
                     }
                   >
@@ -119,7 +116,7 @@ export class End extends React.Component {
                 </div>
                 <hr />
                 <button
-                  className="button-primary"
+                  className="button-primary button-new-end"
                   disabled={this.props.isLoading}
                   type="button"
                   onClick={() =>
