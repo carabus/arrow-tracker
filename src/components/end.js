@@ -90,7 +90,7 @@ export class End extends React.Component {
                 <div className="sub-section">{arrows}</div>
                 <div className="sub-section">
                   <button
-                    className="button-secondary"
+                    className="button-secondary button-miss"
                     type="button"
                     onClick={() =>
                       this.createArrow({
@@ -103,7 +103,7 @@ export class End extends React.Component {
                     Miss
                   </button>
                   <button
-                    className="button-secondary"
+                    className="button-secondary button-undo"
                     type="button"
                     onClick={() =>
                       this.props.dispatch(
@@ -116,7 +116,7 @@ export class End extends React.Component {
                 </div>
                 <hr />
                 <button
-                  className="button-primary"
+                  className="button-primary button-new-end"
                   disabled={this.props.isLoading}
                   type="button"
                   onClick={() =>
