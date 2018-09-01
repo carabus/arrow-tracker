@@ -1,6 +1,6 @@
 .scrolled nav {
   transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
-  background: rgba(45, 51, 63, 100%);
+  background: rgb(45, 51, 63);
 }
 
 nav {

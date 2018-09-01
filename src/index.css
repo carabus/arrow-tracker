@@ -68,7 +68,7 @@ button {
 
 .button-primary {
   color: #ffffff;
-  background-color: rgba(45, 51, 63, 100%);
+  background-color: rgb(45, 51, 63);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   border-radius: 0.125rem;
   font-weight: 300;
@@ -119,11 +119,12 @@ textarea {
 }
 
 select {
-  position: relative;
-  top: -1px;
-  height: 47px;
+  height: 48px;
   font-size: 20px;
   margin-left: 5px;
+  -webkit-appearance: menulist-button;
+  border-color: rgb(166, 166, 166);
+  background-color: white;
 }
 
 input[type="number"] {
@@ -233,11 +234,12 @@ canvas {
   animation: progress 1s ease-out forwards !important;
 }
 
+/*
 @keyframes progress {
   0% {
     stroke-dasharray: 0 100;
   }
-}
+}*/
 
 .flex-wrapper .circular-chart.orange .circle {
   stroke: #ff9f00;

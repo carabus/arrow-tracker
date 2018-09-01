@@ -145,6 +145,10 @@ footer {
   padding-top: 8px;
 }
 
+.demo {
+  color: white;
+}
+
 @media only screen and (max-width: 600px) {
   .column-60,
   .column-40 {
