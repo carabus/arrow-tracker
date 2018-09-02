@@ -139,10 +139,14 @@ main .container {
 
 footer {
   font-size: 14px;
-  background-color: #929fba;
+  background-color: #5f7595;
   color: white;
   height: 40px;
   padding-top: 8px;
+}
+
+.demo {
+  color: white;
 }
 
 @media only screen and (max-width: 600px) {

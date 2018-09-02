@@ -114,6 +114,8 @@ export class Session extends React.Component {
                 <h2>Ends</h2>
                 <div>
                   <button
+                    title="New End"
+                    aria-label="New End"
                     disabled={this.props.isLoading}
                     className="create"
                     type="button"

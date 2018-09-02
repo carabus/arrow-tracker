@@ -16,6 +16,7 @@ import HeaderBar from "./header-bar";
 
 export class End extends React.Component {
   componentWillUnmount() {
+    // Attempt to save User Data when leaving End page
     this.props.dispatch(updateSession(this.props.session));
   }
   componentDidMount() {

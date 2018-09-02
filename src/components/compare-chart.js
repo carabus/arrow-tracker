@@ -24,7 +24,6 @@ export class CompareChart extends React.Component {
   chartColors = [
     "#007bff",
     "#6610f2",
-    "#6f42c1",
     "#e83e8c",
     "#dc3545",
     "#fd7e14",
@@ -80,6 +79,8 @@ export class CompareChart extends React.Component {
         </div>
         <div>
           <button
+            title="Remove Compare Chart"
+            aria-label="Remove Compare Chart"
             className="delete-option"
             disabled={!index ? true : false}
             onClick={() => this.handleRemoveOption(index)}
@@ -136,6 +137,8 @@ export class CompareChart extends React.Component {
             <p className="big-text">
               Add Chart{" "}
               <button
+                title="Add Compare Chart"
+                aria-label="Add Compare Chart"
                 className="add-option"
                 onClick={() => this.handleAddOption()}
               >

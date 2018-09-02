@@ -17,6 +17,8 @@ export function EndListItem(props) {
       </div>
       <div className="nowrap-cell">
         <button
+          title="Edit End"
+          aria-label="Edit End"
           className="edit"
           type="button"
           onClick={() => {
@@ -28,6 +30,8 @@ export function EndListItem(props) {
           <i className="fas fa-pen" />
         </button>
         <button
+          title="Delete End"
+          aria-label="Delete End"
           className="delete"
           onClick={() => props.dispatch(deleteEnd(props.session, props.end))}
         >
