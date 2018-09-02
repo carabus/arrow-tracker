@@ -28,6 +28,7 @@ export class HeaderBar extends React.Component {
       menuButton = <Link to="/login">Login</Link>;
     }
 
+    // Build breadcrumb navigation depending on what was passed to the component
     let navigation = null;
     if (this.props.sessionId) {
       navigation = <li>Session</li>;
