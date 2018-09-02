@@ -11,7 +11,7 @@ describe("<LandingPage/>", () => {
 
   it("Loads Landing page when user is not logged in", () => {
     const wrapper = shallow(<LandingPage loggedIn={false} />);
-    expect(wrapper.find(".landing-page").contains("Archery Tracker")).toEqual(
+    expect(wrapper.find(".landing-page").contains("Arrow Tracker")).toEqual(
       true
     );
   });

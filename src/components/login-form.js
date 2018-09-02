@@ -35,11 +35,7 @@ export class LoginForm extends React.Component {
             <div className="card">
               <div className="card-header">
                 <Link to="/">
-                  <img
-                    className="logo"
-                    src={appIcon}
-                    alt="Archery Tracker App"
-                  />
+                  <img className="logo" src={appIcon} alt="Arrow Tracker App" />
                 </Link>
               </div>
               <div className="card-body">

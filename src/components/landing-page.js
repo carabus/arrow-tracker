@@ -31,7 +31,7 @@ export class LandingPage extends React.Component {
           <div className="view">
             <div className="mask">
               <div className="container">
-                <h1>Archery Tracker</h1>
+                <h1>Arrow Tracker</h1>
                 <p>
                   Record your archery training scores and see how you rate
                   against other users
@@ -56,13 +56,13 @@ export class LandingPage extends React.Component {
           </div>
         </header>
         <main role="main">
-          <h2 id="explore">Explore Archery Tracker</h2>
+          <h2 id="explore">Explore Arrow Tracker</h2>
           <div className="container">
             <div className="row">
               <div className="column-60">
                 <div className="box-shadow">
                   <img
-                    alt="Video showing scores entering in Archery Tracker"
+                    alt="Video showing scores entering in Arrow Tracker"
                     width="100%"
                     src={recordImg}
                   />
@@ -85,8 +85,8 @@ export class LandingPage extends React.Component {
                 <p>
                   Ever had a feeling that your archery is better on Sunday than
                   on Monday? Or that those fancy arrows don't really make a
-                  difference? Archery Tracker helps quantify how external
-                  factors affect your training.
+                  difference? Arrow Tracker helps quantify how external factors
+                  affect your training.
                 </p>
               </div>
               <div className="column-60">
@@ -114,7 +114,7 @@ export class LandingPage extends React.Component {
                 <h3>Compete</h3>
                 <hr />
                 <p>
-                  Archery Tracker adds a social element to your training by
+                  Arrow Tracker adds a social element to your training by
                   calculating your rank percentile across the whole user base,
                   taking users' training distances into account.
                 </p>
