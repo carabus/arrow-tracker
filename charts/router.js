@@ -14,13 +14,10 @@ const router = express.Router();
 
 const jsonParser = bodyParser.json();
 
-// Get all training factors for a user
+// Progress chart - all user sessions scores in session creation order
 router.get("/progress", jwtAuth, (req, res) => {
   // Get average score per session
-  return TrainingRecord.find(
-    { user: req.user.username } /*,
-    "created score maxScore"*/
-  )
+  return TrainingRecord.find({ user: req.user.username })
     .sort({ created: 1 })
     .then(records => {
       return res.json(
@@ -36,6 +33,7 @@ router.get("/progress", jwtAuth, (req, res) => {
     });
 });
 
+// Compare chart - scores of sessions having specified training factors
 router.post("/compare", [jwtAuth, jsonParser], (req, res) => {
   // Get sessions with specific training factors
   return TrainingRecord.find(
