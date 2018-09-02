@@ -13,6 +13,7 @@ import {
 import TargetCanvas from "./target-canvas";
 import Arrow from "./arrow";
 import HeaderBar from "./header-bar";
+import { Link } from "react-router-dom";
 
 export class End extends React.Component {
   componentWillUnmount() {
@@ -116,6 +117,7 @@ export class End extends React.Component {
                   </button>
                 </div>
                 <hr />
+
                 <button
                   className="button-primary button-new-end"
                   disabled={this.props.isLoading}
@@ -130,7 +132,13 @@ export class End extends React.Component {
                 </button>
               </div>
             </section>
-            <section />
+            <div className="card-footer">
+              <Link to="/dashboard">
+                <button type="button" className="button-secondary">
+                  Finish Session
+                </button>
+              </Link>
+            </div>
           </section>
         </main>
       </div>
