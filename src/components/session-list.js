@@ -18,6 +18,7 @@ export class SessionList extends React.Component {
   };
 
   render() {
+    // Only showing Show More link if over 3 sessions found
     let showMore;
     if (this.props.sessions.length && this.props.sessions.length > 3) {
       showMore = (

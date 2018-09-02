@@ -12,6 +12,7 @@ export class SimpleSessionDetailsForm extends React.Component {
   };
 
   onCancel = () => {
+    // if existing session - turn off editing mode, if new session - go back to dashboard
     if (this.props.currentSession) {
       this.props.editingCallback();
     } else {
@@ -25,7 +26,7 @@ export class SimpleSessionDetailsForm extends React.Component {
     const selectedOptionsNames = Object.values(this.state.selectedOption).map(
       option => option.name
     );
-
+    // if editing existing session
     if (this.props.currentSession) {
       let updatedSession = this.props.currentSession;
       updatedSession.distance = this.distance.value;
@@ -36,6 +37,7 @@ export class SimpleSessionDetailsForm extends React.Component {
       return;
     }
 
+    // if creating new session
     this.props.dispatch(
       createSession(
         {
@@ -49,9 +51,12 @@ export class SimpleSessionDetailsForm extends React.Component {
   };
 
   componentDidMount() {
+    // fetch training factors if not already fetched by other component
     if (!this.props.trainingFactors.length) {
       this.props.dispatch(fetchTrainingFactors());
     }
+
+    // if editing existion session - populate current values
     if (this.props.currentSession) {
       this.distance.value = this.props.currentSession.distance;
       this.distanceUnits.value = this.props.currentSession.distanceUnits;
