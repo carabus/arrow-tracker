@@ -54,7 +54,7 @@ export class HeaderBar extends React.Component {
                   width="50px"
                   height="50px"
                   src={appIcon}
-                  alt="Archery Tracker App"
+                  alt="Arrow Tracker App"
                 />
               </Link>
             </div>

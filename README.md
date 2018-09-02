@@ -1,6 +1,6 @@
-# Archery Tracker
+# Arrow Tracker
 
-Archery Tracker keeps track of your target archery training scores and organizes your data into charts that help you answer the following qustions:
+Arrow Tracker keeps track of your target archery training scores and organizes your data into charts that help you answer the following qustions:
 
 - does my ability improve over time
 - how external factors (e.g. slightly different equipment set) affect my training
@@ -8,13 +8,13 @@ Archery Tracker keeps track of your target archery training scores and organizes
 
 ## Demo
 
-- [Live Demo](https://arrow-track.herokuapp.com/)<br/>
+- [Live Demo](https://arrow-tracker.herokuapp.com/)<br/>
   Click demo link on the intro page to login as demo user.
 
 ## Links
 
-- [Archery Tracker client](https://github.com/carabus/archery-tracker-client)
-- [Archery Tracker api](https://github.com/carabus/archery-tracker-api)
+- [Arrow Tracker client](https://github.com/carabus/archery-tracker-client)
+- [Arrow Tracker api](https://github.com/carabus/archery-tracker-api)
 
 ## Technologies used
 
