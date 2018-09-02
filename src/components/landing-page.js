@@ -36,7 +36,7 @@ export class LandingPage extends React.Component {
                   Record your archery training scores and see how you rate
                   against other users
                 </p>
-                <div className="sub-section">
+                <div>
                   <a href="#explore">
                     <button type="button">Explore</button>
                   </a>
@@ -83,7 +83,7 @@ export class LandingPage extends React.Component {
                 <h3>Analyze</h3>
                 <hr />
                 <p>
-                  Ever had a feeling that your archery is better on Sunday then
+                  Ever had a feeling that your archery is better on Sunday than
                   on Monday? Or that those fancy arrows don't really make a
                   difference? Archery Tracker helps quantify how external
                   factors affect your training.
@@ -114,9 +114,9 @@ export class LandingPage extends React.Component {
                 <h3>Compete</h3>
                 <hr />
                 <p>
-                  Archery Tracker adds a social element to you training by
+                  Archery Tracker adds a social element to your training by
                   calculating your rank percentile across the whole user base,
-                  taking users training distances into account.
+                  taking users' training distances into account.
                 </p>
               </div>
             </div>
