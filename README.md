@@ -8,7 +8,7 @@ Archery Tracker keeps track of your target archery training scores and organizes
 
 ## Demo
 
-- [Live Demo](https://frozen-springs-98416.herokuapp.com/)<br/>
+- [Live Demo](https://arrow-track.herokuapp.com/)<br/>
   Click demo link on the intro page to login as demo user.
 
 ## Links
