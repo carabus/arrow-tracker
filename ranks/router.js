@@ -39,7 +39,7 @@ router.get("/", jwtAuth, (req, res) => {
 
 // Calculate and persist user rank
 router.post("/", jwtAuth, (req, res) => {
-  return TrainingRecord.find()
+  return TrainingRecord.find({ user: req.user.username })
     .then(trainingRecords => {
       let avgRank = 0;
       if (trainingRecords.length) {
