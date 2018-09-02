@@ -37,6 +37,7 @@ export class App extends Component {
       () => this.props.dispatch(refreshAuthToken()),
       60 * 60 * 1000 // One hour
     );
+    // Re-calculate user rank every 5 minutes
     this.statsGenInterval = setInterval(
       () => this.props.dispatch(computeUserRank()),
       60 * 5 * 1000

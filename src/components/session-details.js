@@ -59,10 +59,17 @@ export class SessionDetails extends React.Component {
           <ul>{optionsList}</ul>
         </div>
         <hr />
-        <button className="edit" onClick={() => this.setEditing(true)}>
+        <button
+          title="Edit Session"
+          aria-label="Edit Session"
+          className="edit"
+          onClick={() => this.setEditing(true)}
+        >
           <i className="fas fa-pen" />
         </button>
         <button
+          title="Delete Session"
+          aria-label="Delete Session"
           className="delete"
           onClick={() =>
             this.props.dispatch(
