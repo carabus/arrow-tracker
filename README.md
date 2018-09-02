@@ -1,6 +1,6 @@
 # Archery Tracker
 
-Archery Tracker keeps track of your target archery training scores and organizes you data into charts that help you answer the following qustions:
+Archery Tracker keeps track of your target archery training scores and organizes your data into charts that help you answer the following qustions:
 
 - does my ability improve over time
 - how external factors (e.g. slightly different equipment set) affect my training
@@ -8,8 +8,8 @@ Archery Tracker keeps track of your target archery training scores and organizes
 
 ## Demo
 
-- [Live Demo](https://frozen-springs-98416.herokuapp.com/)
-  Click a demo link on the intro page to login as demo user.
+- [Live Demo](https://frozen-springs-98416.herokuapp.com/)<br/>
+  Click demo link on the intro page to login as demo user.
 
 ## Links
 
