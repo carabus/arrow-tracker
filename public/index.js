@@ -1,15 +1,11 @@
-function initPage() {
-  handleScroll();
-}
+window.addEventListener("scroll", handleScroll);
 
-function handleScroll() {
-  $(window).scroll(function(e) {
-    if ($(e.target).scrollTop() <= 120) {
-      $("body").removeClass("scrolled");
-    } else {
-      $("body").addClass("scrolled");
-    }
-  });
-}
+function handleScroll(event) {
+  const body = document.querySelector("body");
 
-$(initPage);
+  if (window.scrollY <= 120) {
+    body.classList.remove("scrolled");
+  } else {
+    body.classList.add("scrolled");
+  }
+}

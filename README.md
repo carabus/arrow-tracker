@@ -99,4 +99,4 @@ Arrow Tracker keeps track of your target archery training scores and organizes y
 - Beautiful responsive charts - [Recharts](http://recharts.org/)
 - Awesome training factors autocomplete - [React Select](https://github.com/JedWatson/react-select)
 - Helpful tooltips - [React Tooltip](https://github.com/wwayne/react-tooltip)
-- Design was very heavily inspired by Bootstrap
+- Design was very heavily inspired by [Material Design Bootstrap](https://mdbootstrap.com) examples
