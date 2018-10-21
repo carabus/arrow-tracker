@@ -64,6 +64,7 @@ button {
   border: 1px solid #444;
   color: #444;
   background-color: white;
+  touch-action: manipulation
 }
 
 .button-primary {
@@ -75,6 +76,7 @@ button {
   text-transform: uppercase;
   padding: 10px 20px;
   font-size: 16px;
+  touch-action: manipulation;
 }
 
 .button-primary:hover,
