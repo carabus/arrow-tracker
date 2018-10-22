@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import TargetCanvas from "./target-canvas";
+import TargetCanvas from "./target";
 
 describe("<TragetCanvas/>", () => {
   const arrows = [{ coordinates: { x: 1, y: 1 }, score: 8, isInverted: false }];

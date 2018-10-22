@@ -1,7 +1,7 @@
 import React from "react";
-import target from "../images/target.png";
+import target from "./target.png";
 
-export default class TargetCanvas extends React.Component {
+export default class Target extends React.Component {
   constructor(props) {
     super(props);
     this.setCanvasRef = element => {
