@@ -10,7 +10,7 @@ import {
   removeLastArrow,
   updateSession
 } from "../actions";
-import TargetCanvas from "./target-canvas";
+import Target from "./target/target";
 import Arrow from "./arrow";
 import HeaderBar from "./header-bar";
 import { Link } from "react-router-dom";
@@ -83,7 +83,7 @@ export class End extends React.Component {
             </div>
             <section>
               <div className="sub-section">
-                <TargetCanvas
+                <Target
                   arrows={this.props.end.arrows}
                   createArrow={this.createArrow}
                 />
