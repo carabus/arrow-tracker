@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
+const fs = require('fs');
 
 const { router: usersRouter } = require('./users');
 const { router: trainingFactorsRouter } = require('./trainingFactors');
@@ -46,9 +47,11 @@ app.use('/api/auth/', authRouter);
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.use('*', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, '../client/build', req.baseUrl || 'index.html')
-  );
+  const filePath = path.join(__dirname, '../client/build', req.baseUrl);
+  const index = path.join(__dirname, '../client/build', 'index.html');
+  fs.stat(filePath, (err, data) => {
+    res.sendFile(data && data.isFile() ? filePath : index);
+  });
 });
 
 // Referenced by both runServer and closeServer. closeServer
