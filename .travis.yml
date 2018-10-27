@@ -1,8 +1,13 @@
 language: node_js
 node_js: node
+services:
+  - mongodb
 cache:
   directories:
     - node_modules
+script:
+  - npm test-server
+  - npm test-client
 deploy:
   provider: heroku
   api_key:
