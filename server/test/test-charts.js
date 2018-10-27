@@ -1,25 +1,25 @@
-"use strict";
+'use strict';
 
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const jwt = require("jsonwebtoken");
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const jwt = require('jsonwebtoken');
 
-const { app, runServer, closeServer } = require("../server");
-const { User } = require("../users");
-const { TrainingRecord } = require("../trainingRecords");
-const { TrainingFactor } = require("../trainingFactors");
-const { JWT_SECRET, TEST_DATABASE_URL } = require("../config");
+const { app, runServer, closeServer } = require('../server');
+const { User } = require('../users');
+const { TrainingRecord } = require('../trainingRecords');
+const { TrainingFactor } = require('../trainingFactors');
+const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
 
 const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe("api/charts/progress", function() {
+describe('api/charts/progress', function() {
   let USERS = [];
 
   const trainingRecord = {
     distance: 20,
-    distanceUnits: "meters",
+    distanceUnits: 'meters',
     ends: [
       {
         arrows: [
@@ -48,12 +48,12 @@ describe("api/charts/progress", function() {
         ]
       }
     ],
-    trainingFactors: ["outside"]
+    trainingFactors: ['outside']
   };
 
   const trainingRecord2 = {
     distance: 30,
-    distanceUnits: "meters",
+    distanceUnits: 'meters',
     ends: [
       {
         arrows: [
@@ -73,7 +73,7 @@ describe("api/charts/progress", function() {
 
   const trainingRecordFactors = {
     distance: 30,
-    distanceUnits: "meters",
+    distanceUnits: 'meters',
     ends: [
       {
         arrows: [
@@ -89,229 +89,184 @@ describe("api/charts/progress", function() {
         ]
       }
     ],
-    trainingFactors: ["barebow", "outside"]
+    trainingFactors: ['barebow', 'outside']
   };
 
-  before(function() {
-    return runServer(TEST_DATABASE_URL);
+  before(async function() {
+    await runServer(TEST_DATABASE_URL);
   });
 
-  after(function() {
-    return closeServer();
+  after(async function() {
+    await closeServer();
   });
 
-  beforeEach(function() {
-    return createUser("user1");
+  beforeEach(async function() {
+    this.timeout(5000);
+    await createUser('user1');
   });
 
-  function createUser(username) {
-    return User.hashPassword(username)
-      .then(hash => {
-        return User.create({ username, password: hash });
-      })
-      .then(function() {
-        return getValidToken(username);
-      });
+  async function createUser(username) {
+    const hash = await User.hashPassword(username);
+    await User.create({ username, password: hash });
+    return await getValidToken(username);
   }
 
-  function getValidToken(username) {
-    return chai
+  async function getValidToken(username) {
+    const res = await chai
       .request(app)
-      .post("/api/auth/login")
-      .send({ username, password: username })
-      .then(res => {
-        USERS[username] = { token: res.body.authToken };
-      });
+      .post('/api/auth/login')
+      .send({ username, password: username });
+    USERS[username] = { token: res.body.authToken };
   }
 
-  function createTrainingRecords(user, trainingRecords) {
-    return TrainingRecord.insertMany(
-      trainingRecords.map(record => Object.assign({}, record, { user }))
-    );
-  }
-
-  afterEach(function() {
-    return TrainingRecord.remove({}).then(() =>
-      User.remove({}).then(() => TrainingFactor.remove({}))
-    );
+  afterEach(async function() {
+    await TrainingRecord.remove({});
+    await User.remove({});
+    await TrainingFactor.remove({});
   });
 
-  describe("Progress Chart", function() {
-    it("Should return progress chart data as per user input from oldest to newest", function() {
-      return chai
+  describe('Progress Chart', function() {
+    it('Should return progress chart data as per user input from oldest to newest', async function() {
+      let res = await chai
         .request(app)
         .post(`/api/trainingRecords/`)
         .send(trainingRecord)
-        .set("authorization", `Bearer ${USERS["user1"].token}`)
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecord)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post(`/api/trainingRecords/`)
-            .send(trainingRecord2)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecord2)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .get("/api/charts/progress")
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          expect(res.body).to.have.length(2);
-          expect(res.body[0].session).to.equal(1);
-          expect(res.body[0].score).to.equal(72);
-          expect(res.body[1].session).to.equal(2);
-          expect(res.body[1].score).to.equal(80);
-        });
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecord)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+
+      res = await chai
+        .request(app)
+        .post(`/api/trainingRecords/`)
+        .send(trainingRecord2)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecord2)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+
+      res = await chai
+        .request(app)
+        .get('/api/charts/progress')
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('array');
+      expect(res.body).to.have.length(2);
+      expect(res.body[0].session).to.equal(1);
+      expect(res.body[0].score).to.equal(72);
+      expect(res.body[1].session).to.equal(2);
+      expect(res.body[1].score).to.equal(80);
     });
   });
 
-  describe("Compare Chart", function() {
-    it("Should return chart for single additional factor and in the order from oldest to newest", function() {
-      return chai
+  describe('Compare Chart', function() {
+    it('Should return chart for single additional factor and in the order from oldest to newest', async function() {
+      let res = await chai
         .request(app)
         .post(`/api/trainingRecords/`)
         .send(trainingRecord)
-        .set("authorization", `Bearer ${USERS["user1"].token}`)
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecord)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post(`/api/trainingRecords/`)
-            .send(trainingRecordFactors)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecordFactors)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post("/api/charts/compare")
-            .send({ selectedFactors: "outside" })
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          expect(res.body).to.have.length(2);
-          expect(res.body[0].session).to.equal(1);
-          expect(res.body[0].score).to.equal(72);
-          expect(res.body[1].session).to.equal(2);
-          expect(res.body[1].score).to.equal(70);
-        });
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecord)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .post(`/api/trainingRecords/`)
+        .send(trainingRecordFactors)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecordFactors)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .post('/api/charts/compare')
+        .send({ selectedFactors: 'outside' })
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('array');
+      expect(res.body).to.have.length(2);
+      expect(res.body[0].session).to.equal(1);
+      expect(res.body[0].score).to.equal(72);
+      expect(res.body[1].session).to.equal(2);
+      expect(res.body[1].score).to.equal(70);
     });
 
-    it("Should return chart for default additional factor", function() {
-      return chai
+    it('Should return chart for default additional factor', async function() {
+      let res = await chai
         .request(app)
         .post(`/api/trainingRecords/`)
         .send(trainingRecord)
-        .set("authorization", `Bearer ${USERS["user1"].token}`)
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecord)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post(`/api/trainingRecords/`)
-            .send(trainingRecord2)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecord2)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post("/api/charts/compare")
-            .send({ selectedFactors: [] })
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          expect(res.body).to.have.length(1);
-          expect(res.body[0].session).to.equal(1);
-          expect(res.body[0].score).to.equal(80);
-        });
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecord)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .post(`/api/trainingRecords/`)
+        .send(trainingRecord2)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecord2)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .post('/api/charts/compare')
+        .send({ selectedFactors: [] })
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('array');
+      expect(res.body).to.have.length(1);
+      expect(res.body[0].session).to.equal(1);
+      expect(res.body[0].score).to.equal(80);
     });
 
-    it("Should return chart for multiple additional factors", function() {
-      return chai
+    it('Should return chart for multiple additional factors', async function() {
+      let res = await chai
         .request(app)
         .post(`/api/trainingRecords/`)
         .send(trainingRecord)
-        .set("authorization", `Bearer ${USERS["user1"].token}`)
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecord)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post(`/api/trainingRecords/`)
-            .send(trainingRecordFactors)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          return chai
-            .request(app)
-            .put(`/api/trainingRecords/${res.body.id}`)
-            .send(trainingRecordFactors)
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(() => {
-          return chai
-            .request(app)
-            .post("/api/charts/compare")
-            .send({ selectedFactors: ["barebow", "outside"] })
-            .set("authorization", `Bearer ${USERS["user1"].token}`);
-        })
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          expect(res.body).to.have.length(1);
-          expect(res.body[0].session).to.equal(1);
-          expect(res.body[0].score).to.equal(70);
-        });
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecord)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .post(`/api/trainingRecords/`)
+        .send(trainingRecordFactors)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      await chai
+        .request(app)
+        .put(`/api/trainingRecords/${res.body.id}`)
+        .send(trainingRecordFactors)
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      res = await chai
+        .request(app)
+        .post('/api/charts/compare')
+        .send({ selectedFactors: ['barebow', 'outside'] })
+        .set('authorization', `Bearer ${USERS['user1'].token}`);
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('array');
+      expect(res.body).to.have.length(1);
+      expect(res.body[0].session).to.equal(1);
+      expect(res.body[0].score).to.equal(70);
     });
   });
 });
