@@ -12,6 +12,6 @@ deploy:
   provider: heroku
   api_key:
     secure: behwfSfG7lQSLDvwiR31LDsHpE35yoKT3/HcCZiByEYgBTR54fjxNqtcGgVqAVoUGh3M+A4HZOrInPZJGCFVKcEs7NMLv9JYhXq24BwQNoPulM4qO/d/SDgf///82el/lIBZFNxRrqjmfPE2Itmvvppze1JatZejooB+b8qikNmgujfPxguHb4pp9+RMXp7CGi/5nGp4/fG++eh7oSSCiHeINF3Ma4nIaS8ixqB7rZBcn8EizTaiiiK7hHkAOgb7gn6L5kpuJeQZyycD9yCU8+tA6x11bFqtu7qRQ97ABo35g83mQvPxbXhm6k0BAy3zZUgtRxHNTeM8a7GAJ5p6iUk8DE5Azr+eRs29s4in84i1GXC4THly00/TvMTHc0r0pHk2NUSVvpvXF9CQ7Ftot1P+jqT+t2W7nYpmhrV8oOXlOce+kzQ+aQn7IyfMJpdHq0MPH+L7j4VBOpiaG7B+Eh4+Gzn1rhJ2cX5XyxTfTqAwyso/2uBaHlJAI0UpVZ7OZjxd99xH/v7iU8vx+i8GY5z/byI4wAg2qmjUDnfRNF7VpE5XXNUchLSpV/gOrC79FYLkZbOdr+mYw6tZU2QIsqMZV4Qn7UoZ1jLXD13X15G60JORylTdAiw44AyqaWmIisEGLMA9Ag6j48rhYPp9jFvRBnkkUtXzgnpGBdA5xvg=
-  app: frozen-mesa-46017
+  app: arrow-tracker
   on:
     repo: carabus/arrow-tracker
