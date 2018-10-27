@@ -6,8 +6,8 @@ cache:
   directories:
     - node_modules
 script:
-  - npm test-server
-  - npm test-client
+  - npm run test-server
+  - npm run test-client
 deploy:
   provider: heroku
   api_key:
