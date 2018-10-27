@@ -4,7 +4,8 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "test": "cd server/ && mocha --exit",
+    "test": "cd server/ && mocha --exit && cd .. && npm test-client",
+    "test-client": "cd client/ && npm install && npm test",
     "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start": "node server/server.js"
   },
