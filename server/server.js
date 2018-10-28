@@ -46,12 +46,6 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-app.get('/.well-known/acme-challenge/:content', function(req, res) {
-  res.send(
-    '9n-QQ5nB3EtBi1ePPgqdExKdu1KH2WhPUKLo4w92TIg.DtLBkGzwbg-xYCzCsFq-h7lTlItHloaenp3LGr8okm0'
-  );
-});
-
 app.use('*', (req, res) => {
   const filePath = path.join(__dirname, '../client/build', req.baseUrl);
   const index = path.join(__dirname, '../client/build', 'index.html');
