@@ -46,6 +46,16 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
+app.use((req, res, next) => {
+  if (req.header('x-forwarded-proto') !== 'https') {
+    res.redirect(`https://${req.header('host')}${req.url}`);
+  } else {
+    next();
+  }
+});
+
+app.use(express.static('build'));
+
 app.use('*', (req, res) => {
   const filePath = path.join(__dirname, '../client/build', req.baseUrl);
   const index = path.join(__dirname, '../client/build', 'index.html');
