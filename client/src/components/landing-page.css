@@ -142,8 +142,7 @@ footer {
   font-size: 14px;
   background-color: #5f7595;
   color: white;
-  height: 40px;
-  padding-top: 8px;
+  height: 60px;
 }
 
 .demo {
@@ -151,6 +150,14 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
+  footer .container {
+    justify-content: space-around;
+  }
+  footer .menu li {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   .column-60,
   .column-40 {
     flex: 0 0 100%;

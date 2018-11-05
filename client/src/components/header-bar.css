@@ -14,6 +14,17 @@ nav {
   z-index: 1030;
 }
 
+footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
+  height: 100%;
+  width: 100%;
+}
+
 nav .container {
   display: flex;
   align-items: center;
@@ -38,10 +49,16 @@ nav .container img {
   height: 40px;
 }
 
+footer .menu ul,
 nav .menu ul,
 nav .breadcrumb ul {
   list-style: none;
   padding-left: 0;
+}
+
+footer .menu li {
+  display: inline-block;
+  padding-left: 20px;
 }
 
 nav .breadcrumb li {
@@ -58,6 +75,9 @@ nav .breadcrumb ul:last-child {
   color: darkgray;
 }
 
+footer .menu a,
+footer .menu a:visited,
+footer .menu a:active,
 nav .menu a,
 nav .menu a:visited,
 nav .menu a:active,

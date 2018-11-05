@@ -123,7 +123,21 @@ export class LandingPage extends React.Component {
           </div>
         </main>
         <footer>
-          <p>Photo by Andreas Overland</p>
+          <div class="container">
+            <div class="menu">
+              <ul>
+                <li>
+                  <a href="/terms.html">Terms of Service</a>
+                </li>
+                <li>
+                  <a href="/privacy-policy.html">Privacy</a>
+                </li>
+                <li>
+                  <p>© Svetlana Raeva 2018</p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </footer>
       </div>
     );
