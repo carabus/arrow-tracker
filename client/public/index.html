@@ -34,6 +34,30 @@
     You need to enable JavaScript to run this app.
   </noscript>
 
+  <!-- Code for facebook login integration -->
+  <script>
+    console.log("FB init");
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '273165223331668',
+        cookie: true,
+        xfbml: true,
+        version: 'v3.2'
+      });
+
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
   <div id="root"></div>
   <!--
       This HTML file is a template.

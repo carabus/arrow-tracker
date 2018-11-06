@@ -7,6 +7,7 @@ import { login } from "../actions/auth";
 import { required, nonEmpty } from "../validators";
 import "./login-form.css";
 import appIcon from "../images/app-icon.svg";
+import FacebookLogin from "./social/facebook-login-button";
 
 export class LoginForm extends React.Component {
   componentDidMount() {
@@ -30,6 +31,9 @@ export class LoginForm extends React.Component {
     }
     return (
       <div className="login-form">
+        <div>
+          <FacebookLogin dispatch={this.props.dispatch} />
+        </div>
         <main>
           <div className="single-form-container">
             <div className="card">

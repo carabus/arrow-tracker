@@ -42,6 +42,33 @@ const storeAuthInfo = (authToken, dispatch) => {
   saveAuthToken(authToken);
 };
 
+export const socialLogin = username => dispatch => {
+  dispatch(authRequest());
+  return fetch(`${API_BASE_URL}/auth/socialLogin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username
+    })
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(({ authToken }) => storeAuthInfo(authToken, dispatch))
+    .catch(err => {
+      const message = "Unable to login, please try again";
+      dispatch(authError(err));
+      // Could not authenticate, so return a SubmissionError for Redux
+      // Form
+      return Promise.reject(
+        new SubmissionError({
+          _error: message
+        })
+      );
+    });
+};
+
 export const login = (username, password) => dispatch => {
   dispatch(authRequest());
   return (
