@@ -39,7 +39,6 @@ export class End extends React.Component {
         this.props.end,
         arrow.point,
         arrow.score,
-        arrow.isInverted
       )
     );
   }
@@ -98,7 +97,6 @@ export class End extends React.Component {
                       this.createArrow({
                         point: { x: -1, y: -1 },
                         score: 0,
-                        isInverted: false
                       })
                     }
                   >

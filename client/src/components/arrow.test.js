@@ -20,7 +20,6 @@ describe("<Arrow/>", () => {
   let arrow = {
     coordinates: { x: 1, y: 1 },
     score: 9,
-    isInverted: true
   };
 
   it("Renders without crashing", () => {

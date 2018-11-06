@@ -132,7 +132,6 @@ function generateArrow() {
   return {
     coordinates: { x, y },
     score: score.score,
-    isInverted: score.isInverted,
     isBullseye: score.isBullseye
   };
 }
@@ -230,10 +229,9 @@ function calculateScore(position) {
   return score
     ? {
         score: score.points,
-        isInverted: score.invert,
         isBullseye: score.bullseye
       }
-    : { score: 0, isInverted: false, isBullseye: false };
+    : { score: 0, isBullseye: false };
 }
 
 function getRandomInt(min, max) {

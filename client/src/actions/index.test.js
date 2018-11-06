@@ -59,14 +59,12 @@ describe("createArrow", () => {
     const end = { _id: 1 };
     const point = { x: 1, y: 1 };
     const score = 10;
-    const isInverted = false;
-    const action = actions.createArrow(session, end, point, score, isInverted);
+    const action = actions.createArrow(session, end, point, score);
     expect(action.type).toEqual(actions.CREATE_ARROW);
     expect(action.session).toEqual(session);
     expect(action.end).toEqual(end);
     expect(action.point).toEqual(point);
     expect(action.score).toEqual(score);
-    expect(action.isInverted).toEqual(isInverted);
   });
 });
 

@@ -1,13 +1,13 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import TargetCanvas from "./target";
+import Target from "./target";
 
-describe("<TragetCanvas/>", () => {
-  const arrows = [{ coordinates: { x: 1, y: 1 }, score: 8, isInverted: false }];
+describe("<Target/>", () => {
+  const arrows = [{ coordinates: { x: 1, y: 1 }, score: 8}];
   const createArrow = jest.fn();
 
   it("Renders without crashing", () => {
-    mount(<TargetCanvas arrows={arrows} createArrow={createArrow} />);
+    mount(<Target arrows={arrows} createArrow={createArrow} />);
   });
 });
