@@ -41,7 +41,8 @@ p {
 }
 
 p + p {
-  margin-top: 15px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 button {
@@ -64,7 +65,7 @@ button {
   border: 1px solid #444;
   color: #444;
   background-color: white;
-  touch-action: manipulation
+  touch-action: manipulation;
 }
 
 .button-primary {
@@ -133,9 +134,10 @@ input[type="number"] {
   width: 70px;
 }
 
+/*
 button:disabled {
   color: darkgray;
-}
+}*/
 
 label {
   display: block;

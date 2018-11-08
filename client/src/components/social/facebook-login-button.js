@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { socialLogin } from "../../actions/auth";
+import "./facebook-login-button.css";
 
 export default class FacebookLogin extends Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ export default class FacebookLogin extends Component {
     if (!window.FB) return;
 
     window.FB.getLoginStatus(response => {
+      console.log("get login status");
       if (response.status === "connected") {
         this.facebookLoginHandler(response);
       } else {
@@ -45,6 +47,7 @@ export default class FacebookLogin extends Component {
    * Handle login response
    */
   facebookLoginHandler = response => {
+    console.log("facebook response");
     if (response.status === "connected") {
       window.FB.api("/me", userData => {
         let result = {
@@ -62,7 +65,14 @@ export default class FacebookLogin extends Component {
   };
 
   render() {
-    //let { children } = this.props;
-    return <div onClick={this.facebookLogin}>Facebook Login</div>;
+    return (
+      <button
+        className="facebook-login"
+        type="button"
+        onClick={this.facebookLogin}
+      >
+        Log in with facebook
+      </button>
+    );
   }
 }

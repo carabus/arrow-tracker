@@ -18,7 +18,16 @@
 }
 
 .login-form .card {
-  margin-top: 70px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.login-form button {
+  margin: 0;
+}
+
+.login-form .button-primary {
+  width: 100%;
 }
 
 @media only screen and (max-width: 600px) {

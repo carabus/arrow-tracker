@@ -31,9 +31,6 @@ export class LoginForm extends React.Component {
     }
     return (
       <div className="login-form">
-        <div>
-          <FacebookLogin dispatch={this.props.dispatch} />
-        </div>
         <main>
           <div className="single-form-container">
             <div className="card">
@@ -82,6 +79,13 @@ export class LoginForm extends React.Component {
                     </button>
                   </div>
                 </form>
+                <div className="sub-section">
+                  <p className="centered-text">
+                    Not a member? <Link to="/register">Register</Link>
+                  </p>
+                  <p className="centered-text">OR</p>
+                  <FacebookLogin dispatch={this.props.dispatch} />
+                </div>
               </div>
             </div>
           </div>

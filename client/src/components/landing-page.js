@@ -123,8 +123,8 @@ export class LandingPage extends React.Component {
           </div>
         </main>
         <footer>
-          <div class="container">
-            <div class="menu">
+          <div className="container">
+            <div className="menu">
               <ul>
                 <li>
                   <a href="/terms.html">Terms of Service</a>
