@@ -4,6 +4,7 @@ export default class Target extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
+    this.handleTouchMove = this.handleTouchMove.bind(this);
   }
 
   componentDidUpdate() {
@@ -14,9 +15,18 @@ export default class Target extends React.Component {
 
   componentDidMount() {
     this.context = this.canvasRef.current.getContext("2d");
+    // touchmove is done via event listener to prevent window scrolling on ios
+    this.canvasRef.current.addEventListener(
+      "touchmove",
+      this.handleTouchMove
+    );
     this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
     this.context.resetTransform();
     this.renderTargetAndArrows();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
   render() {
@@ -37,14 +47,14 @@ export default class Target extends React.Component {
         }}
         onMouseUp={event => this.handleMouseUp(event)}
         onMouseMove={throttle(event => this.handleMouseMove(event), 16)}
-        onTouchMove={throttle(event => this.handleTouchMove(event), 16)}
         onTouchEnd={event => this.handleTouchEnd(event)}
         onTouchStart={event => {
           this.context.resetTransform();
           this.context.scale(this.maxZoom, this.maxZoom);
           this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
           const pos = this.getTouchPos(this.canvasRef.current, event);
-          this.context.translate(-pos.x / 2, -pos.y / 2);
+          const touchPos = { x: pos.x, y: pos.y - this.touchCursorOffset };
+          this.context.translate(-touchPos.x / 2, -touchPos.y / 2);
           this.renderTargetAndArrows();
         }}
       />
@@ -134,7 +144,7 @@ export default class Target extends React.Component {
   context;
   touchPos;
   maxZoom = 2;
-  canvasSizePx = 300;
+  canvasSizePx = 302;
   touchMove = false;
   centerPoint = { x: this.canvasSizePx / 2, y: this.canvasSizePx / 2 };
   touchCursorOffset = this.canvasSizePx / 3;

@@ -81,7 +81,7 @@ export class End extends React.Component {
               </header>
             </div>
             <section>
-              <div className="sub-section">
+              <div className="sub-section target-wrapper">
                 <Target
                   arrows={this.props.end.arrows}
                   createArrow={this.createArrow}
