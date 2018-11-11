@@ -3,14 +3,16 @@ import { connect } from "react-redux";
 import { Field, reduxForm, focus } from "redux-form";
 import { Link, Redirect } from "react-router-dom";
 import Input from "./input";
-import { login } from "../actions/auth";
+import { login, clearAuthError } from "../actions/auth";
 import { required, nonEmpty } from "../validators";
 import "./login-form.css";
 import appIcon from "../images/app-icon.svg";
+import FacebookLogin from "./social/facebook-login-button";
 
 export class LoginForm extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.props.dispatch(clearAuthError());
   }
   onSubmit(values) {
     return this.props.dispatch(login(values.username, values.password));
@@ -20,11 +22,13 @@ export class LoginForm extends React.Component {
     if (this.props.loggedIn) {
       return <Redirect to="/dashboard" />;
     }
+
     let error;
+
     if (this.props.error) {
       error = (
         <div className="form-error" aria-live="polite">
-          {this.props.error}
+          There was an error.
         </div>
       );
     }
@@ -78,6 +82,13 @@ export class LoginForm extends React.Component {
                     </button>
                   </div>
                 </form>
+                <div className="sub-section">
+                  <p className="centered-text">
+                    Not a member? <Link to="/register">Register</Link>
+                  </p>
+                  <p className="centered-text">OR</p>
+                  <FacebookLogin dispatch={this.props.dispatch} />
+                </div>
               </div>
             </div>
           </div>
@@ -88,7 +99,8 @@ export class LoginForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
+  error: state.auth.error
 });
 
 export default reduxForm({

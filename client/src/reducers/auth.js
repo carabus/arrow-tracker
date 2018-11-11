@@ -3,7 +3,8 @@ import {
   CLEAR_AUTH,
   AUTH_REQUEST,
   AUTH_SUCCESS,
-  AUTH_ERROR
+  AUTH_ERROR,
+  CLEAR_AUTH_ERROR
 } from "../actions/auth";
 
 import { RESET } from "../actions";
@@ -39,6 +40,11 @@ export default function reducer(state = initialState, action) {
     return Object.assign({}, state, {
       loading: false,
       error: action.error
+    });
+  } else if (action.type === CLEAR_AUTH_ERROR) {
+    return Object.assign({}, state, {
+      loading: false,
+      error: null
     });
   } else if (action.type === RESET) {
     return initialState;

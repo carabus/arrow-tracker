@@ -33,6 +33,11 @@ export const authError = error => ({
   error
 });
 
+export const CLEAR_AUTH_ERROR = "CLEAR_AUTH_ERROR";
+export const clearAuthError = error => ({
+  type: CLEAR_AUTH_ERROR,
+  error
+});
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {
@@ -40,6 +45,34 @@ const storeAuthInfo = (authToken, dispatch) => {
   dispatch(setAuthToken(authToken));
   dispatch(authSuccess(decodedToken.user));
   saveAuthToken(authToken);
+};
+
+export const socialLogin = (username, name) => dispatch => {
+  dispatch(authRequest());
+  return fetch(`${API_BASE_URL}/auth/socialLogin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username,
+      name
+    })
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(({ authToken }) => storeAuthInfo(authToken, dispatch))
+    .catch(err => {
+      const message = "Unable to login, please try again";
+      dispatch(authError(err));
+      // Could not authenticate, so return a SubmissionError for Redux
+      // Form
+      /*return Promise.reject(
+        new SubmissionError({
+          _error: message
+        })
+      );*/
+    });
 };
 
 export const login = (username, password) => dispatch => {

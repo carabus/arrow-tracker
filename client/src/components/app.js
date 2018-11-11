@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import LandingPage from "./landing-page";
 import Dashboard from "./dashboard";
-import RegistrationPage from "./registration-page";
+import RegistrationForm from "./registration-form";
 import LoginForm from "./login-form";
 import { refreshAuthToken } from "../actions/auth";
 import { computeUserRank } from "../actions/profile";
@@ -61,7 +61,7 @@ export class App extends Component {
         <div className="app">
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/register" component={RegistrationPage} />
+            <Route exact path="/register" component={RegistrationForm} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={Dashboard} />
 

@@ -1,0 +1,17 @@
+.facebook-login {
+  width: 100%;
+  color: #ffffff;
+  background-color: #4267b2 !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 0.125rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+}
+
+.facebook-error {
+  padding-top: 7px;
+  color: #dc3545;
+}
