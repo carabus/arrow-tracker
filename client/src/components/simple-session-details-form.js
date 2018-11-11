@@ -76,7 +76,7 @@ export class SimpleSessionDetailsForm extends React.Component {
   render() {
     return (
       <section>
-        <form onSubmit={this.onSubmit} className="login-form">
+        <form onSubmit={this.onSubmit} className="new-session-form">
           <div className="form-section">
             <label htmlFor="distance">Distance</label>
             <input

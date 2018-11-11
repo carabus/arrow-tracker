@@ -10,3 +10,8 @@
   font-size: 16px;
   border: none;
 }
+
+.facebook-error {
+  padding-top: 7px;
+  color: #dc3545;
+}
