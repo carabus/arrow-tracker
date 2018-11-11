@@ -18,7 +18,6 @@ let trainingRecordSchema = mongoose.Schema(
               y: Number
             },
             score: Number,
-            isInverted: Boolean,
             isBullseye: Boolean
           }
         ]

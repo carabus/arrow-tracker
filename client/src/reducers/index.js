@@ -56,7 +56,6 @@ export const archeryTrackerReducer = (state = initialState, action) => {
       const newArrow = {
         coordinates: action.point,
         score: action.score,
-        isInverted: action.isInverted
       };
       let sessions = state.sessions.map(session => {
         if (session.id !== action.session.id) {

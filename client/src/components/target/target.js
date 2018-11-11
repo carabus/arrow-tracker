@@ -1,195 +1,261 @@
 import React from "react";
-import target from "./target.png";
 
 export default class Target extends React.Component {
   constructor(props) {
     super(props);
-    this.setCanvasRef = element => {
-      this.canvas = element;
-    };
-  }
-
-  componentDidMount() {
-    this.initTarget();
+    this.canvasRef = React.createRef();
+    this.handleTouchMove = this.handleTouchMove.bind(this);
   }
 
   componentDidUpdate() {
-    this.context = this.canvas.getContext("2d");
-    this.doCanvas();
+    this.context = this.canvasRef.current.getContext("2d");
+    this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+    this.renderTargetAndArrows();
+  }
+
+  componentDidMount() {
+    this.context = this.canvasRef.current.getContext("2d");
+    // touchmove is done via event listener to prevent window scrolling on ios
+    this.canvasRef.current.addEventListener(
+      "touchmove",
+      this.handleTouchMove
+    );
+    this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+    this.context.resetTransform();
+    this.renderTargetAndArrows();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
   render() {
-    return <canvas ref={this.setCanvasRef} width="300" height="300" />;
+    return (
+      <canvas
+        ref={this.canvasRef}
+        width={this.canvasSizePx}
+        height={this.canvasSizePx}
+        onMouseEnter={() => {
+          this.context.scale(this.maxZoom, this.maxZoom);
+          this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+          this.renderTargetAndArrows();
+        }}
+        onMouseOut={() => {
+          this.context.resetTransform();
+          this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+          this.renderTargetAndArrows();
+        }}
+        onMouseUp={event => this.handleMouseUp(event)}
+        onMouseMove={throttle(event => this.handleMouseMove(event), 16)}
+        onTouchEnd={event => this.handleTouchEnd(event)}
+        onTouchStart={event => {
+          this.context.resetTransform();
+          this.context.scale(this.maxZoom, this.maxZoom);
+          this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+          const pos = this.getTouchPos(this.canvasRef.current, event);
+          const touchPos = { x: pos.x, y: pos.y - this.touchCursorOffset };
+          this.context.translate(-touchPos.x / 2, -touchPos.y / 2);
+          this.renderTargetAndArrows();
+        }}
+      />
+    );
   }
 
-  centerPoint = { x: 150, y: 150 };
-  touchCursorOffset = 100;
   targetScoreRange = [
     {
-      minRadius: 0,
+      arrowColor: "black",
+      color: "#ffc107",
+      maxRadius: 7,
+      points: 10,
+      strokeColor: "black",
+      strokeWidth: 0.5
+    },
+    {
+      arrowColor: "black",
+      color: "#ffc107",
       maxRadius: 15,
-      invert: false,
-      points: 10
+      points: 10,
+      strokeColor: "black"
     },
     {
-      minRadius: 16,
+      arrowColor: "black",
+      color: "#ffc107",
       maxRadius: 30,
-      invert: false,
-      points: 9
+      points: 9,
+      strokeColor: "black"
     },
     {
-      minRadius: 31,
+      arrowColor: "black",
+      color: "#dc3545",
       maxRadius: 45,
-      invert: false,
-      points: 8
+      points: 8,
+      strokeColor: "black"
     },
     {
-      minRadius: 46,
+      arrowColor: "black",
+      color: "#dc3545",
       maxRadius: 60,
-      invert: false,
-      points: 7
+      points: 7,
+      strokeColor: "black"
     },
     {
-      minRadius: 61,
+      arrowColor: "black",
+      color: "#17a2b8",
       maxRadius: 75,
-      invert: false,
-      points: 6
+      points: 6,
+      strokeColor: "black"
     },
     {
-      minRadius: 76,
+      arrowColor: "black",
+      color: "#17a2b8",
       maxRadius: 90,
-      invert: false,
-      points: 5
+      points: 5,
+      strokeColor: "black"
     },
     {
-      minRadius: 91,
+      arrowColor: "white",
+      color: "black",
       maxRadius: 105,
-      invert: true,
-      points: 4
+      points: 4,
+      strokeColor: "white"
     },
     {
-      minRadius: 106,
+      arrowColor: "white",
+      color: "black",
       maxRadius: 120,
-      invert: true,
-      points: 3
+      points: 3,
+      strokeColor: "black"
     },
     {
-      minRadius: 121,
+      arrowColor: "black",
+      color: "white",
       maxRadius: 135,
-      invert: false,
-      points: 2
+      points: 2,
+      strokeColor: "black"
     },
     {
-      minRadius: 136,
+      arrowColor: "black",
+      color: "white",
       maxRadius: 150,
-      invert: false,
-      points: 1
+      points: 1,
+      strokeColor: "black"
     }
-  ];
-  cursorPos = {};
-  context = {};
-  zoom = 0.5;
-  zoomFactor;
-  iw;
-  ih;
-  base_image;
+  ].reverse();
+  context;
+  touchPos;
+  maxZoom = 2;
+  canvasSizePx = 302;
   touchMove = false;
+  centerPoint = { x: this.canvasSizePx / 2, y: this.canvasSizePx / 2 };
+  touchCursorOffset = this.canvasSizePx / 3;
 
-  initTarget() {
-    this.context = this.canvas.getContext("2d");
-    this.makeBase();
-  }
-
-  calculateScore(position) {
+  getTargetScoreByPosition(position) {
     let distanceFromCenter = Math.trunc(
       Math.sqrt(
         Math.pow(this.centerPoint.x - position.x, 2) +
           Math.pow(this.centerPoint.y - position.y, 2)
       )
     );
-
-    let score = this.targetScoreRange.find(
-      item =>
-        distanceFromCenter <= item.maxRadius &&
-        distanceFromCenter >= item.minRadius
-    );
-
-    return score
-      ? { score: score.points, isInverted: score.invert }
-      : { score: 0, isInverted: false };
+    for (let i = this.targetScoreRange.length - 1; i >= 0; i--) {
+      const target = this.targetScoreRange[i];
+      if (distanceFromCenter <= target.maxRadius) {
+        return target;
+      }
+    }
+    return null;
   }
 
-  drawDot(position, fill) {
-    this.context.fillStyle = fill;
+  drawArrow(position, fill) {
+    let score;
+    if (fill) {
+      this.context.fillStyle = fill;
+    } else {
+      score = this.getTargetScoreByPosition(position);
+      this.context.fillStyle = score ? score.arrowColor : "";
+    }
     this.context.beginPath();
     this.context.arc(position.x, position.y, 2, 0, 2 * Math.PI);
     this.context.fill();
   }
 
   handleMouseUp(e) {
-    const pos = this.getMousePos(this.canvas, e);
-    const newArrow = this.generatePointOnTarget(pos, false);
+    const pos = this.getMousePos(this.canvasRef.current, e);
+    const newArrow = this.generateArrowOnTarget(pos, false);
     this.props.createArrow(newArrow);
   }
 
   handleTouchEnd(event) {
     event.preventDefault();
-    if (!this.touchMove) return;
+    if (this.touchMove) {
+      // don't trigger shots on ghost clicks, touch devices must pan a bit first
+      const newArrow = this.generateArrowOnTarget(this.touchPos, true);
+      this.props.createArrow(newArrow);
+    }
     this.touchMove = false;
-    const newArrow = this.generatePointOnTarget(this.cursorPos, true);
-    this.props.createArrow(newArrow);
+    this.touchPos = null;
+    this.context.resetTransform();
+    this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+    this.renderTargetAndArrows();
   }
 
-  generatePointOnTarget(zoomedCoordinates, isTouch) {
+  generateArrowOnTarget(zoomedCoordinates, isTouch) {
+    // all arrows are added in zoomed target, so we adjust position
     const normalCoordinates = isTouch
       ? {
-          x: (zoomedCoordinates.x - zoomedCoordinates.x * this.zoom) * 2,
+          x: (zoomedCoordinates.x - zoomedCoordinates.x / this.maxZoom) * 2,
           y:
-            (zoomedCoordinates.y - 25 - zoomedCoordinates.y * this.zoom + 25) *
+            (zoomedCoordinates.y -
+              this.touchCursorOffset / this.maxZoom -
+              zoomedCoordinates.y / this.maxZoom +
+              this.touchCursorOffset / this.maxZoom) *
             2
         }
       : {
-          x: (zoomedCoordinates.x - zoomedCoordinates.x * this.zoom) * 2,
-          y: (zoomedCoordinates.y - zoomedCoordinates.y * this.zoom) * 2
+          x: (zoomedCoordinates.x - zoomedCoordinates.x / this.maxZoom) * 2,
+          y: (zoomedCoordinates.y - zoomedCoordinates.y / this.maxZoom) * 2
         };
 
-    const score = this.calculateScore(normalCoordinates);
+    const score = this.getTargetScoreByPosition(normalCoordinates);
     return {
       point: normalCoordinates,
-      isInverted: score.isInverted,
-      score: score.score
+      score: score ? score.points : 0
     };
   }
 
-  // re-draw target with all entered points
-  doCanvas() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.context.drawImage(
-      this.base_image,
-      0,
-      0,
-      this.iw * this.zoom,
-      this.ih * this.zoom
-    );
+  renderTargetAndArrows() {
+    this.targetScoreRange.forEach(score => {
+      this.context.fillStyle = score.color;
+      this.context.strokeStyle = score.strokeColor;
+      this.context.lineWidth = score.strokeWidth || 1.0;
+      this.context.beginPath();
+      this.context.arc(
+        this.centerPoint.x,
+        this.centerPoint.y,
+        score.maxRadius,
+        0,
+        2 * Math.PI,
+        false
+      );
+      this.context.fill();
+      this.context.stroke();
+    });
+    // bulls eye
+    this.context.fillStyle = "black";
+    this.context.beginPath();
+    this.context.arc(this.centerPoint.x, this.centerPoint.y, 1, 0, 2 * Math.PI);
+    this.context.fill();
 
-    this.props.arrows.forEach(arrow =>
-      this.drawDot(arrow.coordinates, arrow.isInverted ? "#FFFFFF" : "#000000")
-    );
+    this.props.arrows.forEach(arrow => this.drawArrow(arrow.coordinates));
   }
 
-  // show zoomed canvas on desktop
-  handleMouseMove(e) {
-    var pos = this.getMousePos(this.canvas, e);
-    this.handleZoom(pos);
-  }
-
-  // get position of mouse cursor
-  getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };
+  // show zoomed canvas and pan it with cursor
+  handleMouseMove(event) {
+    this.context.resetTransform();
+    this.context.scale(this.maxZoom, this.maxZoom);
+    this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+    const pos = this.getMousePos(this.canvasRef.current, event);
+    this.context.translate(-pos.x / 2, -pos.y / 2);
+    this.renderTargetAndArrows();
   }
 
   // show zoomed canvas on mobile
@@ -201,111 +267,38 @@ export default class Target extends React.Component {
       return;
     }
     this.touchMove = true;
-    var pos = this.getTouchPos(this.canvas, e);
-    this.handleZoom(pos, true);
+    this.context.resetTransform();
+    this.context.scale(this.maxZoom, this.maxZoom);
+    this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
+    const pos = this.getTouchPos(this.canvasRef.current, e);
+    this.touchPos = { x: pos.x, y: pos.y - this.touchCursorOffset };
+    this.context.translate(-this.touchPos.x / 2, -this.touchPos.y / 2);
+    this.renderTargetAndArrows();
+    // draw crosshair for touch input
+    this.drawArrow(this.touchPos, "#39ff14");
+  }
+
+  // get position of mouse cursor
+  getMousePos(canvas, evt) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
   }
 
   // get position for touch event
   getTouchPos(canvas, event) {
-    var rect = canvas.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     return {
       x: event.touches[0].clientX - rect.left,
       y: event.touches[0].clientY - rect.top
     };
   }
-
-  // display zoomed target
-  handleZoom(pos, isTouch) {
-    var x = pos.x;
-    var y = pos.y;
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const y1 = isTouch
-      ? -y * this.zoomFactor + this.touchCursorOffset
-      : -y * this.zoomFactor;
-    this.context.drawImage(
-      this.base_image,
-      -x * this.zoomFactor,
-      y1,
-      this.iw,
-      this.ih
-    );
-    if (isTouch) {
-      // draw cursor for touch
-      this.cursorPos = { x, y: y - this.touchCursorOffset };
-      this.drawDot(this.cursorPos, "#39ff14");
-    }
-
-    this.props.arrows.forEach(arrow => {
-      const newX = -x * this.zoomFactor + arrow.coordinates.x * 2;
-      const newY = -y * this.zoomFactor + arrow.coordinates.y * 2;
-      this.drawDot(
-        { x: newX, y: isTouch ? newY + this.touchCursorOffset : newY },
-        arrow.isInverted ? "#FFFFFF" : "#000000"
-      );
-    });
-  }
-
-  makeBase() {
-    this.base_image = new Image();
-    this.base_image.src = target;
-
-    this.base_image.onload = () => {
-      this.iw = 600;
-      this.ih = 600;
-      this.canvas.width = this.iw * this.zoom;
-      this.canvas.height = this.ih * this.zoom;
-      this.zoomFactor = (600 - 600 * this.zoom) / this.canvas.width;
-      this.doCanvas();
-
-      //redraw canvas at default zoom
-      this.canvas.addEventListener(
-        "mouseout",
-        () => {
-          this.doCanvas();
-        },
-        false
-      );
-      // show zoomed canvas
-      this.canvas.addEventListener(
-        "mousemove",
-        event => {
-          this.handleMouseMove(event);
-        },
-        false
-      );
-      // draw dot
-      this.canvas.addEventListener(
-        "mouseup",
-        event => {
-          this.handleMouseUp(event);
-        },
-        false
-      );
-      //show zoomed canvas mobile
-
-      this.canvas.addEventListener(
-        "touchmove",
-        throttle(event => {
-          this.handleTouchMove(event);
-        }, 16),
-
-        true
-      );
-      // draw dot
-
-      this.canvas.addEventListener(
-        "touchend",
-        event => {
-          this.handleTouchEnd(event);
-        },
-        false
-      );
-    };
-  }
 }
 
 function throttle(cb, delay) {
-  var timesUp = true;
+  let timesUp = true;
   return function(event) {
     if (!timesUp) return;
     setTimeout(function() {

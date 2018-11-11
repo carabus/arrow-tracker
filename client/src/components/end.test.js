@@ -13,7 +13,7 @@ import {
 
 describe("<End/>", () => {
   const endNum = 1;
-  const arrow = { coordinates: { x: 1, y: 1 }, score: 20, isInverted: false };
+  const arrow = { coordinates: { x: 1, y: 1 }, score: 20};
   const end = { _id: 1, arrows: [arrow] };
   const session = {
     distance: 20,

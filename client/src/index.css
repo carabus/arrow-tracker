@@ -89,6 +89,12 @@ button {
   padding: 7px 0;
 }
 
+.target-wrapper {
+  user-select: none;
+  /* prevent magnifying glass in css */
+  -webkit-user-select:none; 
+}
+
 .centered-text {
   text-align: center !important;
 }

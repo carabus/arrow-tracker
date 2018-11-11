@@ -143,13 +143,12 @@ export const deleteEnd = (session, end) => dispatch => {
 };
 
 export const CREATE_ARROW = "CREATE_ARROW";
-export const createArrow = (session, end, point, score, isInverted) => ({
+export const createArrow = (session, end, point, score) => ({
   type: CREATE_ARROW,
   session,
   end,
   point,
   score,
-  isInverted
 });
 
 export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";

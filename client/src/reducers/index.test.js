@@ -13,7 +13,7 @@ describe("archeryTrackerReducer", () => {
           {
             _id: 2,
             arrows: [
-              { coordinates: { x: 1, y: 1 }, score: 10, isInverted: false }
+              { coordinates: { x: 1, y: 1 }, score: 10 }
             ]
           }
         ]
@@ -143,11 +143,10 @@ describe("archeryTrackerReducer", () => {
       const end = { _id: 2 };
       const point = { x: 1, y: 1 };
       const score = 5;
-      const isInverted = false;
 
       state = archeryTrackerReducer(
         state,
-        actions.createArrow(session, end, point, score, isInverted)
+        actions.createArrow(session, end, point, score)
       );
 
       expect(state).toEqual({
@@ -158,7 +157,7 @@ describe("archeryTrackerReducer", () => {
             distance: 20,
             ends: [
               { _id: 1, arrows: [] },
-              { _id: 2, arrows: [{ coordinates: point, score, isInverted }] }
+              { _id: 2, arrows: [{ coordinates: point, score }] }
             ]
           }
         ]
