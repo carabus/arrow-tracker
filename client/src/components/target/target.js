@@ -1,10 +1,138 @@
 import React from "react";
 
+const OLYMPIC_TARGET = [
+  {
+    arrowColor: "black",
+    color: "#ffc107",
+    maxRadius: 7,
+    points: 10,
+    strokeColor: "black",
+    strokeWidth: 0.5
+  },
+  {
+    arrowColor: "black",
+    color: "#ffc107",
+    maxRadius: 15,
+    points: 10,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "#ffc107",
+    maxRadius: 30,
+    points: 9,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "#dc3545",
+    maxRadius: 45,
+    points: 8,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "#dc3545",
+    maxRadius: 60,
+    points: 7,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "#17a2b8",
+    maxRadius: 75,
+    points: 6,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "#17a2b8",
+    maxRadius: 90,
+    points: 5,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "white",
+    color: "black",
+    maxRadius: 105,
+    points: 4,
+    strokeColor: "white"
+  },
+  {
+    arrowColor: "white",
+    color: "black",
+    maxRadius: 120,
+    points: 3,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "white",
+    maxRadius: 135,
+    points: 2,
+    strokeColor: "black"
+  },
+  {
+    arrowColor: "black",
+    color: "white",
+    maxRadius: 150,
+    points: 1,
+    strokeColor: "black"
+  }
+];
+
+const NFAA_TARGET = [
+  {
+    arrowColor: "black",
+    color: "white",
+    maxRadius: 15,
+    points: 5,
+    strokeColor: "#233b5e",
+    strokeWidth: 0.5
+  },
+  {
+    arrowColor: "black",
+    color: "white",
+    maxRadius: 30,
+    points: 5,
+    strokeColor: "#233b5e"
+  },
+  {
+    arrowColor: "white",
+    color: "#233b5e",
+    maxRadius: 60,
+    points: 4,
+    strokeColor: "white"
+  },
+  {
+    arrowColor: "white",
+    color: "#233b5e",
+    maxRadius: 90,
+    points: 3,
+    strokeColor: "white"
+  },
+  {
+    arrowColor: "white",
+    color: "#233b5e",
+    maxRadius: 120,
+    points: 2,
+    strokeColor: "white"
+  },
+  {
+    arrowColor: "white",
+    color: "#233b5e",
+    maxRadius: 150,
+    points: 1,
+    strokeColor: "white"
+  }
+];
+
 export default class Target extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
     this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.targetScoreRange = props.type === "NFAA" ? NFAA_TARGET : OLYMPIC_TARGET;
   }
 
   componentDidUpdate() {
@@ -61,86 +189,7 @@ export default class Target extends React.Component {
     );
   }
 
-  targetScoreRange = [
-    {
-      arrowColor: "black",
-      color: "#ffc107",
-      maxRadius: 7,
-      points: 10,
-      strokeColor: "black",
-      strokeWidth: 0.5
-    },
-    {
-      arrowColor: "black",
-      color: "#ffc107",
-      maxRadius: 15,
-      points: 10,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "#ffc107",
-      maxRadius: 30,
-      points: 9,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "#dc3545",
-      maxRadius: 45,
-      points: 8,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "#dc3545",
-      maxRadius: 60,
-      points: 7,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "#17a2b8",
-      maxRadius: 75,
-      points: 6,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "#17a2b8",
-      maxRadius: 90,
-      points: 5,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "white",
-      color: "black",
-      maxRadius: 105,
-      points: 4,
-      strokeColor: "white"
-    },
-    {
-      arrowColor: "white",
-      color: "black",
-      maxRadius: 120,
-      points: 3,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "white",
-      maxRadius: 135,
-      points: 2,
-      strokeColor: "black"
-    },
-    {
-      arrowColor: "black",
-      color: "white",
-      maxRadius: 150,
-      points: 1,
-      strokeColor: "black"
-    }
-  ].reverse();
+  
   context;
   touchPos;
   maxZoom = 2;
@@ -156,7 +205,7 @@ export default class Target extends React.Component {
           Math.pow(this.centerPoint.y - position.y, 2)
       )
     );
-    for (let i = this.targetScoreRange.length - 1; i >= 0; i--) {
+    for (let i = 0; i < this.targetScoreRange.length; i++) {
       const target = this.targetScoreRange[i];
       if (distanceFromCenter <= target.maxRadius) {
         return target;
@@ -223,7 +272,8 @@ export default class Target extends React.Component {
   }
 
   renderTargetAndArrows() {
-    this.targetScoreRange.forEach(score => {
+    for (let i = this.targetScoreRange.length - 1; i >= 0; i--) {
+      const score = this.targetScoreRange[i];
       this.context.fillStyle = score.color;
       this.context.strokeStyle = score.strokeColor;
       this.context.lineWidth = score.strokeWidth || 1.0;
@@ -238,7 +288,7 @@ export default class Target extends React.Component {
       );
       this.context.fill();
       this.context.stroke();
-    });
+    };
     // bulls eye
     this.context.fillStyle = "black";
     this.context.beginPath();
