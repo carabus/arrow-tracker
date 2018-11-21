@@ -34,12 +34,7 @@ export class End extends React.Component {
 
   createArrow(arrow) {
     this.props.dispatch(
-      createArrow(
-        this.props.session,
-        this.props.end,
-        arrow.point,
-        arrow.score,
-      )
+      createArrow(this.props.session, this.props.end, arrow.point, arrow.score)
     );
   }
 
@@ -67,6 +62,8 @@ export class End extends React.Component {
       <Arrow arrow={arrow} key={index} />
     ));
 
+    console.log({ targetType: this.props.session.targetType });
+
     return (
       <div className="session">
         <HeaderBar
@@ -85,6 +82,7 @@ export class End extends React.Component {
                 <Target
                   arrows={this.props.end.arrows}
                   createArrow={this.createArrow}
+                  type={this.props.session.targetType}
                 />
               </div>
               <div className="card-body flat-top">
@@ -96,7 +94,7 @@ export class End extends React.Component {
                     onClick={() =>
                       this.createArrow({
                         point: { x: -1, y: -1 },
-                        score: 0,
+                        score: 0
                       })
                     }
                   >
