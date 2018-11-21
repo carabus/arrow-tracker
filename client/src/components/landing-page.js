@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { HeaderBar } from "./header-bar";
+import { Demo } from "./demo";
 import "./landing-page.css";
 import recordImg from "../images/record.gif";
 import analyzeImg from "../images/analyze.png";
@@ -58,6 +59,12 @@ export class LandingPage extends React.Component {
         <main role="main">
           <h2 id="explore">Explore Arrow Tracker</h2>
           <div className="container">
+            <div className="row">
+              <div className="column-100">
+                <Demo />
+              </div>
+            </div>
+
             <div className="row">
               <div className="column-60">
                 <div className="box-shadow">
