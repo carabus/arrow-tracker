@@ -38,12 +38,14 @@ export class SimpleSessionDetailsForm extends React.Component {
     }
 
     // if creating new session
+    let targetTypeValue = this.olympic.checked ? "Olympic" : "NFAA";
     this.props.dispatch(
       createSession(
         {
           distance: this.distance.value,
           distanceUnits: this.distanceUnits.value,
-          trainingFactors: selectedOptionsNames
+          trainingFactors: selectedOptionsNames,
+          targetType: targetTypeValue
         },
         this.props.history
       )
@@ -74,9 +76,52 @@ export class SimpleSessionDetailsForm extends React.Component {
   };
 
   render() {
+    let targetType = "";
+    if (!this.props.currentSession) {
+      targetType = (
+        <div className="form-section">
+          <p>Select Target Type</p>
+          <div>
+            <input
+              style={{ width: 50 + "px" }}
+              type="radio"
+              id="NFAA"
+              name="targetType"
+              value="NFAA"
+              ref={input => (this.nfaa = input)}
+              defaultChecked
+            />
+            <label
+              style={{ display: "inline", marginLeft: 10 + "px" }}
+              htmlFor="NFAA"
+            >
+              NFAA
+            </label>
+          </div>
+          <div>
+            <input
+              style={{ width: 50 + "px" }}
+              type="radio"
+              id="olympic"
+              name="targetType"
+              value="olympic"
+              ref={input => (this.olympic = input)}
+            />
+            <label
+              style={{ display: "inline", marginLeft: 10 + "px" }}
+              htmlFor="olympic"
+            >
+              Olympic
+            </label>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <section>
         <form onSubmit={this.onSubmit} className="new-session-form">
+          {targetType}
           <div className="form-section">
             <label htmlFor="distance">Distance</label>
             <input

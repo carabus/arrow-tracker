@@ -37,6 +37,7 @@ router.post("/", [jwtAuth, jsonParser], (req, res) => {
       trainingRecord.user = req.user.username;
       trainingRecord.distance = req.body.distance;
       trainingRecord.distanceUnits = req.body.distanceUnits;
+      trainingRecord.targetType = req.body.targetType;
       trainingRecord.score = 0;
       trainingRecord.maxScore = 0;
       trainingRecord.ends = [];

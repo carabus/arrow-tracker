@@ -7,6 +7,7 @@ let trainingRecordSchema = mongoose.Schema(
     user: { type: String, required: true },
     distance: { type: Number, required: true },
     distanceUnits: { type: String, required: true },
+    targetType: { type: String, required: false },
     score: { type: Number, default: 0 },
     maxScore: { type: Number, default: 0 },
     ends: [
@@ -36,6 +37,7 @@ trainingRecordSchema.methods.serialize = function() {
     id: this._id,
     distance: this.distance,
     distanceUnits: this.distanceUnits,
+    targetType: this.targetType,
     trainingFactors: this.trainingFactors,
     score: this.score,
     maxScore: this.maxScore,
