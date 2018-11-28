@@ -63,6 +63,11 @@ function getRankingDistance(distance, units) {
   return Math.round(distance * 0.9144);
 }
 
+function getMaxEndScore(targetType) {
+  console.log({ targetType });
+  return targetType === "NFAA" ? 5 : 10;
+}
+
 router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
   // trim and normalize training factor values
   let normalizedTrainingFactors = [];
@@ -113,11 +118,13 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
           end.arrows.forEach(arrow => {
             endScore += arrow.score;
           });
-          maxSessionScore += end.arrows.length * 10;
+          maxSessionScore +=
+            end.arrows.length * getMaxEndScore(updatedRecord.targetType);
           sessionScore += endScore;
           chart.push({ name: `#${index + 1}`, score: endScore });
         });
-        if (!maxSessionScore) maxSessionScore = 10;
+        if (!maxSessionScore)
+          maxSessionScore = getMaxEndScore(updatedRecord.targetType);
         return TrainingRecord.findByIdAndUpdate(
           updatedRecord.id,
           {
