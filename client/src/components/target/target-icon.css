@@ -1,0 +1,21 @@
+.target-icon {
+  margin-right: 15px;
+}
+
+.target-icon .Olympic {
+  background-color: #ffc107;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px black, inset 0 0 0 5px white,
+    inset 0 0 0 10px black, inset 0 0 0 15px #17a2b8, inset 0 0 0 20px #dc3545;
+}
+
+.target-icon .NFAA {
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 7px #233b5e, inset 0 0 0 8px white,
+    inset 0 0 0 14px #233b5e, inset 0 0 0 15px white, inset 0 0 0 20px #233b5e;
+}
