@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import SimpleSessionDetailsForm from "./simple-session-details-form";
+import TargetIcon from "./target/target-icon.js";
 import { deleteSession } from "../actions";
 
 export class SessionDetails extends React.Component {
@@ -43,6 +44,10 @@ export class SessionDetails extends React.Component {
 
     return (
       <section>
+        <p>Target Type</p>
+        <div style={{ padding: "5px" }}>
+          <TargetIcon targetType={this.props.session.targetType} />
+        </div>
         <p>Score</p>
         <p className="big-text">
           {" "}

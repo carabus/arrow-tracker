@@ -2,6 +2,8 @@
   margin-right: 15px;
 }
 
+#olympic:checked + label:before,
+#olympic:not(:checked) + label:before,
 .target-icon .Olympic {
   background-color: #ffc107;
   width: 50px;
@@ -11,6 +13,8 @@
     inset 0 0 0 10px black, inset 0 0 0 15px #17a2b8, inset 0 0 0 20px #dc3545;
 }
 
+#NFAA:checked + label:before,
+#NFAA:not(:checked) + label:before,
 .target-icon .NFAA {
   background-color: white;
   width: 50px;
@@ -18,4 +22,70 @@
   border-radius: 50%;
   box-shadow: inset 0 0 0 7px #233b5e, inset 0 0 0 8px white,
     inset 0 0 0 14px #233b5e, inset 0 0 0 15px white, inset 0 0 0 20px #233b5e;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label {
+  position: relative;
+  padding-top: 15px;
+  padding-left: 58px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: #666;
+}
+#olympic:checked + label:before,
+#olympic:not(:checked) + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+label {
+  margin-right: 10px;
+}
+
+#NFAA:checked + label:before,
+#NFAA:not(:checked) + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  border: solid #ffc107 4px;
+}
+[type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.radio-container {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  height: 50px;
 }

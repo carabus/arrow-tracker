@@ -2,9 +2,10 @@ import React from "react";
 import { createSession } from "../actions";
 import { updateSession } from "../actions";
 import { connect } from "react-redux";
+import { fetchTrainingFactors } from "../actions/profile";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
-import { fetchTrainingFactors } from "../actions/profile";
+import "./target/target-icon.css";
 
 export class SimpleSessionDetailsForm extends React.Component {
   state = {
@@ -80,10 +81,9 @@ export class SimpleSessionDetailsForm extends React.Component {
     if (!this.props.currentSession) {
       targetType = (
         <div className="form-section">
-          <p>Select Target Type</p>
-          <div>
+          <p>Target Type</p>
+          <div className="radio-container">
             <input
-              style={{ width: 50 + "px" }}
               type="radio"
               id="NFAA"
               name="targetType"
@@ -91,28 +91,15 @@ export class SimpleSessionDetailsForm extends React.Component {
               ref={input => (this.nfaa = input)}
               defaultChecked
             />
-            <label
-              style={{ display: "inline", marginLeft: 10 + "px" }}
-              htmlFor="NFAA"
-            >
-              NFAA
-            </label>
-          </div>
-          <div>
+            <label htmlFor="NFAA">NFAA</label>
             <input
-              style={{ width: 50 + "px" }}
               type="radio"
               id="olympic"
               name="targetType"
               value="olympic"
               ref={input => (this.olympic = input)}
             />
-            <label
-              style={{ display: "inline", marginLeft: 10 + "px" }}
-              htmlFor="olympic"
-            >
-              Olympic
-            </label>
+            <label htmlFor="olympic">Olympic</label>
           </div>
         </div>
       );
