@@ -148,7 +148,7 @@ export const createArrow = (session, end, point, score) => ({
   session,
   end,
   point,
-  score,
+  score
 });
 
 export const REMOVE_LAST_ARROW = "REMOVE_LAST_ARROW";

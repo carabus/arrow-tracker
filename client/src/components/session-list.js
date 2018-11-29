@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import FormattedDate from "./formatted-date";
 import "./session-list.css";
 import ReactTooltip from "react-tooltip";
+import TargetIcon from "./target/target-icon.js";
 
 export class SessionList extends React.Component {
   state = {
@@ -44,15 +45,17 @@ export class SessionList extends React.Component {
                   this.props.history.push(`/session/${session.id}`)
                 }
               >
-                <div>
+                <div style={{ display: "flex" }}>
+                  <TargetIcon targetType={session.targetType} />
                   <div>
-                    Training at {session.distance} {session.distanceUnits}
-                  </div>
-                  <div className="session-date">
-                    <FormattedDate date={session.created} />
+                    <div>
+                      Training at {session.distance} {session.distanceUnits}
+                    </div>
+                    <div className="session-date">
+                      <FormattedDate date={session.created} />
+                    </div>
                   </div>
                 </div>
-
                 <div>
                   {session.score} / {session.maxScore} ( {scorePercent}% )
                 </div>

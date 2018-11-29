@@ -28,7 +28,6 @@ export default class FacebookLogin extends Component {
    * Handle login response
    */
   facebookLoginHandler = response => {
-    console.log("facebook response");
     if (response.status === "connected") {
       window.FB.api("/me", userData => {
         let result = {

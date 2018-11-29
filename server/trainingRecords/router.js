@@ -37,6 +37,7 @@ router.post("/", [jwtAuth, jsonParser], (req, res) => {
       trainingRecord.user = req.user.username;
       trainingRecord.distance = req.body.distance;
       trainingRecord.distanceUnits = req.body.distanceUnits;
+      trainingRecord.targetType = req.body.targetType;
       trainingRecord.score = 0;
       trainingRecord.maxScore = 0;
       trainingRecord.ends = [];
@@ -60,6 +61,11 @@ router.post("/", [jwtAuth, jsonParser], (req, res) => {
 function getRankingDistance(distance, units) {
   if (units === "meters") return distance;
   return Math.round(distance * 0.9144);
+}
+
+function getMaxEndScore(targetType) {
+  console.log({ targetType });
+  return targetType === "NFAA" ? 5 : 10;
 }
 
 router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
@@ -112,11 +118,13 @@ router.put("/:id", [jwtAuth, jsonParser], (req, res) => {
           end.arrows.forEach(arrow => {
             endScore += arrow.score;
           });
-          maxSessionScore += end.arrows.length * 10;
+          maxSessionScore +=
+            end.arrows.length * getMaxEndScore(updatedRecord.targetType);
           sessionScore += endScore;
           chart.push({ name: `#${index + 1}`, score: endScore });
         });
-        if (!maxSessionScore) maxSessionScore = 10;
+        if (!maxSessionScore)
+          maxSessionScore = getMaxEndScore(updatedRecord.targetType);
         return TrainingRecord.findByIdAndUpdate(
           updatedRecord.id,
           {
