@@ -59,7 +59,7 @@ h3 {
 }
 
 .row {
-  margin-top: 30px;
+  margin-top: 60px;
   margin-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
@@ -105,6 +105,11 @@ h3 {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.column-100 {
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 hr {
