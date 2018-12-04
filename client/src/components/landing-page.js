@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { HeaderBar } from "./header-bar";
 import { Demo } from "./demo";
+import LoginForm from "./login-form";
 import "./landing-page.css";
 import recordImg from "../images/record.gif";
 import analyzeImg from "../images/analyze.png";
@@ -32,26 +33,37 @@ export class LandingPage extends React.Component {
           <div className="view">
             <div className="mask">
               <div className="container">
-                <h1>Arrow Tracker</h1>
-                <p>
-                  Record your archery training scores and see how you rate
-                  against other users
-                </p>
-                <div>
-                  <a href="#explore">
-                    <button type="button">Explore</button>
-                  </a>
-                  <Link to="/register">
-                    <button type="button">Sign up</button>
-                  </Link>
+                <div className="row">
+                  <div className="column-50">
+                    <h1>Arrow Tracker</h1>
+                    <p>
+                      Record your archery training scores and see how you rate
+                      against other users
+                    </p>
+                    <div>
+                      <a href="#explore">
+                        <button type="button">Explore</button>
+                      </a>
+                      <Link to="/register">
+                        <button type="button">Sign up</button>
+                      </Link>
+                    </div>
+                    <p>
+                      Click{" "}
+                      <a
+                        href=""
+                        className="demo"
+                        onClick={e => this.demoLogin(e)}
+                      >
+                        here
+                      </a>{" "}
+                      for a demo
+                    </p>
+                  </div>
+                  <div className="column-50">
+                    <LoginForm />
+                  </div>
                 </div>
-                <p>
-                  Click{" "}
-                  <a href="" className="demo" onClick={e => this.demoLogin(e)}>
-                    here
-                  </a>{" "}
-                  for a demo
-                </p>
               </div>
             </div>
           </div>
@@ -61,18 +73,20 @@ export class LandingPage extends React.Component {
           <div className="container">
             <div className="row">
               <div className="column-100">
+                <h3>Record</h3>
+                <hr />
+                <p>
+                  Record your archery training scores easily on your phone and
+                  access them anywhere.
+                </p>
                 <Demo />
               </div>
             </div>
-
+            {/*}
             <div className="row">
               <div className="column-60">
                 <div className="box-shadow">
-                  <img
-                    alt="Video showing scores entering in Arrow Tracker"
-                    width="100%"
-                    src={recordImg}
-                  />
+                  <Demo />
                 </div>
               </div>
               <div className="column-40">
@@ -84,7 +98,7 @@ export class LandingPage extends React.Component {
                 </p>
               </div>
             </div>
-
+            {*/}
             <div className="row">
               <div className="column-40">
                 <h3>Analyze</h3>

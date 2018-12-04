@@ -11,7 +11,7 @@ import FacebookLogin from "./social/facebook-login-button";
 
 export class LoginForm extends React.Component {
   componentDidMount() {
-    window.scrollTo(0, 0);
+    //window.scrollTo(0, 0);
     this.props.dispatch(clearAuthError());
   }
   onSubmit(values) {
@@ -19,10 +19,11 @@ export class LoginForm extends React.Component {
   }
 
   render() {
+    /*
     if (this.props.loggedIn) {
       return <Redirect to="/dashboard" />;
     }
-
+*/
     let error;
 
     if (this.props.error) {

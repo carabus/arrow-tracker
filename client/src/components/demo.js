@@ -15,7 +15,11 @@ export class Demo extends React.Component {
   }
 
   createArrow(arrow) {
-    console.log("create arrow");
+    if (this.state.arrows.length === 5) {
+      this.setState({ arrows: [] });
+      return;
+    }
+
     const newArrow = { coordinates: arrow.point, score: arrow.score };
     this.setState({ arrows: [...this.state.arrows, newArrow] });
   }
@@ -32,7 +36,7 @@ export class Demo extends React.Component {
     ));
     return (
       <div className="session">
-        <section>
+        <section style={{ backgroundColor: "white" }}>
           <div className="sub-section target-wrapper">
             <Target arrows={this.state.arrows} createArrow={this.createArrow} />
           </div>
