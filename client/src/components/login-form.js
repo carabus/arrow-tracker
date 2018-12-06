@@ -1,17 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm, focus } from "redux-form";
-import { Link, Redirect } from "react-router-dom";
-import Input from "./input";
-import { login, clearAuthError } from "../actions/auth";
-import { required, nonEmpty } from "../validators";
-import "./login-form.css";
-import appIcon from "../images/app-icon.svg";
-import FacebookLogin from "./social/facebook-login-button";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm, focus } from 'redux-form';
+import { Link, Redirect } from 'react-router-dom';
+import Input from './input';
+import { login, clearAuthError } from '../actions/auth';
+import { required, nonEmpty } from '../validators';
+import './login-form.css';
+import appIcon from '../images/app-icon.svg';
+import FacebookLogin from './social/facebook-login-button';
 
 export class LoginForm extends React.Component {
   componentDidMount() {
-    //window.scrollTo(0, 0);
     this.props.dispatch(clearAuthError());
   }
   onSubmit(values) {
@@ -19,11 +18,6 @@ export class LoginForm extends React.Component {
   }
 
   render() {
-    /*
-    if (this.props.loggedIn) {
-      return <Redirect to="/dashboard" />;
-    }
-*/
     let error;
 
     if (this.props.error) {
@@ -38,11 +32,6 @@ export class LoginForm extends React.Component {
         <main>
           <div className="single-form-container">
             <div className="card">
-              <div className="card-header">
-                <Link to="/">
-                  <img className="logo" src={appIcon} alt="Arrow Tracker App" />
-                </Link>
-              </div>
               <div className="card-body">
                 <h2>
                   <i className="fas fa-lock" /> Log In
@@ -84,10 +73,6 @@ export class LoginForm extends React.Component {
                   </div>
                 </form>
                 <div className="sub-section">
-                  <p className="centered-text">
-                    Not a member? <Link to="/register">Register</Link>
-                  </p>
-                  <p className="centered-text">OR</p>
                   <FacebookLogin dispatch={this.props.dispatch} />
                 </div>
               </div>
@@ -105,6 +90,6 @@ const mapStateToProps = state => ({
 });
 
 export default reduxForm({
-  form: "login",
-  onSubmitFail: (errors, dispatch) => dispatch(focus("login", "username"))
+  form: 'login',
+  onSubmitFail: (errors, dispatch) => dispatch(focus('login', 'username'))
 })(connect(mapStateToProps)(LoginForm));

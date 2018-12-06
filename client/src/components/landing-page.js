@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { HeaderBar } from "./header-bar";
-import { Demo } from "./demo";
-import LoginForm from "./login-form";
-import "./landing-page.css";
-import recordImg from "../images/record.gif";
-import analyzeImg from "../images/analyze.png";
-import competeImg from "../images/compete.png";
-import { login } from "../actions/auth";
-import { DEMO_USERNAME, DEMO_PASSWORD } from "../config";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { HeaderBar } from './header-bar';
+import { Demo } from './demo';
+import LoginForm from './login-form';
+import './landing-page.css';
+import recordImg from '../images/record.gif';
+import analyzeImg from '../images/analyze.png';
+import competeImg from '../images/compete.png';
+import { login } from '../actions/auth';
+import { DEMO_USERNAME, DEMO_PASSWORD } from '../config';
 
 export class LandingPage extends React.Component {
   componentDidMount() {
@@ -35,30 +35,29 @@ export class LandingPage extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="column-50">
-                    <h1>Arrow Tracker</h1>
-                    <p>
-                      Record your archery training scores and see how you rate
-                      against other users
-                    </p>
-                    <div>
-                      <a href="#explore">
-                        <button type="button">Explore</button>
-                      </a>
-                      <Link to="/register">
-                        <button type="button">Sign up</button>
-                      </Link>
+                    <div style={{ textAlign: 'left' }}>
+                      <div className="sub-section">
+                        <h1>Arrow Tracker</h1>
+                      </div>
+                      <div className="sub-section">
+                        <p>
+                          Record your archery training scores and see how you
+                          rate against other users
+                        </p>
+                      </div>
+                      <div className="sub-section">
+                        <a href="#explore">
+                          <button type="button" className="landing-page-button">
+                            Explore
+                          </button>
+                        </a>
+                        <Link to="/register">
+                          <button type="button" className="landing-page-button">
+                            Sign up
+                          </button>
+                        </Link>
+                      </div>
                     </div>
-                    <p>
-                      Click{" "}
-                      <a
-                        href=""
-                        className="demo"
-                        onClick={e => this.demoLogin(e)}
-                      >
-                        here
-                      </a>{" "}
-                      for a demo
-                    </p>
                   </div>
                   <div className="column-50">
                     <LoginForm />

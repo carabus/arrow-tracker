@@ -1,129 +1,129 @@
-import React from "react";
+import React from 'react';
 
 const OLYMPIC_TARGET = [
   {
-    arrowColor: "black",
-    color: "#ffc107",
+    arrowColor: 'black',
+    color: '#ffc107',
     maxRadius: 7,
     points: 10,
-    strokeColor: "black",
+    strokeColor: 'black',
     strokeWidth: 0.5
   },
   {
-    arrowColor: "black",
-    color: "#ffc107",
+    arrowColor: 'black',
+    color: '#ffc107',
     maxRadius: 15,
     points: 10,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "#ffc107",
+    arrowColor: 'black',
+    color: '#ffc107',
     maxRadius: 30,
     points: 9,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "#dc3545",
+    arrowColor: 'black',
+    color: '#dc3545',
     maxRadius: 45,
     points: 8,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "#dc3545",
+    arrowColor: 'black',
+    color: '#dc3545',
     maxRadius: 60,
     points: 7,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "#17a2b8",
+    arrowColor: 'black',
+    color: '#17a2b8',
     maxRadius: 75,
     points: 6,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "#17a2b8",
+    arrowColor: 'black',
+    color: '#17a2b8',
     maxRadius: 90,
     points: 5,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "white",
-    color: "black",
+    arrowColor: 'white',
+    color: 'black',
     maxRadius: 105,
     points: 4,
-    strokeColor: "white"
+    strokeColor: 'white'
   },
   {
-    arrowColor: "white",
-    color: "black",
+    arrowColor: 'white',
+    color: 'black',
     maxRadius: 120,
     points: 3,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "white",
+    arrowColor: 'black',
+    color: 'white',
     maxRadius: 135,
     points: 2,
-    strokeColor: "black"
+    strokeColor: 'black'
   },
   {
-    arrowColor: "black",
-    color: "white",
+    arrowColor: 'black',
+    color: 'white',
     maxRadius: 150,
     points: 1,
-    strokeColor: "black"
+    strokeColor: 'black'
   }
 ];
 
 const NFAA_TARGET = [
   {
-    arrowColor: "black",
-    color: "white",
+    arrowColor: 'black',
+    color: 'white',
     maxRadius: 15,
     points: 5,
-    strokeColor: "#233b5e",
+    strokeColor: '#233b5e',
     strokeWidth: 0.5
   },
   {
-    arrowColor: "black",
-    color: "white",
+    arrowColor: 'black',
+    color: 'white',
     maxRadius: 30,
     points: 5,
-    strokeColor: "#233b5e"
+    strokeColor: '#233b5e'
   },
   {
-    arrowColor: "white",
-    color: "#233b5e",
+    arrowColor: 'white',
+    color: '#233b5e',
     maxRadius: 60,
     points: 4,
-    strokeColor: "white"
+    strokeColor: 'white'
   },
   {
-    arrowColor: "white",
-    color: "#233b5e",
+    arrowColor: 'white',
+    color: '#233b5e',
     maxRadius: 90,
     points: 3,
-    strokeColor: "white"
+    strokeColor: 'white'
   },
   {
-    arrowColor: "white",
-    color: "#233b5e",
+    arrowColor: 'white',
+    color: '#233b5e',
     maxRadius: 120,
     points: 2,
-    strokeColor: "white"
+    strokeColor: 'white'
   },
   {
-    arrowColor: "white",
-    color: "#233b5e",
+    arrowColor: 'white',
+    color: '#233b5e',
     maxRadius: 150,
     points: 1,
-    strokeColor: "white"
+    strokeColor: 'white'
   }
 ];
 
@@ -132,22 +132,20 @@ export default class Target extends React.Component {
     super(props);
     this.canvasRef = React.createRef();
     this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.targetScoreRange = props.type === "NFAA" ? NFAA_TARGET : OLYMPIC_TARGET;
+    this.targetScoreRange =
+      props.type === 'NFAA' ? NFAA_TARGET : OLYMPIC_TARGET;
   }
 
   componentDidUpdate() {
-    this.context = this.canvasRef.current.getContext("2d");
+    this.context = this.canvasRef.current.getContext('2d');
     this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
     this.renderTargetAndArrows();
   }
 
   componentDidMount() {
-    this.context = this.canvasRef.current.getContext("2d");
+    this.context = this.canvasRef.current.getContext('2d');
     // touchmove is done via event listener to prevent window scrolling on ios
-    this.canvasRef.current.addEventListener(
-      "touchmove",
-      this.handleTouchMove
-    );
+    this.canvasRef.current.addEventListener('touchmove', this.handleTouchMove);
     this.context.clearRect(0, 0, this.canvasSizePx, this.canvasSizePx);
     this.context.resetTransform();
     this.renderTargetAndArrows();
@@ -189,11 +187,10 @@ export default class Target extends React.Component {
     );
   }
 
-  
   context;
   touchPos;
   maxZoom = 2;
-  canvasSizePx = 302;
+  canvasSizePx = 382;
   touchMove = false;
   centerPoint = { x: this.canvasSizePx / 2, y: this.canvasSizePx / 2 };
   touchCursorOffset = this.canvasSizePx / 3;
@@ -220,7 +217,7 @@ export default class Target extends React.Component {
       this.context.fillStyle = fill;
     } else {
       score = this.getTargetScoreByPosition(position);
-      this.context.fillStyle = score ? score.arrowColor : "";
+      this.context.fillStyle = score ? score.arrowColor : '';
     }
     this.context.beginPath();
     this.context.arc(position.x, position.y, 2, 0, 2 * Math.PI);
@@ -288,9 +285,9 @@ export default class Target extends React.Component {
       );
       this.context.fill();
       this.context.stroke();
-    };
+    }
     // bulls eye
-    this.context.fillStyle = "black";
+    this.context.fillStyle = 'black';
     this.context.beginPath();
     this.context.arc(this.centerPoint.x, this.centerPoint.y, 1, 0, 2 * Math.PI);
     this.context.fill();
@@ -325,7 +322,7 @@ export default class Target extends React.Component {
     this.context.translate(-this.touchPos.x / 2, -this.touchPos.y / 2);
     this.renderTargetAndArrows();
     // draw crosshair for touch input
-    this.drawArrow(this.touchPos, "#39ff14");
+    this.drawArrow(this.touchPos, '#39ff14');
   }
 
   // get position of mouse cursor

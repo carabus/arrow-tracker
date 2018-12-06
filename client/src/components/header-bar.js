@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { clearAuth } from "../actions/auth";
-import { reset } from "../actions";
-import { clearAuthToken } from "../local-storage";
-import { Link } from "react-router-dom";
-import appIcon from "../images/app-icon.svg";
-import "./header-bar.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import { clearAuth } from '../actions/auth';
+import { reset } from '../actions';
+import { clearAuthToken } from '../local-storage';
+import { Link } from 'react-router-dom';
+import appIcon from '../images/app-icon.svg';
+import './header-bar.css';
 
 export class HeaderBar extends React.Component {
   logOut(e) {
@@ -24,8 +24,6 @@ export class HeaderBar extends React.Component {
           Log out
         </a>
       );
-    } else {
-      menuButton = <Link to="/login">Login</Link>;
     }
 
     // Build breadcrumb navigation depending on what was passed to the component
