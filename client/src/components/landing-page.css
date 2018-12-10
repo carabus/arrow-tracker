@@ -3,6 +3,18 @@
   min-height: 600px;
 }
 
+.landing-page .login-form header {
+  min-height: 750px;
+}
+
+.landing-page p {
+  font-size: 20px;
+}
+
+.landing-page h3 {
+  font-size: 20px;
+}
+
 .view {
   height: 100%;
   background-image: url('../images/bg.jpg');
@@ -52,7 +64,7 @@ header p {
 }
 
 .container {
-  padding-top: 120px;
+  padding-top: 10%;
   text-align: center;
   padding-right: 15px;
   padding-left: 15px;
@@ -66,7 +78,6 @@ h3 {
 
 .row {
   margin-top: 60px;
-  margin-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -169,6 +180,10 @@ footer {
     padding-right: 10px;
   }
 
+  .row {
+    margin-top: 30px;
+  }
+
   .column-50,
   .column-60,
   .column-40 {
@@ -183,5 +198,21 @@ footer {
 
   .column-40 {
     order: 1;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .landing-page .column-50,
+  .landing-page .column-60,
+  .landing-page .column-40 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .landing-page main {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

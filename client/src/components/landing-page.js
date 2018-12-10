@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { HeaderBar } from './header-bar';
 import { Demo } from './demo';
-import LoginForm from './login-form';
 import './landing-page.css';
 import recordImg from '../images/record.gif';
 import analyzeImg from '../images/analyze.png';
 import competeImg from '../images/compete.png';
 import { login } from '../actions/auth';
 import { DEMO_USERNAME, DEMO_PASSWORD } from '../config';
+import { LandingHeader, LandingContent } from './landing-header';
 
 export class LandingPage extends React.Component {
   componentDidMount() {
@@ -30,62 +30,21 @@ export class LandingPage extends React.Component {
       <div className="landing-page">
         <header>
           <HeaderBar />
-          <div className="view">
-            <div className="mask">
-              <div className="container">
-                <div className="row">
-                  <div className="column-50">
-                    <div style={{ textAlign: 'left' }}>
-                      <div className="sub-section">
-                        <h1>Arrow Tracker</h1>
-                      </div>
-                      <div className="sub-section">
-                        <p>
-                          Record your archery training scores and see how you
-                          rate against other users
-                        </p>
-                      </div>
-                      <div className="sub-section">
-                        <a href="#explore">
-                          <button type="button" className="landing-page-button">
-                            Explore
-                          </button>
-                        </a>
-                        <Link to="/register">
-                          <button type="button" className="landing-page-button">
-                            Sign up
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="column-50">
-                    <LoginForm />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <LandingHeader>
+            <LandingContent />
+          </LandingHeader>
         </header>
         <main role="main">
-          <h2 id="explore">Explore Arrow Tracker</h2>
           <div className="container">
-            <div className="row">
-              <div className="column-100">
-                <h3>Record</h3>
-                <hr />
-                <p>
-                  Record your archery training scores easily on your phone and
-                  access them anywhere.
-                </p>
-                <Demo />
-              </div>
-            </div>
-            {/*}
+            <h2 id="explore">Explore Arrow Tracker</h2>
             <div className="row">
               <div className="column-60">
                 <div className="box-shadow">
-                  <Demo />
+                  <img
+                    alt="Screenshot of a chart used to compare archery training sessions with different training factors"
+                    width="100%"
+                    src={recordImg}
+                  />
                 </div>
               </div>
               <div className="column-40">
@@ -97,7 +56,6 @@ export class LandingPage extends React.Component {
                 </p>
               </div>
             </div>
-            {*/}
             <div className="row">
               <div className="column-40">
                 <h3>Analyze</h3>
@@ -141,6 +99,21 @@ export class LandingPage extends React.Component {
               </div>
             </div>
           </div>
+
+          <div className="container">
+            <div className="row">
+              <div className="column-50">
+                <h2>Olympic Target Demo</h2>
+                <hr />
+                <Demo targetType="olympic" />
+              </div>
+              <div className="column-50">
+                <h2>NFAA Target Demo</h2>
+                <hr />
+                <Demo targetType="NFAA" />
+              </div>
+            </div>
+          </div>
         </main>
         <footer>
           <div className="container">
@@ -153,7 +126,7 @@ export class LandingPage extends React.Component {
                   <a href="/privacy-policy.html">Privacy</a>
                 </li>
                 <li>
-                  <p>© Svetlana Raeva 2018</p>
+                  <p style={{ fontSize: '14px' }}>© Svetlana Raeva 2018</p>
                 </li>
               </ul>
             </div>

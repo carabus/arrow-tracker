@@ -190,7 +190,7 @@ export default class Target extends React.Component {
   context;
   touchPos;
   maxZoom = 2;
-  canvasSizePx = 382;
+  canvasSizePx = 302;
   touchMove = false;
   centerPoint = { x: this.canvasSizePx / 2, y: this.canvasSizePx / 2 };
   touchCursorOffset = this.canvasSizePx / 3;

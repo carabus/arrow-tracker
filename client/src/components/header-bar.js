@@ -9,7 +9,6 @@ import './header-bar.css';
 
 export class HeaderBar extends React.Component {
   logOut(e) {
-    //e.preventDefault();
     this.props.dispatch(clearAuth());
     this.props.dispatch(reset());
     clearAuthToken();
@@ -23,6 +22,16 @@ export class HeaderBar extends React.Component {
         <a href="" className="logout" onClick={e => this.logOut(e)}>
           Log out
         </a>
+      );
+    } else {
+      menuButton = (
+        <span>
+          <Link to="/login">Log in</Link>
+          <span style={{ padding: '0 7px', color: '#888' }}>or</span>
+          <span style={{ padding: '7px', border: 'white solid 1px' }}>
+            <Link to="/register">Sign up</Link>
+          </span>
+        </span>
       );
     }
 
@@ -47,7 +56,7 @@ export class HeaderBar extends React.Component {
         <div className="container">
           <div className="sub-container">
             <div className="logo">
-              <Link to="/dashboard">
+              <Link to={this.props.loggedIn ? '/dashboard' : '/'}>
                 <img
                   width="50px"
                   height="50px"
