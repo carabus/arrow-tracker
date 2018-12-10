@@ -1,13 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { HeaderBar } from "./header-bar";
-import "./landing-page.css";
-import recordImg from "../images/record.gif";
-import analyzeImg from "../images/analyze.png";
-import competeImg from "../images/compete.png";
-import { login } from "../actions/auth";
-import { DEMO_USERNAME, DEMO_PASSWORD } from "../config";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { HeaderBar } from './header-bar';
+import { Demo } from './demo';
+import './landing-page.css';
+import recordImg from '../images/record.gif';
+import analyzeImg from '../images/analyze.png';
+import competeImg from '../images/compete.png';
+import { login } from '../actions/auth';
+import { DEMO_USERNAME, DEMO_PASSWORD } from '../config';
+import { LandingHeader, LandingContent } from './landing-header';
 
 export class LandingPage extends React.Component {
   componentDidMount() {
@@ -28,41 +30,18 @@ export class LandingPage extends React.Component {
       <div className="landing-page">
         <header>
           <HeaderBar />
-          <div className="view">
-            <div className="mask">
-              <div className="container">
-                <h1>Arrow Tracker</h1>
-                <p>
-                  Record your archery training scores and see how you rate
-                  against other users
-                </p>
-                <div>
-                  <a href="#explore">
-                    <button type="button">Explore</button>
-                  </a>
-                  <Link to="/register">
-                    <button type="button">Sign up</button>
-                  </Link>
-                </div>
-                <p>
-                  Click{" "}
-                  <a href="" className="demo" onClick={e => this.demoLogin(e)}>
-                    here
-                  </a>{" "}
-                  for a demo
-                </p>
-              </div>
-            </div>
-          </div>
+          <LandingHeader>
+            <LandingContent />
+          </LandingHeader>
         </header>
         <main role="main">
-          <h2 id="explore">Explore Arrow Tracker</h2>
           <div className="container">
+            <h2 id="explore">Explore Arrow Tracker</h2>
             <div className="row">
               <div className="column-60">
                 <div className="box-shadow">
                   <img
-                    alt="Video showing scores entering in Arrow Tracker"
+                    alt="Screenshot of a chart used to compare archery training sessions with different training factors"
                     width="100%"
                     src={recordImg}
                   />
@@ -77,7 +56,6 @@ export class LandingPage extends React.Component {
                 </p>
               </div>
             </div>
-
             <div className="row">
               <div className="column-40">
                 <h3>Analyze</h3>
@@ -121,6 +99,21 @@ export class LandingPage extends React.Component {
               </div>
             </div>
           </div>
+
+          <div className="container">
+            <div className="row">
+              <div className="column-50">
+                <h2>Olympic Target Demo</h2>
+                <hr />
+                <Demo targetType="olympic" />
+              </div>
+              <div className="column-50">
+                <h2>NFAA Target Demo</h2>
+                <hr />
+                <Demo targetType="NFAA" />
+              </div>
+            </div>
+          </div>
         </main>
         <footer>
           <div className="container">
@@ -133,7 +126,7 @@ export class LandingPage extends React.Component {
                   <a href="/privacy-policy.html">Privacy</a>
                 </li>
                 <li>
-                  <p>© Svetlana Raeva 2018</p>
+                  <p style={{ fontSize: '14px' }}>© Svetlana Raeva 2018</p>
                 </li>
               </ul>
             </div>

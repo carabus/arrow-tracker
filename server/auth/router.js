@@ -20,7 +20,7 @@ const createAuthToken = function(user) {
 router.use(bodyParser.json());
 
 router.post("/socialLogin", (req, res) => {
-  let { username, password = username, name } = req.body;
+  let { username, name } = req.body;
   return User.find({ username })
     .countDocuments()
     .then(count => {
@@ -28,15 +28,13 @@ router.post("/socialLogin", (req, res) => {
         // There is an existing user with the same username
         const authToken = createAuthToken({
           username,
-          firstName: name,
-          lastName: ""
+          name
         });
         res.json({ authToken });
       } else {
         return User.create({
           username,
-          password,
-          firstName: name
+          name
         }).then(user => {
           const authToken = createAuthToken(user.serialize());
           res.json({ authToken });

@@ -3,9 +3,21 @@
   min-height: 600px;
 }
 
+.landing-page .login-form header {
+  min-height: 750px;
+}
+
+.landing-page p {
+  font-size: 20px;
+}
+
+.landing-page h3 {
+  font-size: 20px;
+}
+
 .view {
   height: 100%;
-  background-image: url("../images/bg.jpg");
+  background-image: url('../images/bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -18,16 +30,22 @@
   width: 100%;
   height: 100%;
   background-attachment: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .landing-page h1 {
+  margin-top: 0;
   color: white;
   text-transform: uppercase;
   font-weight: 400;
+  font-size: 55px;
 }
 
-.landing-page header button {
+.landing-page .sub-section {
+  padding: 14px 0;
+}
+
+.landing-page-button {
   border: solid white 1px;
   text-transform: uppercase;
   color: white;
@@ -41,17 +59,17 @@
 header p {
   margin: 0 auto;
   color: white;
-  max-width: 300px;
   line-height: 1.5;
   font-weight: 100;
 }
 
 .container {
-  padding-top: 200px;
+  padding-top: 10%;
   text-align: center;
   padding-right: 15px;
   padding-left: 15px;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 h3 {
@@ -59,8 +77,7 @@ h3 {
 }
 
 .row {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 60px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -105,6 +122,11 @@ h3 {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.column-100 {
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 hr {
@@ -158,6 +180,11 @@ footer {
     padding-right: 10px;
   }
 
+  .row {
+    margin-top: 30px;
+  }
+
+  .column-50,
   .column-60,
   .column-40 {
     flex: 0 0 100%;
@@ -171,5 +198,21 @@ footer {
 
   .column-40 {
     order: 1;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .landing-page .column-50,
+  .landing-page .column-60,
+  .landing-page .column-40 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .landing-page main {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

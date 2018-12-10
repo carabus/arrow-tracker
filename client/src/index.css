@@ -3,7 +3,7 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 16px;
   color: #444;
@@ -92,7 +92,7 @@ button {
 .target-wrapper {
   user-select: none;
   /* prevent magnifying glass in css */
-  -webkit-user-select:none; 
+  -webkit-user-select: none;
 }
 
 .centered-text {
@@ -136,7 +136,7 @@ select {
   background-color: white;
 }
 
-input[type="number"] {
+input[type='number'] {
   width: 70px;
 }
 

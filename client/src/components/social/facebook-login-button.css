@@ -11,6 +11,10 @@
   border: none;
 }
 
+.facebook-login:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
 .facebook-error {
   padding-top: 7px;
   color: #dc3545;

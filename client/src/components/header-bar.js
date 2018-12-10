@@ -1,15 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import { clearAuth } from "../actions/auth";
-import { reset } from "../actions";
-import { clearAuthToken } from "../local-storage";
-import { Link } from "react-router-dom";
-import appIcon from "../images/app-icon.svg";
-import "./header-bar.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import { clearAuth } from '../actions/auth';
+import { reset } from '../actions';
+import { clearAuthToken } from '../local-storage';
+import { Link } from 'react-router-dom';
+import appIcon from '../images/app-icon.svg';
+import './header-bar.css';
 
 export class HeaderBar extends React.Component {
   logOut(e) {
-    //e.preventDefault();
     this.props.dispatch(clearAuth());
     this.props.dispatch(reset());
     clearAuthToken();
@@ -25,7 +24,15 @@ export class HeaderBar extends React.Component {
         </a>
       );
     } else {
-      menuButton = <Link to="/login">Login</Link>;
+      menuButton = (
+        <span>
+          <Link to="/login">Log in</Link>
+          <span style={{ padding: '0 7px', color: '#888' }}>or</span>
+          <span style={{ padding: '7px', border: 'white solid 1px' }}>
+            <Link to="/register">Sign up</Link>
+          </span>
+        </span>
+      );
     }
 
     // Build breadcrumb navigation depending on what was passed to the component
@@ -49,7 +56,7 @@ export class HeaderBar extends React.Component {
         <div className="container">
           <div className="sub-container">
             <div className="logo">
-              <Link to="/dashboard">
+              <Link to={this.props.loggedIn ? '/dashboard' : '/'}>
                 <img
                   width="50px"
                   height="50px"

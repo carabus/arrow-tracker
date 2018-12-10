@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { socialLogin } from "../../actions/auth";
-import "./facebook-login-button.css";
+import React, { Component } from 'react';
+import { socialLogin } from '../../actions/auth';
+import './facebook-login-button.css';
 
 export default class FacebookLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: ""
+      error: ''
     };
   }
   /**
@@ -16,10 +16,10 @@ export default class FacebookLogin extends Component {
     if (!window.FB) return;
 
     window.FB.getLoginStatus(response => {
-      if (response.status === "connected") {
+      if (response.status === 'connected') {
         this.facebookLoginHandler(response);
       } else {
-        window.FB.login(this.facebookLoginHandler, { scope: "public_profile" });
+        window.FB.login(this.facebookLoginHandler, { scope: 'public_profile' });
       }
     });
   };
@@ -28,17 +28,13 @@ export default class FacebookLogin extends Component {
    * Handle login response
    */
   facebookLoginHandler = response => {
-    if (response.status === "connected") {
-      window.FB.api("/me", userData => {
-        let result = {
-          ...response,
-          user: userData
-        };
-        this.setState({ error: "" });
+    if (response.status === 'connected') {
+      window.FB.api('/me', userData => {
+        this.setState({ error: '' });
         this.props.dispatch(socialLogin(userData.id, userData.name));
       });
     } else {
-      this.setState({ error: "Unable to login with Facebook" });
+      this.setState({ error: 'Unable to login with Facebook' });
     }
   };
 
