@@ -28,7 +28,7 @@ describe('<Arrow/>', () => {
     shallow(<Arrow arrow={arrow} key={1} targetType={targetType} />);
   });
 
-  it('Renders without crashing when targetType is mkssing', () => {
+  it('Renders without crashing when targetType is missing', () => {
     shallow(<Arrow arrow={arrow} key={1} />);
   });
 

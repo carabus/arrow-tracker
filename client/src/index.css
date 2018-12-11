@@ -140,11 +140,6 @@ input[type='number'] {
   width: 70px;
 }
 
-/*
-button:disabled {
-  color: darkgray;
-}*/
-
 label {
   display: block;
 }
