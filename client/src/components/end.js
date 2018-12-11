@@ -66,8 +66,6 @@ export class End extends React.Component {
       />
     ));
 
-    console.log({ targetType: this.props.session.targetType });
-
     return (
       <div className="session">
         <HeaderBar

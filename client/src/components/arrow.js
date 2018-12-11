@@ -26,13 +26,10 @@ export default function Arrow(props) {
     }
   };
 
-  console.log(props.targetType);
-  console.log(props.arrow.score);
-  console.log(colorMapping[props.targetType][props.arrow.score]);
+  const targetType = props.targetType ? props.targetType : 'olympic';
+
   return (
-    <div
-      className={`score ${colorMapping[props.targetType][props.arrow.score]}`}
-    >
+    <div className={`score ${colorMapping[targetType][props.arrow.score]}`}>
       {props.arrow.score}
     </div>
   );
