@@ -36,13 +36,17 @@ export class Demo extends React.Component {
 
   render() {
     const arrows = this.state.arrows.map((arrow, index) => (
-      <Arrow arrow={arrow} key={index} />
+      <Arrow
+        arrow={arrow}
+        key={index}
+        targetType={this.props.targetType.toLowerCase()}
+      />
     ));
     return (
       <div className="session">
         <section>
           <p className="centered-text" style={{ fontSize: '16px' }}>
-            Accuracy:
+            Score:
           </p>
           <p className="big-test centered-text" style={{ paddingTop: '7px' }}>
             {this.state.total} / {this.state.max} ( {this.state.accuracy}% )

@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import requiresLogin from "./requires-login";
-import "./session.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import requiresLogin from './requires-login';
+import './session.css';
 
 import {
   createEnd,
@@ -9,11 +9,11 @@ import {
   createArrow,
   removeLastArrow,
   updateSession
-} from "../actions";
-import Target from "./target/target";
-import Arrow from "./arrow";
-import HeaderBar from "./header-bar";
-import { Link } from "react-router-dom";
+} from '../actions';
+import Target from './target/target';
+import Arrow from './arrow';
+import HeaderBar from './header-bar';
+import { Link } from 'react-router-dom';
 
 export class End extends React.Component {
   componentWillUnmount() {
@@ -59,7 +59,11 @@ export class End extends React.Component {
     }
 
     const arrows = this.props.end.arrows.map((arrow, index) => (
-      <Arrow arrow={arrow} key={index} />
+      <Arrow
+        arrow={arrow}
+        key={index}
+        targetType={this.props.session.targetType.toLowerCase()}
+      />
     ));
 
     console.log({ targetType: this.props.session.targetType });

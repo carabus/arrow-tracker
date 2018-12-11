@@ -1,12 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-import { deleteEnd } from "../actions";
-import { withRouter } from "react-router";
-import Arrow from "./arrow";
+import React from 'react';
+import { connect } from 'react-redux';
+import { deleteEnd } from '../actions';
+import { withRouter } from 'react-router';
+import Arrow from './arrow';
 
 export function EndListItem(props) {
   const arrows = props.end.arrows.map(arrow => (
-    <Arrow key={arrow._id} arrow={arrow} />
+    <Arrow
+      key={arrow._id}
+      arrow={arrow}
+      targetType={props.session.targetType.toLowerCase()}
+    />
   ));
 
   return (
