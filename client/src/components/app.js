@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
   withRouter
-} from "react-router-dom";
-import LandingPage from "./landing-page";
-import Dashboard from "./dashboard";
-import RegistrationForm from "./registration-form";
-import LoginForm from "./login-form";
-import { refreshAuthToken } from "../actions/auth";
-import { computeUserRank } from "../actions/profile";
-import Session from "./session";
-import End from "./end";
-import NewSession from "./new-session";
+} from 'react-router-dom';
+import LandingPage from './landing-page';
+import Dashboard from './dashboard';
+import RegistrationForm from './registration-form';
+import LoginForm from './login-form';
+import { refreshAuthToken } from '../actions/auth';
+import { computeUserRank } from '../actions/profile';
+import Session from './session';
+import End from './end';
+import NewSession from './new-session';
 
 export class App extends Component {
   componentDidUpdate(prevProps) {

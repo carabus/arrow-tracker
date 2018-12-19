@@ -46,7 +46,7 @@ export class HeaderBar extends React.Component {
           <Link to={`/session/${this.props.sessionId}`}>
             <li>Session</li>
           </Link>
-          <li>End</li>
+          <li>End #{this.props.endNum}</li>
         </div>
       );
     }

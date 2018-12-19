@@ -13,7 +13,7 @@ import {
 import Target from './target/target';
 import Arrow from './arrow';
 import HeaderBar from './header-bar';
-import { Link } from 'react-router-dom';
+import NProgress from 'nprogress';
 
 export class End extends React.Component {
   componentWillUnmount() {
@@ -21,10 +21,12 @@ export class End extends React.Component {
     this.props.dispatch(updateSession(this.props.session));
   }
   componentDidMount() {
+    NProgress.start();
     if (!this.props.session) {
       this.props.dispatch(fetchSessions());
     }
     window.scrollTo(0, 0);
+    NProgress.done();
   }
 
   constructor(props) {
@@ -58,85 +60,84 @@ export class End extends React.Component {
       );
     }
 
-    const arrows = this.props.end.arrows.map((arrow, index) => (
-      <Arrow
-        arrow={arrow}
-        key={index}
-        targetType={this.props.session.targetType.toLowerCase()}
-      />
-    ));
+    let arrows = '';
+    if (!this.props.end.arrows.length) {
+      arrows = (
+        <p
+          className="centered-text"
+          style={{ fontWeight: 'bold', paddingTop: '10px' }}
+        >
+          No arrows yet
+        </p>
+      );
+    } else {
+      arrows = this.props.end.arrows.map((arrow, index) => (
+        <Arrow
+          arrow={arrow}
+          key={index}
+          targetType={this.props.session.targetType.toLowerCase()}
+        />
+      ));
+    }
 
     return (
       <div className="session">
         <HeaderBar
           sessionId={this.props.session.id}
           endId={this.props.end._id}
+          endNum={this.props.endNum}
         />
-        <main role="main">
-          <section className="card">
-            <div className="card-header">
-              <header>
-                <h1>End #{this.props.endNum}</h1>
-              </header>
+        <main role="main" style={{ paddingTop: '75px' }}>
+          <section>
+            <div className="sub-section target-wrapper">
+              <Target
+                arrows={this.props.end.arrows}
+                createArrow={this.createArrow}
+                type={this.props.session.targetType}
+              />
             </div>
-            <section>
-              <div className="sub-section target-wrapper">
-                <Target
-                  arrows={this.props.end.arrows}
-                  createArrow={this.createArrow}
-                  type={this.props.session.targetType}
-                />
-              </div>
-              <div className="card-body flat-top">
-                <div className="sub-section">{arrows}</div>
-                <div className="sub-section">
-                  <button
-                    className="button-secondary button-miss"
-                    type="button"
-                    onClick={() =>
-                      this.createArrow({
-                        point: { x: -1, y: -1 },
-                        score: 0
-                      })
-                    }
-                  >
-                    Miss
-                  </button>
-                  <button
-                    className="button-secondary button-undo"
-                    type="button"
-                    onClick={() =>
-                      this.props.dispatch(
-                        removeLastArrow(this.props.session, this.props.end)
-                      )
-                    }
-                  >
-                    Undo
-                  </button>
-                </div>
-                <hr />
+            <div className="sub-section" style={{ minHeight: '60px' }}>
+              {arrows}
+            </div>
+            <div className="sub-section">
+              <button
+                className="button-secondary button-miss"
+                type="button"
+                onClick={() =>
+                  this.createArrow({
+                    point: { x: -1, y: -1 },
+                    score: 0
+                  })
+                }
+              >
+                Miss
+              </button>
+              <button
+                className="button-secondary button-undo"
+                type="button"
+                onClick={() =>
+                  this.props.dispatch(
+                    removeLastArrow(this.props.session, this.props.end)
+                  )
+                }
+              >
+                Undo
+              </button>
+            </div>
+            <hr />
 
-                <button
-                  className="button-primary button-new-end"
-                  disabled={this.props.isLoading}
-                  type="button"
-                  onClick={() =>
-                    this.props.dispatch(
-                      createEnd(this.props.session, this.props.history)
-                    )
-                  }
-                >
-                  New End
-                </button>
-              </div>
-            </section>
-            <div className="card-footer">
-              <Link to="/dashboard">
-                <button type="button" className="button-secondary">
-                  Finish Session
-                </button>
-              </Link>
-            </div>
+            <button
+              className="button-primary button-new-end"
+              disabled={this.props.isLoading}
+              type="button"
+              onClick={() =>
+                this.props.dispatch(
+                  createEnd(this.props.session, this.props.history)
+                )
+              }
+            >
+              New End
+            </button>
           </section>
         </main>
       </div>
