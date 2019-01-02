@@ -58,7 +58,7 @@ export class Demo extends React.Component {
               type={this.props.targetType}
             />
           </div>
-          <div className="card-body flat-top" style={{ height: '70px' }}>
+          <div className="card-body flat-top" style={{ height: '60px' }}>
             <div className="sub-section">{arrows}</div>
           </div>
         </section>

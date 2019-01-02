@@ -3,13 +3,9 @@ import { shallow } from 'enzyme';
 
 import { End } from './end';
 
-import {
-  createEnd,
-  fetchSessions,
-  createArrow,
-  removeLastArrow,
-  updateSession
-} from '../actions';
+import Target from './target/target';
+
+import { createArrow, removeLastArrow } from '../actions';
 
 describe('<End/>', () => {
   const endNum = 1;
@@ -55,7 +51,7 @@ describe('<End/>', () => {
         dispatch={dispatch}
       />
     );
-    expect(wrapper.contains(<h1>End #{endNum}</h1>)).toEqual(true);
+    expect(wrapper.containsMatchingElement(<Target />)).toEqual(true);
   });
 
   it('Dispatches add arrow when miss is clicked', () => {
