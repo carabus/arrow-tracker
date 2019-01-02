@@ -29,16 +29,16 @@ describe('<HeaderBar/>', () => {
 
   it('Displays session and end breadcrumb trail when sessionId and endId are passed', () => {
     const wrapper = shallow(
-      <HeaderBar loggedIn={true} sessionId={1} endId={1} />
+      <HeaderBar loggedIn={true} sessionId={1} endNum={1} endId={1} />
     );
     expect(wrapper.find('.breadcrumb').contains('Session')).toEqual(true);
-    expect(wrapper.find('.breadcrumb').contains('End')).toEqual(true);
+    expect(wrapper.find('.breadcrumb').contains('End #')).toEqual(true);
   });
 
   it('Dispatches clearAuth and reset when Logout is clicked', () => {
     const dispatch = jest.fn();
     const wrapper = shallow(
-      <HeaderBar loggedIn={true} sessionId={1} endId={1} dispatch={dispatch} />
+      <HeaderBar loggedIn={true} sessionId={1} endNum={1} dispatch={dispatch} />
     );
 
     wrapper.find('.logout').simulate('click');

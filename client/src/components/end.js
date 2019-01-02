@@ -13,7 +13,6 @@ import {
 import Target from './target/target';
 import Arrow from './arrow';
 import HeaderBar from './header-bar';
-import NProgress from 'nprogress';
 
 export class End extends React.Component {
   componentWillUnmount() {
@@ -21,12 +20,10 @@ export class End extends React.Component {
     this.props.dispatch(updateSession(this.props.session));
   }
   componentDidMount() {
-    NProgress.start();
     if (!this.props.session) {
       this.props.dispatch(fetchSessions());
     }
     window.scrollTo(0, 0);
-    NProgress.done();
   }
 
   constructor(props) {
@@ -88,7 +85,7 @@ export class End extends React.Component {
           endNum={this.props.endNum}
         />
         <main role="main" style={{ paddingTop: '75px' }}>
-          <section>
+          <section style={{ maxWidth: '1000px', margin: '0 auto' }}>
             <div className="sub-section target-wrapper">
               <Target
                 arrows={this.props.end.arrows}
@@ -125,19 +122,20 @@ export class End extends React.Component {
               </button>
             </div>
             <hr />
-
-            <button
-              className="button-primary button-new-end"
-              disabled={this.props.isLoading}
-              type="button"
-              onClick={() =>
-                this.props.dispatch(
-                  createEnd(this.props.session, this.props.history)
-                )
-              }
-            >
-              New End
-            </button>
+            <div className="sub-section">
+              <button
+                className="button-primary button-new-end"
+                disabled={this.props.isLoading}
+                type="button"
+                onClick={() =>
+                  this.props.dispatch(
+                    createEnd(this.props.session, this.props.history)
+                  )
+                }
+              >
+                New End
+              </button>
+            </div>
           </section>
         </main>
       </div>
